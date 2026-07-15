@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Test Kemampuan Kognitif IPA Biologi SMP ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #4f46e5, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-desc {
+            text-align: center;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: #fff;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .progress-container {
+            margin-bottom: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .meta-question-info {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .badge-info {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .option-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #f5f3ff;
+            transform: translateX(4px);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: #e0e7ff;
+        }
+
+        .option-letter {
+            width: 28px;
+            height: 28px;
+            background: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .option-card.selected .option-letter {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .option-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: var(--text-main);
+            box-shadow: none;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .user-profile-card {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .profile-item.full-width {
+            grid-column: span 2;
+        }
+
+        .profile-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .profile-value {
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        .score-display-container {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: white;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .score-value {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .breakdown-title {
+            text-align: left;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .breakdown-item {
+            background: #f9fafb;
+            border-radius: 14px;
+            padding: 14px 18px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .breakdown-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        .breakdown-bar {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .breakdown-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: var(--primary);
+            transition: width 1s ease;
+        }
+
+        .wrong-answers-panel {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .wrong-list {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 10px;
+            background: #fff5f5;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .wrong-item {
+            padding: 10px 12px;
+            background: #fff;
+            border-left: 4px solid var(--danger);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .button-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 480px) {
+            .user-profile-card {
+                grid-template-columns: 1fr;
+            }
+            .profile-item.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HALAMAN LOG IN -->
+    <div id="login-screen" class="screen active">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/smancil.png" alt="Logo SMAN 1 Cililin" style="width: 75px; height: 75px; object-fit: contain;" onerror="this.onerror=null; this.src='https://placehold.co/75x75?text=SMAN1+Cililin';">
+            <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/mgmpbiokbb.png" alt="Logo MGMP KBB" style="width: 75px; height: 75px; object-fit: contain;" onerror="this.onerror=null; this.src='https://placehold.co/75x75?text=MGMP+KBB';">
+        </div>
+        
+        <h1 class="welcome-title">Gerbang Akses Uji Kompetensi</h1>
+        <p class="welcome-desc">Silakan masukkan kata sandi yang valid untuk memulai program Test Kemampuan Kognitif IPA Biologi.</p>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="login-password">Kata Sandi (Password)</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Masukkan kata sandi..." onkeydown="if(event.key === 'Enter') submitLogin()">
+                <span id="login-error-msg" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; display: none; margin-top: 5px;">⚠️ Kata sandi salah! Coba lagi.</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="submitLogin()">Masuk Ke Sistem</button>
+
+        <div style="text-align: right; margin-top: 40px; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.3px;">
+            dibuat oleh Adhen Satria
+        </div>
+    </div>
+
+    <!-- START SCREEN (BIODATA) -->
+    <div id="start-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 10px;">📝</div>
+        <h1 class="welcome-title">Test Kemampuan Kognitif IPA Biologi</h1>
+        <p class="welcome-desc">
+            Silakan lengkapi biodata dirimu secara valid. Kerjakan 50 soal pilihan ganda dari tingkat mudah hingga sukar secara teliti. Selamat berjuang!
+        </p>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="input-nama">Nama Lengkap</label>
+                <input type="text" id="input-nama" class="form-input" placeholder="Masukkan Nama Lengkapmu" required>
+            </div>
+            <div class="form-group">
+                <label for="input-kelas">Kelas</label>
+                <input type="text" id="input-kelas" class="form-input" placeholder="Contoh: IX-1 / VIII-A" required>
+            </div>
+            <div class="form-group">
+                <label for="input-tahun">Tahun</label>
+                <input type="number" id="input-tahun" class="form-input" value="2026" required>
+            </div>
+            <div class="form-group">
+                <label for="input-kontak">No. Kontak (WhatsApp)</label>
+                <input type="tel" id="input-kontak" class="form-input" placeholder="Contoh: 08XXXXXXXXXX" required>
+            </div>
+            <div class="form-group">
+                <label for="input-smp">Asal Sekolah SMP</label>
+                <input type="text" id="input-smp" class="form-input" placeholder="Contoh: SMP Negeri 1 Cililin" required>
+            </div>
+        </div>
+
+        <button class="btn" onclick="startQuiz()">Mulai Uji Kompetensi</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="screen">
+        <div class="progress-container">
+            <div class="progress-header">
+                <span id="question-number">Pertanyaan 1 dari 50</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="meta-question-info">
+            <span id="badge-difficulty" class="badge-info">Mudah</span>
+            <span id="badge-topic" class="badge-info" style="background-color: #6b7280;">Topik</span>
+            <span id="badge-points" class="badge-info" style="background-color: #3b82f6;">+1 Poin</span>
+        </div>
+
+        <h2 id="question-text" class="question-text">Memuat pertanyaan...</h2>
+
+        <div id="options-list" class="options-list">
+            <!-- Pilihan jawaban -->
+        </div>
+
+        <div class="navigation">
+            <button id="btn-back" class="btn btn-secondary" onclick="prevQuestion()" style="display: none;">Kembali</button>
+            <button id="btn-next" class="btn" onclick="nextQuestion()" disabled>Lanjut</button>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 5px;">🎉</div>
+        <h1 class="result-title" style="font-size: 1.6rem; font-weight: 800; text-align: center; margin-bottom: 20px;">Hasil Evaluasi Kognitif</h1>
+
+        <!-- Identitas Siswa -->
+        <div class="user-profile-card">
+            <div class="profile-item full-width">
+                <span class="profile-label">Nama Lengkap</span>
+                <span class="profile-value" id="res-nama">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Kelas</span>
+                <span class="profile-value" id="res-kelas">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Tahun</span>
+                <span class="profile-value" id="res-tahun">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">No. Kontak (WA)</span>
+                <span class="profile-value" id="res-kontak">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Asal Sekolah SMP</span>
+                <span class="profile-value" id="res-smp">-</span>
+            </div>
+        </div>
+
+        <!-- Total Nilai -->
+        <div class="score-display-container">
+            <div style="font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Skor Capaian Total</div>
+            <div class="score-value" id="res-total-score">0</div>
+            <div style="font-weight: 600; font-size: 0.85rem;" id="res-score-meta">Benar 0 dari 50 Soal (Maks: 100 Poin)</div>
+        </div>
+
+        <!-- Persentase Perbagian -->
+        <h3 class="breakdown-title">Analisis Capaian Materi Pokok</h3>
+        <div class="breakdown" id="topic-breakdown-container">
+            <!-- Diisi secara dinamis -->
+        </div>
+
+        <!-- Bagian Pembahasan Salah -->
+        <div class="wrong-answers-panel">
+            <h3 class="breakdown-title" style="color: var(--danger);">Evaluasi Butir Soal Salah</h3>
+            <div class="wrong-list" id="wrong-questions-container">
+                <!-- Diisi secara dinamis -->
+            </div>
+        </div>
+
+        <div class="button-group-vertical">
+            <button class="btn" style="background: var(--success); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);" onclick="downloadPDFReport()">Unduh Hasil Laporan Lengkap (PDF) 📄</button>
+            <button class="btn btn-secondary" onclick="goToStartScreen()">Uji Ulang Kompetensi 🔄</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitLogin() {
+        const passwordInput = document.getElementById('login-password').value;
+        const errorMsg = document.getElementById('login-error-msg');
+        
+        if (passwordInput === 'kaguci') {
+            errorMsg.style.display = 'none';
+            showScreen('start-screen');
+        } else {
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    function goToStartScreen() {
+        showScreen('start-screen');
+    }
+
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    // DATABASE 50 SOAL IPA BIOLOGI SMP (BERTINGKAT)
+    const cognitiveQuestions = [
+        // ==================== TINGKAT MUDAH (1-15) @1 Poin ====================
+        {
+            text: "Ketika sebatang tanaman putri malu (Mimosa pudica) disentuh, daunnya akan segera menutup. Ciri makhluk hidup yang ditunjukkan oleh aktivitas tumbuhan tersebut adalah...",
+            options: ["Memerlukan nutrisi tumbuhan", "Berkembang biak untuk kelestarian", "Peka terhadap rangsang (iritabilitas)", "Mengeluarkan zat sisa respirasi", "Tumbuh dan mengalami perkembangan"],
+            correct: 2, topic: "Ciri & Klasifikasi Makhluk Hidup", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Dalam tingkatan taksonomi makhluk hidup, urutan tingkatan dari yang tertinggi menuju tingkatan paling rendah adalah...",
+            options: ["Kingdom - Filum/Divisio - Kelas - Ordo - Familia - Genus - Spesies", "Kingdom - Kelas - Ordo - Filum/Divisio - Familia - Genus - Spesies", "Spesies - Genus - Familia - Ordo - Kelas - Filum/Divisio - Kingdom", "Kingdom - Ordo - Kelas - Filum/Divisio - Genus - Familia - Spesies", "Kingdom - Divisio - Ordo - Kelas - Familia - Genus - Spesies"],
+            correct: 0, topic: "Ciri & Klasifikasi Makhluk Hidup", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Penulisan nama ilmiah padi berdasarkan sistem binomial nomenklatur yang paling benar di bawah ini adalah...",
+            options: ["oryza sativa", "Oryza Sativa", "Oryza sativa (bercetak miring/garis bawah)", "oryza Sativa", "Oryza-sativa"],
+            correct: 2, topic: "Ciri & Klasifikasi Makhluk Hidup", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Organel di dalam sel yang bertindak sebagai 'pembangkit energi seluler' karena berfungsi sebagai tempat respirasi sel adalah...",
+            options: ["Nukleus", "Kloroplas", "Ribosom", "Mitokondria", "Badan Golgi"],
+            correct: 3, topic: "Organisasi Kehidupan & Sel", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Perbedaan struktural utama yang membedakan sel tumbuhan dengan sel hewan secara mikroskopis adalah...",
+            options: ["Sel tumbuhan memiliki membran sel, sel hewan tidak", "Sel tumbuhan memiliki dinding sel dan kloroplas, sel hewan tidak", "Sel hewan memiliki vakuola raksasa, sel tumbuhan tidak", "Sel tumbuhan memiliki lisosom aktif, sel hewan tidak", "Sel hewan memiliki plastida berwarna hijau, sel tumbuhan tidak"],
+            correct: 1, topic: "Organisasi Kehidupan & Sel", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Jaringan pada tumbuhan yang berfungsi khusus mengangkut air dan mineral dari akar menuju daun adalah...",
+            options: ["Floem", "Epidermis", "Korteks", "Xilem", "Kambium"],
+            correct: 3, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Di dalam suatu ekosistem sawah, yang dikategorikan sebagai komponen abiotik penyusun lingkungan adalah...",
+            options: ["Padi, rumput liar, dan siput", "Cacing tanah, katak, dan air", "Cahaya matahari, suhu, tanah, dan air", "Bakteri pengurai, jamur, dan pupuk", "Ular sawah, tikus, dan belalang"],
+            correct: 2, topic: "Ekosistem & Lingkungan", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Pola interaksi simbiosis mutualisme ditunjukkan oleh hubungan interaksi biologis antara...",
+            options: ["Tanaman anggrek yang menempel erat pada batang pohon mangga", "Kutu rambut yang hidup menghisap darah di kepala manusia", "Burung jalak yang memakan kutu di atas punggung kerbau", "Tanaman benalu yang menyerap zat hara pohon inangnya", "Kucing peliharaan dengan cacing pita di dalam ususnya"],
+            correct: 2, topic: "Ekosistem & Lingkungan", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Di dalam saluran pencernaan manusia, proses pencernaan mekanik secara optimal pertama kali terjadi di...",
+            options: ["Lambung oleh asam klorida", "Rongga mulut oleh gigi dan lidah", "Usus halus oleh cairan empedu", "Kerongkongan secara peristaltik", "Usus besar melalui penyerapan air"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Sel darah manusia yang memiliki fungsi struktural vital untuk mengikat gas oksigen dan mengedarkannya ke jaringan adalah...",
+            options: ["Leukosit (sel darah putih)", "Trombosit (keping darah)", "Eritrosit (sel darah merah)", "Plasma darah kental", "Limfosit antibodi"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Organ pernapasan utama manusia yang menjadi tempat terjadinya pertukaran gas oksigen ($O_2$) dan karbon dioksida ($CO_2$) adalah...",
+            options: ["Trakea", "Bronkus", "Alveolus", "Laring", "Rongga Hidung"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Proses penyaringan darah (filtrasi) pada struktur ginjal manusia berlangsung di bagian...",
+            options: ["Glomerulus", "Tubulus Kontortus Proksimal", "Tubulus Kontortus Distal", "Lengkung Henle", "Ureter"],
+            correct: 0, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Bagian organ mata yang memiliki fungsi untuk mengatur jumlah intensitas cahaya yang masuk ke dalam bola mata adalah...",
+            options: ["Retina", "Iris dan Pupil", "Kornea", "Lensa Mata", "Sklera"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Organ reproduksi pada pria yang berfungsi vital sebagai tempat pembentukan sperma dan hormon testosteron adalah...",
+            options: ["Skrotum", "Vas deferens", "Uretra", "Testis", "Prostat"],
+            correct: 3, topic: "Sistem Organ Manusia", difficulty: "Mudah", points: 1
+        },
+        {
+            text: "Bentuk paruh burung elang yang runcing dan melengkung tajam disesuaikan untuk mengoyak daging mangsa merupakan bentuk adaptasi...",
+            options: ["Fisiologi", "Morfologi", "Tingkah Laku", "Klimatologi", "Biokimia"],
+            correct: 1, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Mudah", points: 1
+        },
+
+        // ==================== TINGKAT SEDANG (16-35) @2 Poin ====================
+        {
+            text: "Jamur atau Fungi tidak dimasukkan ke dalam Kingdom Plantae (tumbuhan) dalam sistem klasifikasi 5 kingdom karena...",
+            options: ["Jamur tidak bersel banyak dan tidak bernukleus", "Jamur bersifat heterotrof dan tidak memiliki klorofil", "Jamur memiliki dinding sel dari zat kitin", "Jamur berkembang biak dengan spora", "Jamur tidak memiliki membran inti sel"],
+            correct: 1, topic: "Ciri & Klasifikasi Makhluk Hidup", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Peristiwa mengerutnya sel tumbuhan akibat keluarnya cairan sel ketika dimasukkan ke dalam larutan garam hipertonik disebut...",
+            options: ["Lisis", "Hemolisis", "Plasmolisis", "Turgid", "Difusi"],
+            correct: 2, topic: "Organisasi Kehidupan & Sel", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Jaringan pada tumbuhan yang sel-selnya selalu aktif membelah untuk pertumbuhan tinggi dan diameter batang adalah...",
+            options: ["Jaringan Parenkim", "Jaringan Meristem", "Jaringan Sklerenkim", "Jaringan Epidermis", "Jaringan Kolenkim"],
+            correct: 1, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Dalam rantai makanan: Sawi -> Belalang -> Katak -> Ular -> Elang. Apabila populasi katak mengalami kepunahan mendadak, dampak langsung yang terjadi adalah...",
+            options: ["Populasi sawi meningkat pesat", "Populasi belalang melonjak, populasi ular menurun", "Populasi ular meningkat drastis", "Populasi belalang menurun tajam", "Populasi elang berpindah tempat"],
+            correct: 1, topic: "Ekosistem & Lingkungan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Fenomena eutrofikasi di ekosistem danau yang ditandai dengan ledakan populasi eceng gondok disebabkan oleh...",
+            options: ["Pencemaran limbah minyak industri", "Akumulasi logam berat merkuri", "Pencemaran limbah fosfat dari pupuk pertanian", "Kurangnya intensitas cahaya matahari", "Kenaikan suhu air danau yang ekstrem"],
+            correct: 2, topic: "Ekosistem & Lingkungan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Saat melakukan uji makanan di laboratorium, sampel ekstrak makanan yang ditetesi dengan reagen Biuret berubah warna menjadi ungu. Hal ini membuktikan bahwa makanan mengandung...",
+            options: ["Amilum", "Glukosa", "Lemak nabati", "Protein", "Vitamin C"],
+            correct: 3, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Enzim ptialin (amilase mulut) yang terkandung di dalam air liur memiliki fungsi spesifik untuk mengubah...",
+            options: ["Protein menjadi peptida", "Lemak menjadi asam lemak dan gliserol", "Amilum (karbohidrat kompleks) menjadi maltosa/glukosa", "Kaseinogen menjadi kasein", "Gumpalan susu di lambung"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Pernyataan yang paling tepat menggambarkan mekanisme inspirasi pada pernapasan dada manusia adalah...",
+            options: ["Otot antartulang rusuk berelaksasi, rongga dada mengecil, udara keluar", "Otot diafragma berkontraksi, rongga dada mengecil, tekanan membesar", "Otot antartulang rusuk berkontraksi, rongga dada membesar, tekanan mengecil, udara masuk", "Otot diafragma berelaksasi, rongga dada mendatar, udara terhirup", "Otot perut berkontraksi memaksa udara masuk ke paru-paru"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Rute urutan peredaran darah besar pada tubuh manusia yang benar di bawah ini adalah...",
+            options: ["Bilik kanan -> Paru-paru -> Serambi kiri", "Bilik kiri -> Seluruh tubuh -> Serambi kanan", "Serambi kiri -> Seluruh tubuh -> Bilik kanan", "Bilik kanan -> Seluruh tubuh -> Serambi kiri", "Bilik kiri -> Paru-paru -> Serambi kanan"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Seorang pasien mengalami gejala klinis mudah lelah, pucat, dan sering pusing. Setelah cek darah, kadar Hemoglobin ($Hb$) jauh di bawah normal. Pasien tersebut menderita...",
+            options: ["Leukemia", "Anemia", "Hipertensi", "Hemofilia", "Thalasemia"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Di dalam struktur nefron ginjal, proses reabsorpsi zat-zat yang masih berguna seperti glukosa dan asam amino menghasilkan urine sekunder. Proses ini terjadi di...",
+            options: ["Glomerulus", "Tubulus Kontortus Proksimal", "Tubulus Kontortus Distal", "Tubulus Kolektivus", "Kapsula Bowman"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Jalur impuls saraf yang benar pada saat terjadinya gerak refleks (seperti saat tangan terkena benda panas) adalah...",
+            options: ["Reseptor -> Saraf Motorik -> Otak -> Saraf Sensorik -> Efektor", "Reseptor -> Saraf Sensorik -> Sumsum Tulang Belakang -> Saraf Motorik -> Efektor", "Reseptor -> Saraf Sensorik -> Otak -> Saraf Motorik -> Efektor", "Efektor -> Saraf Sensorik -> Sumsum Tulang Belakang -> Saraf Motorik -> Reseptor", "Reseptor -> Otak -> Sumsum Tulang Belakang -> Efektor"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Hormon yang disekresikan oleh kelenjar pankreas dan berfungsi menurunkan kadar glukosa dalam darah dengan mengubahnya menjadi glikogen otot adalah...",
+            options: ["Adrenalin", "Tiroksin", "Insulin", "Glukagon", "Estrogen"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Alat reproduksi generative pada tumbuhan berbiji yang bertindak masing-masing sebagai gamet jantan dan gamet betina adalah...",
+            options: ["Putik dan Kelopak bunga", "Benang sari dan Putik", "Mahkota bunga dan Benang sari", "Bakal biji dan Kelopak bunga", "Benang sari dan Mahkota bunga"],
+            correct: 1, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Pada proses fotosintesis tumbuhan, reaksi terang yang berlangsung di dalam tilakoid/grana menghasilkan...",
+            options: ["Glukosa dan Amilum", "Karbon dioksida dan Air", "Oksigen, ATP, dan NADPH", "Glukosa dan Oksigen", "RuBP dan APG"],
+            correct: 2, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Struktur jaringan epidermis daun tumbuhan yang termodifikasi menjadi celah tempat keluar masuknya gas karbon dioksida dan oksigen adalah...",
+            options: ["Trikoma", "Stomata", "Kutikula", "Lentisel", "Palisade"],
+            correct: 1, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Metode perkembangbiakan vegetatif buatan yang dilakukan dengan cara memotong bagian batang tumbuhan lalu menyambungkannya dengan batang bawah tumbuhan sejenis lainnya disebut...",
+            options: ["Mencangkok", "Mengenten (Menyambung)", "Okulasi (Menempel)", "Stek batang", "Merunduk"],
+            correct: 1, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Berdasarkan prinsip seleksi alam, populasi ngengat Biston betularia bersayap gelap menjadi jauh lebih banyak pasca revolusi industri di Inggris karena...",
+            options: ["Ngengat bersayap cerah bermutasi menjadi gelap akibat jelaga", "Ngengat bersayap gelap lebih mudah bersembunyi di batang pohon yang tertutup jelaga dari predator", "Ngengat bersayap cerah mandul akibat polusi udara", "Ngengat bersayap gelap menyukai asap industri", "Ngengat bersayap cerah bermigrasi ke daerah kutub"],
+            correct: 1, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Mikroorganisme kapang (jamur) yang dimanfaatkan secara luas dalam bioteknologi konvensional pembuatan tempe dari kedelai adalah...",
+            options: ["Saccharomyces cerevisiae", "Lactobacillus bulgaricus", "Rhizopus oryzae", "Acetobacter xylinum", "Neurospora crassa"],
+            correct: 2, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sedang", points: 2
+        },
+        {
+            text: "Tanaman kacang ercis berbatang tinggi dominan heterozigot (Tt) disilangkan dengan sesamanya (Tt). Rasio fenotip keturunan F2 yang dihasilkan adalah...",
+            options: ["1 Tinggi : 3 Pendek", "3 Tinggi : 1 Pendek", "1 Tinggi : 2 Sedang : 1 Pendek", "9 Tinggi : 3 Pendek", "Semuanya berbatang tinggi"],
+            correct: 1, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sedang", points: 2
+        },
+
+        // ==================== TINGKAT SUKAR (36-50) @3 Poin ====================
+        {
+            text: "Pada percobaan fotosintesis Ingenhousz menggunakan tanaman air Hydrilla verticillata, penambahan senyawa natrium bikarbonat ($NaHCO_3$) ke dalam air dilakukan dengan tujuan untuk...",
+            options: ["Menurunkan suhu air agar konstan", "Mengikat racun oksigen terlarut", "Meningkatkan suplai karbon dioksida ($CO_2$) terlarut untuk mempercepat laju fotosintesis", "Membunuh bakteri air", "Mencegah pembentukan glukosa"],
+            correct: 2, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Seorang siswa mengukur volume paru-parunya. Volume udara yang masih tersisa di dalam paru-paru setelah melakukan ekspirasi maksimal secara sekuat-kuatnya (Volume Residu) berjumlah sekitar...",
+            options: ["500 mL", "1000 - 1500 mL", "3500 mL", "4500 mL", "5000 mL"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Hemofilia merupakan kelainan genetika berupa darah sukar membeku. Kelainan ini diwariskan dari orang tua kepada keturunannya melalui...",
+            options: ["Gen dominan pada autosom (kromosom tubuh)", "Gen resesif tertaut pada kromosom X (gonosom)", "Gen tertaut pada kromosom Y saja", "Pengaruh lingkungan dan kekurangan vitamin K semata", "Infeksi virus prenatal saat kehamilan"],
+            correct: 1, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Persilangan dihibrid antara tanaman ercis biji bulat kuning heterozigot (BbKk) dengan tanaman ercis biji bulat kuning heterozigot (BbKk) akan menghasilkan keturunan berfenotip biji keriput hijau dengan probabilitas rasio...",
+            options: ["9/16", "3/16", "1/16", "4/16", "2/16"],
+            correct: 2, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Di dalam struktur usus besar manusia terdapat miliaran bakteri symbion Escherichia coli. Keberadaan bakteri tersebut bermanfaat bagi tubuh untuk...",
+            options: ["Mencerna zat selulosa dari makanan", "Membunuh kuman penyebab diare akut", "Membusukkan sisa makanan dan membantu pembentukan Vitamin K", "Menyerap sisa cairan air empedu", "Mensekresikan asam lambung tambahan"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Ketika lengan bawah ditekuk ke atas mendekati bahu, mekanisme kerja otot antagonis yang terjadi pada otot biceps dan triceps adalah...",
+            options: ["Otot biceps berkontraksi, otot triceps berelaksasi", "Otot biceps berelaksasi, otot triceps berkontraksi", "Kedua otot biceps dan triceps berkontraksi bersamaan", "Kedua otot biceps dan triceps berelaksasi", "Otot biceps mengecil, otot triceps memanjang tanpa tegangan"],
+            correct: 0, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Kerusakan parah pada dinding glomerulus ginjal akibat infeksi bakteri dapat menyebabkan penyakit albuminuria. Penyakit ini ditandai dengan ditemukannya...",
+            options: ["Glukosa berkadar tinggi di dalam urine", "Kristal kalsium karbonat di kantung kemih", "Molekul protein (albumin) di dalam hasil uji urine", "Sel darah merah segar dalam urine", "Kadar air berlebih pada urine"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Prinsip dasar rekayasa genetika (bioteknologi modern) yang diterapkan untuk memproduksi hormon insulin manusia dalam skala industri farmasi adalah...",
+            options: ["Hibridoma sel kanker hewan", "Kloning inti sel somatis mamalia", "Penyisipan gen insulin manusia ke dalam plasmid bakteri Escherichia coli (DNA Rekombinan)", "Fermentasi anaerob karbohidrat", "Kultur jaringan sel pankreas sapi"],
+            correct: 2, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Apabila tubuh seseorang mengalami kekurangan sekresi Anti-Diuretic Hormone (ADH) dari hipofisis, dampak fisiologis langsung yang dialami orang tersebut adalah...",
+            options: ["Tekanan darah melonjak drastis", "Urine menjadi sangat pekat dan berwarna gelap", "Urine diproduksi dalam jumlah sangat melimpah dan encer (Diabetes Insipidus)", "Kadar gula darah meningkat tajam", "Empedu tidak dapat dikeluarkan"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Ketika kondisi lingkungan sangat panas dan kering, laju penguapan (transpirasi) dikendalikan tumbuhan dengan cara menutup stomata. Hormon tumbuhan yang memicu penutupan stomata ini adalah...",
+            options: ["Auksin", "Giberelin", "Sitokinin", "Asam Absisat", "Etilen"],
+            correct: 3, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Jika suatu ekosistem perairan terakumulasi limbah cair merkuri, menurut prinsip biomagnifikasi, konsentrasi merkuri tertinggi per satuan berat tubuh akan dijumpai pada komponen...",
+            options: ["Fitoplankton sebagai produsen utama", "Zooplankton pemakan produsen", "Ikan kecil pemakan zooplankton", "Burung pemakan ikan besar (Konsumen Puncak)", "Bakteri pengurai zat organik"],
+            correct: 3, topic: "Ekosistem & Lingkungan", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Kerusakan atau cidera fisik parah pada bagian otak kecil (Serebelum) manusia akan mengakibatkan gangguan fungsi tubuh berupa...",
+            options: ["Hilangnya ingatan jangka panjang", "Ketidakmampuan mengatur emosi marah", "Hilangnya keseimbangan tubuh dan koordinasi gerakan otot", "Kebutaan total meskipun mata sehat", "Terhentinya detak jantung spontan"],
+            correct: 2, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Seorang ibu bergolongan darah A heterozigot ($I^AI^O$) menikah dengan ayah bergolongan darah B heterozigot ($I^BI^O$). Kemungkinan variasi golongan darah anak-anak mereka adalah...",
+            options: ["Hanya golongan darah AB saja", "Hanya golongan darah A dan B saja", "Golongan darah A, B, AB, dan O dengan peluang masing-masing 25%", "Hanya golongan darah O saja", "Golongan darah A dan B heterozigot saja"],
+            correct: 2, topic: "Pewarisan Sifat & Bioteknologi", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Teknik kultur jaringan tumbuhan memanfaatkan prinsip dasar sifat sel tumbuhan yang dinamakan Totipotensi. Definisi totipotensi sel yang tepat adalah...",
+            options: ["Kemampuan sel untuk membelah tanpa henti membentuk tumor", "Kemampuan setiap sel tumbuhan untuk tumbuh menjadi individu tanaman baru yang utuh jika berada di media yang sesuai", "Kemampuan sel tumbuhan untuk mensintesis zat klorofil", "Kemampuan sel melakukan penyerapan air ekstraseluler", "Kemampuan sel bermutasi dengan cepat"],
+            correct: 1, topic: "Struktur & Fungsi Tumbuhan", difficulty: "Sukar", points: 3
+        },
+        {
+            text: "Pada siklus menstruasi wanita, terjadinya lonjakan drastis kadar Luteinizing Hormone (LH) yang dipicu oleh estrogen berfungsi untuk merangsang proses...",
+            options: ["Menstruasi berupa peluruhan dinding rahim", "Ovulasi (pelepasan sel telur matang dari ovarium)", "Fertilisasi di saluran tuba falopi", "Implantasi embrio di endometrium", "Pembentukan korpus luteum baru"],
+            correct: 1, topic: "Sistem Organ Manusia", difficulty: "Sukar", points: 3
+        }
+    ];
+
+    let currentIndex = 0;
+    let answers = {};
+    let savedUserData = {};
+
+    function startQuiz() {
+        const nama = document.getElementById('input-nama').value.trim();
+        const kelas = document.getElementById('input-kelas').value.trim();
+        const tahun = document.getElementById('input-tahun').value.trim();
+        const kontak = document.getElementById('input-kontak').value.trim();
+        const smp = document.getElementById('input-smp').value.trim();
+
+        if (!nama || !kelas || !tahun || !kontak || !smp) {
+            alert("Silakan lengkapi semua data identitas terlebih dahulu!");
+            return;
+        }
+
+        savedUserData = { nama, kelas, tahun, kontak, smp };
+        currentIndex = 0;
+        answers = {};
+        
+        showScreen('quiz-screen');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const q = cognitiveQuestions[currentIndex];
+        
+        const progress = Math.round((currentIndex / cognitiveQuestions.length) * 100);
+        document.getElementById('question-number').innerText = `Pertanyaan ${currentIndex + 1} dari ${cognitiveQuestions.length}`;
+        document.getElementById('progress-percent').innerText = `${progress}%`;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+
+        // Update badges
+        const diffBadge = document.getElementById('badge-difficulty');
+        diffBadge.innerText = q.difficulty;
+        if(q.difficulty === "Mudah") diffBadge.style.backgroundColor = "var(--success)";
+        else if(q.difficulty === "Sedang") diffBadge.style.backgroundColor = "var(--warning)";
+        else diffBadge.style.backgroundColor = "var(--danger)";
+
+        document.getElementById('badge-topic').innerText = q.topic;
+        document.getElementById('badge-points').innerText = `+${q.points} Poin`;
+
+        document.getElementById('question-text').innerText = q.text;
+
+        const list = document.getElementById('options-list');
+        list.innerHTML = '';
+        
+        q.options.forEach((optText, idx) => {
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            if (answers[currentIndex] === idx) {
+                card.classList.add('selected');
+            }
+            card.onclick = () => selectOption(idx);
+
+            const letter = String.fromCharCode(65 + idx);
+            card.innerHTML = `
+                <div class="option-letter">${letter}</div>
+                <div class="option-text">${optText}</div>
+            `;
+            list.appendChild(card);
+        });
+
+        document.getElementById('btn-back').style.display = (currentIndex > 0) ? 'block' : 'none';
+        
+        const btnNext = document.getElementById('btn-next');
+        btnNext.disabled = (answers[currentIndex] === undefined);
+        btnNext.innerText = (currentIndex === cognitiveQuestions.length - 1) ? 'Selesai & Lihat Hasil 📊' : 'Lanjut';
+    }
+
+    function selectOption(index) {
+        answers[currentIndex] = index;
+        
+        document.querySelectorAll('.option-card').forEach((c, idx) => {
+            if (idx === index) c.classList.add('selected');
+            else c.classList.remove('selected');
+        });
+
+        document.getElementById('btn-next').disabled = false;
+
+        setTimeout(() => {
+            nextQuestion();
+        }, 300);
+    }
+
+    function nextQuestion() {
+        if (answers[currentIndex] === undefined) return;
+
+        if (currentIndex < cognitiveQuestions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        } else {
+            calculateAndShowResult();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+        }
+    }
+
+    function calculateAndShowResult() {
+        let totalPoints = 0;
+        let correctCount = 0;
+        let topicData = {};
+        let wrongQuestionsHtml = "";
+
+        // Inisialisasi topik data
+        cognitiveQuestions.forEach(q => {
+            if (!topicData[q.topic]) {
+                topicData[q.topic] = { totalPointsMax: 0, pointsEarned: 0, totalQuestions: 0, correctQuestions: 0 };
+            }
+            topicData[q.topic].totalPointsMax += q.points;
+            topicData[q.topic].totalQuestions += 1;
+        });
+
+        // Proses Jawaban
+        cognitiveQuestions.forEach((q, idx) => {
+            const userAnsIdx = answers[idx];
+            const isCorrect = (userAnsIdx === q.correct);
+            
+            if (isCorrect) {
+                correctCount++;
+                totalPoints += q.points;
+                topicData[q.topic].pointsEarned += q.points;
+                topicData[q.topic].correctQuestions += 1;
+            } else {
+                const letterUser = userAnsIdx !== undefined ? String.fromCharCode(65 + userAnsIdx) : "Kosong";
+                const letterCorrect = String.fromCharCode(65 + q.correct);
+                wrongQuestionsHtml += `
+                    <div class="wrong-item">
+                        <strong>Soal ${idx + 1} (${q.topic} - ${q.difficulty}):</strong><br>
+                        ${q.text}<br>
+                        <span style="color:var(--danger)">Jawabanmu: ${letterUser}. ${userAnsIdx !== undefined ? q.options[userAnsIdx] : ""}</span><br>
+                        <span style="color:var(--success)">Kunci Benar: ${letterCorrect}. ${q.options[q.correct]}</span>
+                    </div>
+                `;
+            }
+        });
+
+        // Tampilkan Identitas
+        document.getElementById('res-nama').innerText = savedUserData.nama;
+        document.getElementById('res-kelas').innerText = savedUserData.kelas;
+        document.getElementById('res-tahun').innerText = savedUserData.tahun;
+        document.getElementById('res-kontak').innerText = savedUserData.kontak;
+        document.getElementById('res-smp').innerText = savedUserData.smp;
+
+        // Tampilkan Skor Total
+        document.getElementById('res-total-score').innerText = totalPoints;
+        document.getElementById('res-score-meta').innerText = `Benar ${correctCount} dari 50 Soal (Persentase Nilai: ${Math.round((totalPoints/100)*100)}%)`;
+
+        // Render Persentase Perbagian Topik
+        const breakdownContainer = document.getElementById('topic-breakdown-container');
+        breakdownContainer.innerHTML = '';
+        
+        for (let topicName in topicData) {
+            const data = topicData[topicName];
+            const percentage = data.totalPointsMax > 0 ? Math.round((data.pointsEarned / data.totalPointsMax) * 100) : 0;
+            
+            const htmlItem = `
+                <div class="breakdown-item">
+                    <div class="breakdown-info">
+                        <span>📖 ${topicName}</span>
+                        <span>Benar ${data.correctQuestions}/${data.totalQuestions} (${percentage}%)</span>
+                    </div>
+                    <div class="breakdown-bar">
+                        <div class="breakdown-fill" style="width: ${percentage}%;"></div>
+                    </div>
+                </div>
+            `;
+            breakdownContainer.innerHTML += htmlItem;
+        }
+
+        // Render Jawaban Salah
+        const wrongContainer = document.getElementById('wrong-questions-container');
+        if (wrongQuestionsHtml === "") {
+            wrongContainer.innerHTML = `<div class="wrong-item" style="border-left-color: var(--success); color: var(--success)">Luar biasa! Tidak ada jawaban salah. Nilai sempurna! 💯</div>`;
+        } else {
+            wrongContainer.innerHTML = wrongQuestionsHtml;
+        }
+
+        // Save globally untuk PDF report
+        window.compiledReport = {
+            totalPoints, correctCount, topicData, wrongQuestionsHtml
+        };
+
+        showScreen('result-screen');
+    }
+
+    function downloadPDFReport() {
+        const printWindow = window.open('', '_blank');
+        const report = window.compiledReport;
+        
+        let topicRowsHtml = "";
+        for (let topic in report.topicData) {
+            const d = report.topicData[topic];
+            const pct = Math.round((d.pointsEarned / d.totalPointsMax) * 100);
+            topicRowsHtml += `<tr><td>${topic}</td><td>Benar ${d.correctQuestions} dari ${d.totalQuestions}</td><td>${pct}%</td></tr>`;
+        }
+
+        const htmlLayout = `
+        <!DOCTYPE html>
+        <html lang="id">
+        <head>
+            <meta charset="UTF-8">
+            <title>Laporan Hasil Uji Kompetensi Kognitif - ${savedUserData.nama}</title>
+            <style>
+                body { font-family: Arial, sans-serif; color: #1f2937; padding: 30px; line-height: 1.5; }
+                .header-title { text-align: center; font-size: 22px; font-weight: bold; color: #4f46e5; margin-bottom: 5px; }
+                .header-subtitle { text-align: center; font-size: 13px; color: #6b7280; margin-bottom: 25px; border-bottom: 2px solid #d1d5db; padding-bottom: 10px; }
+                .section-title { font-size: 14px; font-weight: bold; background: #f3f4f6; padding: 6px; margin-top: 20px; margin-bottom: 10px; border-left: 4px solid #6366f1; }
+                .profile-table, .topic-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+                .profile-table td, .topic-table th, .topic-table td { padding: 8px; border: 1px solid #e5e7eb; font-size: 13px; }
+                .profile-table td.label { font-weight: bold; background: #f9fafb; width: 30%; }
+                .topic-table th { background: #f3f4f6; text-align: left; }
+                .score-box { border: 1px solid #6366f1; border-radius: 6px; padding: 15px; background: #f0f4ff; text-align: center; font-size: 16px; font-weight: bold; margin-bottom: 20px; }
+                .wrong-box { background: #fff5f5; border: 1px solid #fecaca; border-radius: 6px; padding: 10px; font-size: 12px; max-height: 400px; }
+                .wrong-title-item { font-weight: bold; color: #dc2626; margin-top: 8px; }
+            </style>
+        </head>
+        <body>
+            <div class="header-title">Laporan Analisis Kemampuan Kognitif</div>
+            <div class="header-subtitle">Uji Kompetensi Mata Pelajaran IPA Biologi Tingkat SMP</div>
+            
+            <div class="section-title">I. IDENTITAS SISWA</div>
+            <table class="profile-table">
+                <tr><td class="label">Nama Lengkap</td><td>${savedUserData.nama}</td></tr>
+                <tr><td class="label">Kelas / Rombel</td><td>${savedUserData.kelas}</td></tr>
+                <tr><td class="label">Tahun Pelaksanaan</td><td>${savedUserData.tahun}</td></tr>
+                <tr><td class="label">No. Kontak (WhatsApp)</td><td>${savedUserData.kontak}</td></tr>
+                <tr><td class="label">Asal Sekolah SMP</td><td>${savedUserData.smp}</td></tr>
+            </table>
+
+            <div class="section-title">II. SKOR CAPAIAN TOTAL</div>
+            <div class="score-box">
+                SKOR TOTAL AKHIR: ${report.totalPoints} / 100 POIN<br>
+                <span style="font-size:12px; font-weight:normal; color:#4b5563;">Status Akurasi: Menjawab Benar ${report.correctCount} dari 50 Butir Pertanyaan</span>
+            </div>
+
+            <div class="section-title">III. PERSENTASE CAPAIAN PER MATERI BIOLOGI</div>
+            <table class="topic-table">
+                <thead>
+                    <tr><th>Materi Pokok / Pembahasan</th><th>Rasio Jawaban Benar</th><th>Persentase</th></tr>
+                </thead>
+                <tbody>
+                    ${topicRowsHtml}
+                </tbody>
+            </table>
+
+            <div class="section-title">IV. DAFTAR BUTIR EVALUASI JAWABAN SALAH</div>
+            <div class="wrong-box">
+                ${report.wrongQuestionsHtml === "" ? "Tidak ada kesalahan." : report.wrongQuestionsHtml}
+            </div>
+
+            <script>window.onload = function() { window.print(); };<\/script>
+        </body>
+        </html>
+        `;
+        printWindow.document.open();
+        printWindow.document.write(htmlLayout);
+        printWindow.document.close();
+    }
+</script>
+</body>
+</html>
