@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan TKA Biologi Pekan Pertama - SMANCIL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-hover: #1b5e20;
+            --primary-light: #e8f5e9;
+            --secondary: #1565c0;
+            --bg-gradient: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border-color: #e5e7eb;
+            /* Login Theme Colors */
+            --login-blue: #2e66e7;
+            --login-btn: #5c53ff;
+            --login-btn-hover: #4a40f5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-main);
+            position: relative;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.02);
+            padding: 48px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        @media (max-width: 640px) {
+            .container { 
+                padding: 24px; 
+                border-radius: 20px;
+            }
+        }
+
+        /* --- STYLING LOGO & HEADER LOGIN --- */
+        .login-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .login-logos img {
+            height: 75px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 640px) {
+            .login-logos img {
+                height: 55px;
+            }
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .auth-header h1 {
+            color: var(--login-blue);
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .auth-header p {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 640px) {
+            .auth-header h1 { font-size: 24px; }
+            .auth-header p { font-size: 14px; }
+        }
+
+        /* --- STYLING FORM LOGIN BARU --- */
+        .login-card {
+            background-color: #f8fafc;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .login-card label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .login-card input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 15px;
+            background: #ffffff;
+            color: #1e293b;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .login-card input:focus {
+            border-color: var(--login-btn);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(92, 83, 255, 0.15);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 18px;
+            background: var(--login-btn);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 10px 20px rgba(92, 83, 255, 0.15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .btn-login:hover {
+            background: var(--login-btn-hover);
+            box-shadow: 0 12px 24px rgba(92, 83, 255, 0.25);
+        }
+
+        .btn-login:active {
+            transform: scale(0.995);
+        }
+
+        .login-card-footer {
+            text-align: right;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        /* --- ELEMENT LAINNYA --- */
+        button.nav-btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button.nav-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .error-msg {
+            background: #fee2e2;
+            color: var(--danger);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Quiz Layout styling */
+        .quiz-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-light);
+            margin-bottom: 25px;
+        }
+
+        .step-indicator {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 6px 12px;
+            border-radius: 200px;
+        }
+
+        .info-badge {
+            display: inline-block;
+            background-color: #e1f5fe;
+            color: #0288d1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .passage-box {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--secondary);
+            padding: 16px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+            border-radius: 0 8px 8px 0;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .soal-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .option-item input {
+            margin-top: 3px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        /* Results / Review section */
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background-color: var(--primary-light);
+            border-radius: 12px;
+        }
+
+        .score-display {
+            font-size: 54px;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .student-info-summary {
+            font-weight: 700;
+            color: #4b5563;
+            font-size: 15px;
+            margin-top: 5px;
+            background: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: inline-block;
+            border: 1px solid var(--border-color);
+        }
+
+        .review-card {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            background: #fff;
+        }
+
+        .review-card.correct { border-color: var(--success); background-color: #f0fdf4; }
+        .review-card.incorrect { border-color: var(--danger); background-color: #fef2f2; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .status-badge.correct { background-color: var(--success); color: white; }
+        .status-badge.incorrect { background-color: var(--danger); color: white; }
+
+        .explanation-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #d1d5db;
+            padding-bottom: 4px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: -40px;
+            left: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* --- OPTIMASI PRINT LAYOUT PDF --- */
+        @media print {
+            body {
+                background: none !important;
+                color: #000 !important;
+                padding: 0 !important;
+            }
+            
+            /* MODE STANDAR (Cetak Hasil Review Ujian) */
+            body:not(.print-questions-mode) .container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                background: none !important;
+            }
+            body:not(.print-questions-mode) #auth-panel, 
+            body:not(.print-questions-mode) #identity-panel, 
+            body:not(.print-questions-mode) #quiz-panel, 
+            body:not(.print-questions-mode) .footer, 
+            body:not(.print-questions-mode) .nav-btn, 
+            body:not(.print-questions-mode) button {
+                display: none !important;
+            }
+            body:not(.print-questions-mode) #result-panel {
+                display: block !important;
+            }
+            body:not(.print-questions-mode) .review-card {
+                page-break-inside: avoid;
+                border: 1px solid #ccc !important;
+                background-color: #fff !important;
+            }
+            body:not(.print-questions-mode) .explanation-box {
+                background-color: #fff !important;
+                border: 1px dashed #ccc !important;
+            }
+
+            /* MODE KHUSUS: Kustomisasi Cetak Semua Soal Saja */
+            body.print-questions-mode .container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                background: none !important;
+            }
+            body.print-questions-mode #auth-panel,
+            body.print-questions-mode #identity-panel,
+            body.print-questions-mode #result-panel,
+            body.print-questions-mode .nav-buttons,
+            body.print-questions-mode .quiz-top-bar,
+            body.print-questions-mode button,
+            body.print-questions-mode .footer {
+                display: none !important;
+            }
+            body.print-questions-mode #quiz-panel {
+                display: block !important;
+            }
+            body.print-questions-mode .question-page {
+                display: block !important;
+                page-break-inside: avoid;
+                margin-bottom: 40px;
+            }
+            body.print-questions-mode .option-item input {
+                display: none !important; /* Sembunyikan bulatan radio / centang checkbox */
+            }
+            body.print-questions-mode .option-item {
+                border: none !important;
+                padding: 4px 0 !important;
+                background: none !important;
+                cursor: default !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 1. PANEL VERIFIKASI & LOGIN -->
+        <div id="auth-panel">
+            <div class="login-logos">
+                <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/smancil.png" alt="Logo SMANCIL" onerror="this.onerror=null; this.src='https://placehold.co/90x90/fef08a/854d0e?text=SMANCIL';">
+                <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/mgmpbiokbb.png" alt="Logo MGMP" onerror="this.onerror=null; this.src='https://placehold.co/90x90/dcfce7/166534?text=MGMP';">
+            </div>
+
+            <div class="auth-header">
+                <h1>Akses Latihan TKA BIOLOGI SMANCIL</h1>
+                <p>Silakan masukkan kata sandi yang valid untuk memulai.</p>
+            </div>
+            
+            <div id="auth-error" class="error-msg hidden"></div>
+
+            <div class="login-card">
+                <label for="quiz-password">Kata Sandi (Password)</label>
+                <input type="password" id="quiz-password" placeholder="Masukkan kata sandi...">
+            </div>
+
+            <button class="btn-login" onclick="handleLogin()">Masuk Ke Sistem</button>
+
+            <div class="login-card-footer">
+                Dibuat oleh TIM TKA BIO SMANCIL
+            </div>
+        </div>
+
+        <!-- 2. PANEL DATA DIRI SISWA (TAMPIL SETELAH LOGIN SUKSES) -->
+        <div id="identity-panel" class="hidden">
+            <div class="login-logos">
+                <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/smancil.png" alt="Logo SMANCIL" onerror="this.onerror=null; this.src='https://placehold.co/90x90/fef08a/854d0e?text=SMANCIL';">
+                <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/mgmpbiokbb.png" alt="Logo MGMP" onerror="this.onerror=null; this.src='https://placehold.co/90x90/dcfce7/166534?text=MGMP';">
+            </div>
+
+            <div class="auth-header">
+                <h1>Identitas Peserta Ujian</h1>
+                <p>Silakan isi informasi data diri Anda secara lengkap sebelum memulai pengerjaan latihan evaluasi.</p>
+            </div>
+
+            <div id="identity-error" class="error-msg hidden"></div>
+
+            <div class="login-card">
+                <label for="student-name">Nama Lengkap</label>
+                <input type="text" id="student-name" placeholder="Masukkan nama lengkap Anda..." style="margin-bottom: 20px;">
+                
+                <label for="student-class">Kelas</label>
+                <input type="text" id="student-class" placeholder="Masukkan kelas Anda (contoh: XII MIPA 3)...">
+            </div>
+
+            <button class="btn-login" onclick="handleIdentitySubmit()">Mulai Pengerjaan Soal</button>
+
+            <div class="login-card-footer">
+                Dibuat oleh TIM TKA BIO SMANCIL
+            </div>
+        </div>
+
+        <!-- 3. PANEL SOAL PER HALAMAN -->
+        <div id="quiz-panel" class="hidden">
+            <div class="quiz-top-bar">
+                <div style="font-weight:800; color:var(--primary)">Sistem Evaluasi TKA</div>
+                <div class="step-indicator" id="page-indicator">Halaman 1 dari 12</div>
+            </div>
+
+            <form id="quiz-form">
+                <!-- Halaman Soal 1 -->
+                <div class="question-page" id="page-1">
+                    <span class="info-badge">Soal 1 (Pilihan Ganda Kompleks - Jawaban bisa lebih dari satu)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Provinsi Riau di Sumatera dikenal memiliki salah satu kawasan hutan hujan tropis terluas di Indonesia yang merupakan habitat vital bagi spesies spesies ikonik seperti Harimau Sumatera dan Orangutan Sumatera. Namun, sejak tahun 1990-an laju deforestasi untuk perluasan perkebunan kelapa sawit dan bubur kertas meningkat drastis. Sebuah studi ekologi menunjukkan bahwa fragmentasi habitat akibat deforestasi telah memisahkan populasi harimau menjadi kantong-kantong kecil yang terisolasi. Penurunan populasi hewan mangsa utama seperti babi hutan dan kijang juga diamati seiring berkurangnya luas hutan. Di sisi lain, beberapa spesies invasif non-endemik seperti eceng gondok yang tumbuh subur di kanal-kanal drainase baru mulai menggeser tanaman air lokal, mengurangi ketersediaan sumber daya untuk burung air migran.
+                    </div>
+                    <div class="question-text">Berdasarkan narasi di atas, pilihlah semua pernyataan yang tepat mengenai dampak fragmentasi habitat terhadap keanekaragaman hayati di wilayah tersebut!</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="checkbox" name="q1" value="A">
+                            <span><strong>A.</strong> Populasi harimau Sumatera terfragmentasi cenderung lebih rentan terhadap kepunahan karena berkurangnya keragaman genetik dan menurunnya daya adaptasi.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q1" value="B">
+                            <span><strong>B.</strong> Intervensi manusia seperti pembangunan kanal drainase dapat memicu perubahan compositional spesies dengan memfasilitasi dominasi spesies invasif.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q1" value="C">
+                            <span><strong>C.</strong> Penurunan populasi spesies mangsa menunjukkan adanya dampak ekologis berantai akibat hilangnya predator puncak.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q1" value="D">
+                            <span><strong>D.</strong> Deforestasi hanya mempengaruhi spesies yang membutuhkan habitat hutan yang luas sehingga tidak berdampak signifikan pada keragaman hayati secara keseluruhan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q1" value="E">
+                            <span><strong>E.</strong> Isolasi populasi harimau Sumatera menunjukkan terputusnya koridor satwa yang secara ekologis berbeda dengan kondisi sebelum fragmentasi.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 2 -->
+                <div class="question-page hidden" id="page-2">
+                    <span class="info-badge">Soal 2 (Pilihan Ganda Kompleks - Jawaban bisa lebih dari satu)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Perairan Taman Nasional Komodo di Nusa Tenggara Timur dikenal sebagai situs warisan dunia UNESCO yang memiliki keragaman hayati laut yang luar biasa termasuk terumbu karang yang sehat dan populasi manta ray atau *Mobula alfredi*. Namun, penelitian terbaru menemukan adanya akumulasi sampah plastik dalam jumlah besar terutama mikroplastik di perairan dan sedimen dasar laut. Penelitian menemukan bahwa ikan-ikan karang dari berbagai spesies dan ukuran telah mencerna partikel mikroplastik yang mereka kira sebagai plankton. Manta ray sebagai filter feeder juga berisiko tinggi menelan mikroplastik dalam jumlah besar saat menyaring air untuk mencari makanan. Selain itu, laporan dari petugas konservasi sering menemukan penyu hijau dan mamalia laut yang terjerat dalam kantong plastik atau jaring ikan bekas.
+                    </div>
+                    <div class="question-text">Berdasarkan narasi di atas, pilihlah pernyataan berikut yang paling tepat mengenai dampak sampah plastik terhadap keanekaragaman hayati laut!</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="checkbox" name="q2" value="A">
+                            <span><strong>A.</strong> Dampak sampah plastik di perairan komodo hanya mempengaruhi spesies ikan karang kecil yang mengonsumsi plankton.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q2" value="B">
+                            <span><strong>B.</strong> Sampah plastik mengancam keanekaragaman hayati di berbagai tingkatan dari mikroplastik hingga interaksi fisik dengan satwa berukuran besar.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q2" value="C">
+                            <span><strong>C.</strong> Penyerapan mikroplastik oleh ikan dan manta ray merupakan contoh dari transfer energi yang terkontaminasi dalam rantai makanan laut.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q2" value="D">
+                            <span><strong>D.</strong> Ancaman sampah plastik terhadap biota laut hanya terbatas pada spesies yang memiliki kebiasaan makan sebagai filter feeder.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q2" value="E">
+                            <span><strong>E.</strong> Masalah sampah plastik menunjukkan bahwa perlindungan keanekaragaman hayati di suatu area konservasi tidak efektif tanpa upaya kolaborasi yang luas.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 3 -->
+                <div class="question-page hidden" id="page-3">
+                    <span class="info-badge">Soal 3 (Pilihan Ganda Tunggal)</span>
+                    <div class="question-text">Perhatikan gambar tabel kunci dikotomi di bawah ini! Dari data tabel tersebut, manakah urutan kunci determinasi yang tepat untuk kelompok tumbuhan padi?</div>
+                    <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/soaldikotomipadi.png" alt="Tabel Kunci Dikotomi Padi" class="soal-image">
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q3" value="A">
+                            <span><strong>A.</strong> 1a – 2a – 3a – 4a – 5a – 6a – 7a</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q3" value="B">
+                            <span><strong>B.</strong> 1b – 2b – 3a – 4a – 5b – 6a – 7a</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q3" value="C">
+                            <span><strong>C.</strong> 1b – 2b – 3b – 4a – 5a – 6b – 7b</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q3" value="D">
+                            <span><strong>D.</strong> 1b – 2b – 3b – 4b – 5b – 6a – 7a</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q3" value="E">
+                            <span><strong>E.</strong> 1b – 2a – 3b – 4b – 5b – 6b – 7a</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 4 -->
+                <div class="question-page hidden" id="page-4">
+                    <span class="info-badge">Soal 4 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Di daerah pertanian dataran rendah petani seringkali menghadapi masalah penurunan hasil panen akibat penggunaan pupuk sintetis yang berlebihan terutama mengandung nitrat dan amonium. Hal ini justru memiliki ledakan populasi alga di sungai dan di danau terdekat serta berkurangnya unsur hara di lapisan tanah.
+                    </div>
+                    <div class="question-text">Berdasarkan kasus di atas, tentukan pernyataan berikut yang paling tepat menjelaskan dampak negatif dari praktik pertanian tersebut dalam konteks siklus nitrogen!</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q4" value="A">
+                            <span><strong>A.</strong> Konsentrasi nitrat yang tinggi di lahan pertanian akan mendorong aktivitas bakteri denitrifikasi yang mengubah nitrat menjadi gas nitrogen dan gas nitrogen oksida.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q4" value="B">
+                            <span><strong>B.</strong> Nitrat yang tidak terserap oleh tumbuhan akan tercuci atau leaching oleh air hujan ke badan air terdekat memicu ledakan populasi alga yang mengganggu ekosistem.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q4" value="C">
+                            <span><strong>C.</strong> Pupuk amonium yang berlebihan akan langsung menguap ke atmosfer melalui proses amonifikasi sehingga tidak ada yang terserap oleh tumbuhan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q4" value="D">
+                            <span><strong>D.</strong> Peningkatan jumlah nitrat secara buatan akan mematikan bakteri nitrifikasi di dalam tanah sehingga proses pengubahan amonium menjadi nitrat terhenti.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q4" value="E">
+                            <span><strong>E.</strong> Penggunaan pupuk anorganik akan mempercepat proses dekomposisi detritus sehingga ketersediaan amonium dalam tanah menjadi berlebihan.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 5 -->
+                <div class="question-page hidden" id="page-5">
+                    <span class="info-badge">Soal 5 (Pilihan Ganda Kompleks - Jawaban bisa lebih dari satu)</span>
+                    <div class="question-text">Perhatikan skema siklus nitrogen di bawah ini! Pernyataan berikut yang paling tepat menggambarkan proses yang terjadi dalam siklus nitrogen dan kaitannya dengan ketersediaan unsur hara bagi tumbuhan adalah...</div>
+                    <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/soalgambardaurnitrogen.png" alt="Gambar Soal Daur Nitrogen" class="soal-image">
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="checkbox" name="q5" value="1">
+                            <span><strong>1.</strong> Proses asimilasi hanya dapat dilakukan oleh tumbuhan yang bersimbiosis dengan bakteri bintil akar.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q5" value="2">
+                            <span><strong>2.</strong> Bakteri fiksasi nitrogen dan bakteri nitrifikasi memiliki peran yang saling melengkapi dalam menyediakan nitrogen yang dapat diserap tumbuhan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q5" value="3">
+                            <span><strong>3.</strong> Gas nitrogen (N₂) di atmosfer harus melalui fiksasi dan nitrifikasi terlebih dahulu sebelum dapat diubah menjadi protein pada tumbuhan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q5" value="4">
+                            <span><strong>4.</strong> Bakteri denitrifikasi bertugas mengembalikan nitrogen dari tanah ke atmosfer sehingga mengurangi ketersediaan nitrat bagi tumbuhan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q5" value="5">
+                            <span><strong>5.</strong> Penggunaan pupuk urea di lahan pertanian akan langsung dimanfaatkan oleh tumbuhan dalam bentuk amonia melalui proses amonifikasi.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 6 -->
+                <div class="question-page hidden" id="page-6">
+                    <span class="info-badge">Soal 6 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Lintah merupakan hewan yang sering ditemukan di daerah lembap seperti hutan hujan tropis. Hewan ini sangat bergantung pada makhluk hidup lain agar dapat bertahan hidup. Lintah juga diketahui cukup berbahaya saat menempel pada tubuh hewan lain, seperti rusa, kerbau liar, bahkan manusia.
+                    </div>
+                    <div class="question-text">Dalam interaksinya dengan mahkluk hidup lain, lintah akan ....</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q6" value="A">
+                            <span><strong>A.</strong> berkompetisi dengan inang untuk mendapatkan makanan</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q6" value="B">
+                            <span><strong>B.</strong> memanfaatkan tubuh inangnya sebagai sumber nutrisi</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q6" value="C">
+                            <span><strong>C.</strong> melekatkan diri pada mahkluk hidup lain untuk membersihkan darahnya</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q6" value="D">
+                            <span><strong>D.</strong> menempel pada inang untuk mendapatkan perlindungan dari predator</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q6" value="E">
+                            <span><strong>E.</strong> hidup bebas berdampingan dengan mahkluk hidup lain di hutan</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 7 -->
+                <div class="question-page hidden" id="page-7">
+                    <span class="info-badge">Soal 7 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Produk pangan pada era modern banyak dikemas agar tetap awet dan higienis. Salah satu contohnya adalah produk ikan awetan. Namun, beberapa kasus keracunan masih terjadi akibat bakteri <em>Clostridium botulinum</em>. Produk ikan awetan yang terkontaminasi biasanya memiliki kemasan rusak atau bocor, bau menyengat, warna pudar, dan rasa tidak enak. Gejala keracunan yang muncul pada konsumen antara lain: masalah penglihatan, kelemahan otot, kesulitan menelan, mual, muntah, dan sakit perut. Keracunan ini dapat menyebabkan risiko kesehatan serius, termasuk gangguan sistem saraf dan bahkan kematian jika tidak ditangani dengan cepat. Kasus ini menunjukkan pentingnya pengolahan dan penyimpanan makanan yang tepat agar pertumbuhan bakteri berbahaya dapat dicegah.
+                    </div>
+                    <div class="question-text">Berdasarkan informasi tersebut, mekanisme utama peran <em>Clostridium botulinum</em> dalam menyebabkan keracunan ikan awetan adalah ....</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q7" value="A">
+                            <span><strong>A.</strong> menguraikan protein dan lemak dalam ikan menjadi senyawa berbahaya sehingga menimbulkan gangguan pencernaan mual dan kram perut</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q7" value="B">
+                            <span><strong>B.</strong> menghasilkan senyawa yang menghambat sinyal saraf dan kontraksi otot sehingga penglihatan terganggu dan otot melemah</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q7" value="C">
+                            <span><strong>C.</strong> menyerap komponen ikan ke dalam dinding sel bakteri untuk bertahan hidup sehingga menyebabkan gangguan pencernaan dan saraf optik</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q7" value="D">
+                            <span><strong>D.</strong> mengubah gula dan asam amino dalam ikan menjadi senyawa alkohol yang memengaruhi koordinasi dan saraf penglihatan</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q7" value="E">
+                            <span><strong>E.</strong> menghasilkan gas pada kondisi anaerob yang meningkatkan tekanan di dalam kemasan ikan sehingga memengaruhi kualitas fisik produk</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 8 -->
+                <div class="question-page hidden" id="page-8">
+                    <span class="info-badge">Soal 8 (Pilihan Ganda Kompleks - Jawaban bisa lebih dari satu)</span>
+                    <div class="passage-box">
+                        <strong>Konteks Narasi:</strong><br>
+                        Badak Jawa (<em>Rhinoceros sondaicus</em>) adalah spesies endemik Indonesia yang kini berstatus kritis dan hanya ditemukan di Taman Nasional Ujung Kulon. Populasinya terus menurun akibat pembangunan infrastruktur yang mengganggu habitat alaminya. Keragaman genetik yang rendah meningkatkan risiko penyakit dan menurunkan peluang kelangsungan hidup keturunannya. Selain itu, gangguan manusia seperti perburuan menyebabkan perubahan perilaku yang menghambat reproduksi.
+                    </div>
+                    <div class="question-text">With mencermati informasi tersebut, pernyataan manakah yang berkaitan dengan penurunan populasi Badak Jawa dan faktor penyebabnya? (Pilih semua jawaban yang benar!)</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="checkbox" name="q8" value="A">
+                            <span><strong>A.</strong> Perdagangan cula yang mengancam keberlangsungan spesies Badak Jawa.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q8" value="B">
+                            <span><strong>B.</strong> Deforestasi dan konversi lahan yang mengurangi ruang jelajah Badak Jawa.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q8" value="C">
+                            <span><strong>C.</strong> Perubahan pola migrasi yang menyebabkan distribusi populasi lebih tersebar dan sulit dilacak.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q8" value="D">
+                            <span><strong>D.</strong> Gangguan ekosistem akibat masuknya spesies lain ke Ujung Kulon sehingga meningkatkan kompetisi.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q8" value="E">
+                            <span><strong>E.</strong> Minimnya variasi genetik membuat badak menjadi sulit beradaptasi dengan lingkungan sekitar.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 9 -->
+                <div class="question-page hidden" id="page-9">
+                    <span class="info-badge">Soal 9 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Narasi Soal:</strong><br>
+                        Para ilmuwan menggunakan model iklim global yang canggih untuk memprediksi dampak perubahan iklim di masa depan. Model-model ini mengintegrasikan data dari berbagai disiplin ilmu termasuk oseanografi, meteorologi, dan ekologi. Salah satu prediksi utama model ini adalah pergeseran zona iklim yang berpotensi mempengaruhi distribusi geografis spesies. Sebuah studi kasus di Jawa Barat menggunakan model iklim untuk memprediksi dampak peningkatan suhu dan curah hujan terhadap habitat anggrek merpati (spesies anggrek yang sensitif terhadap perubahan lingkungan). Model tersebut memproyeksikan habitat ideal bagi anggrek ini akan menyusut di dataran rendah dan berpindah ke elevasi yang tinggi yang menyediakan kondisi suhu dan kelembaban yang lebih stabil. Namun, lahan yang tersedia di elevasi yang lebih tinggi terbatas dan fragmentasi hutan dapat menghambat perpindahan spesies.
+                    </div>
+                    <div class="question-text">Berdasarkan narasi di atas, pernyataan berikut yang paling tepat mengenai peran pemodelan iklim dalam konservasi keanekaragaman hayati adalah...</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q9" value="A">
+                            <span><strong>A.</strong> Model iklim dapat membantu memprediksi dampak perubahan lingkungan pada distribusi spesies dan mengidentifikasi area konservasi masa depan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q9" value="B">
+                            <span><strong>B.</strong> Meskipun model memprediksi pergeseran habitat, spesies dapat beradaptasi dengan perubahan suhu ekstrem tanpa harus berpindah lokasi.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q9" value="C">
+                            <span><strong>C.</strong> Keterbatasan lahan dan fragmentasi habitat merupakan faktor penghambat yang dapat menghalangi spesies untuk beradaptasi melalui perpindahan.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q9" value="D">
+                            <span><strong>D.</strong> Perpindahan habitat ke elevasi yang lebih tinggi adalah respons alami spesies terhadap peningkatan suhu.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q9" value="E">
+                            <span><strong>E.</strong> Habitat ideal Anggrek Merpati di dataran rendah akan tetap stabil meskipun terjadi peningkatan suhu global.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 10 -->
+                <div class="question-page hidden" id="page-10">
+                    <span class="info-badge">Soal 10 (Pilihan Ganda Kompleks - Jawaban bisa lebih dari satu)</span>
+                    <div class="question-text">Bayangkan sebuah skenario di mana seluruh populasi rusa di ekosistem tersebut musnah secara total akibat penyakit yang sangat spesifik. Peristiwa ini akan menciptakan efek domino yang mempengaruhi seluruh keseimbangan jaring-jaring makanan. Jika populasi rusa punah dari jaring-jaring makanan ini, manakah pernyataan berikut yang paling mungkin terjadi? (Pilih semua jawaban yang benar)</div>
+                    <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/soaljaringmakanantkabio1.png" alt="Jaring-jaring Makanan" class="soal-image">
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="checkbox" name="q10" value="A">
+                            <span><strong>A.</strong> Populasi elang ekor merah akan menurun drastis.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q10" value="B">
+                            <span><strong>B.</strong> Kompetisi untuk rumput akan berkurang sehingga populasi kelinci hutan kemungkinan akan meningkat.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q10" value="C">
+                            <span><strong>C.</strong> Populasi singa gunung akan menurun karena kehilangan salah satu sumber makanan utamanya.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q10" value="D">
+                            <span><strong>D.</strong> Populasi tumbuhan produsen seperti rumput akan meningkat karena berkurangnya predatornya .</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox" name="q10" value="E">
+                            <span><strong>E.</strong> Aliran energi ke dekomposer dan detritivor akan berhenti total.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 11 -->
+                <div class="question-page hidden" id="page-11">
+                    <span class="info-badge">Soal 11 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Narasi:</strong><br>
+                        Dalam suatu daerah konservasi ditemukan sekelompok organisme dengan ciri sebagai berikut:<br>
+                        1. Tidak memiliki tulang belakang.<br>
+                        2. Hidup di air.<br>
+                        3. Memiliki tubuh simetris radial.<br>
+                        4. Bergerak menggunakan kaki tabung (tube feet).<br>
+                        5. Termasuk hewan deuterostom.
+                    </div>
+                    <div class="question-text">Dalam suatu konservasi, ditemukan sekelompok organisme dengan ciri tertentu. Peneliti mengalami kebingungan saat mengelompokkan organisme tersebut berdasarkan prinsip klasifikasi makhluk hidup dan keanekaragaman hayati. Langkah yang paling tepat untuk mengatasi masalah klasifikasi tersebut yaitu...</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q11" value="A">
+                            <span><strong>A.</strong> Mengelompokkan berdasarkan habitat karena lebih mudah diamati.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q11" value="B">
+                            <span><strong>B.</strong> Menggunakan pendekatan morfologi saja.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q11" value="C">
+                            <span><strong>C.</strong> Menggabungkan semua organisme air dalam satu kelompok yang sama.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q11" value="D">
+                            <span><strong>D.</strong> Menganalisis ciri-ciri morfologi, fisiologi, dan filogeni secara menyeluruh.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q11" value="E">
+                            <span><strong>E.</strong> Mengelompokkan berdasarkan nama lokal yang digunakan masyarakat setempat.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Halaman Soal 12 -->
+                <div class="question-page hidden" id="page-12">
+                    <span class="info-badge">Soal 12 (Pilihan Ganda Tunggal)</span>
+                    <div class="passage-box">
+                        <strong>Narasi Soal:</strong><br>
+                        Sebuah tim peneliti menemukan populasi kupu-kupu unik di hutan primer Sulawesi. Mereka mengidentifikasi adanya variasi warna sayap yang sangat beragam dalam satu spesies, mulai dari merah, biru, hingga kombinasi keduanya. Kupu-kupu dengan variasi warna berbeda ini dapat berinteraksi dan bereproduksi satu sama lain tanpa hambatan. Namun, saat tim melacak persebaran populasi ini, mereka menemukan bahwa kupu-kupu dengan kombinasi warna tertentu hanya ditemukan di satu lembah sempit saja yang dikelilingi oleh pegunungan tinggi yang memisahkan mereka dari populasi induknya. Peristiwa ini terjadi setelah letusan gunung berapi purba ribuan tahun yang lalu.
+                    </div>
+                    <div class="question-text">Berdasarkan narasi tersebut, fenomena apa yang paling dominan diilustrasikan dan berpotensi menghasilkan spesies baru?</div>
+                    <div class="options-container">
+                        <label class="option-item">
+                            <input type="radio" name="q12" value="A">
+                            <span><strong>A.</strong> Keanekaragaman genetik yang terisolasi secara geografis mengarah pada spesiasi alopatrik.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q12" value="B">
+                            <span><strong>B.</strong> Keanekaragaman hayati didorong oleh seleksi alam akibat perbedaan ketinggian.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q12" value="C">
+                            <span><strong>C.</strong> Keanekaragaman ekosistem menyebabkan spesiasi simpatrik.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q12" value="D">
+                            <span><strong>D.</strong> Keanekaragaman fungsional yang dipicu oleh hibridasi antarspesies.</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="radio" name="q12" value="E">
+                            <span><strong>E.</strong> Keanekaragaman populasi yang disebabkan oleh seleksi buatan.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Navigasi Tombol -->
+                <div class="nav-buttons">
+                    <button type="button" class="nav-btn btn-secondary hidden" id="prev-btn" onclick="navigatePage(-1)">Sebelumnya</button>
+                    <button type="button" class="nav-btn" id="next-btn" onclick="navigatePage(1)">Selanjutnya</button>
+                    <button type="button" class="nav-btn hidden" id="submit-btn" onclick="submitQuiz()">Kirim Semua Jawaban</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 4. PANEL HASIL AKHIR & PEMBAHASAN -->
+        <div id="result-panel" class="hidden">
+            <div class="result-header">
+                <h2>Laporan Hasil Evaluasi</h2>
+                <div class="student-info-summary" id="summary-display">Nama: - | Kelas: -</div>
+                <div class="score-display" id="score-val">0</div>
+                <p>Nilai Akhir Capaian TKA</p>
+            </div>
+
+            <h3 style="margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 6px; font-weight: 800;">Analisis Butir Jawaban & Pembahasan:</h3>
+            <div id="review-container"></div>
+
+            <!-- Tombol Cetak PDF Tambahan -->
+            <button class="nav-btn" style="width: 100%; margin-top: 15px; background-color: var(--secondary);" onclick="window.print()">Simpan Hasil Ujian (PDF)</button>
+            
+            <!-- Opsi Tambahan: Print Soal Saja Tanpa Kunci/Pembahasan -->
+            <button class="nav-btn" style="width: 100%; margin-top: 15px; background-color: #e65100;" onclick="printQuestionsOnly()">Cetak Semua Soal Tanpa Kunci (PDF)</button>
+            
+            <button class="nav-btn" style="width: 100%; margin-top: 15px;" onclick="location.reload()">Selesai & Keluar</button>
+        </div>
+    </div>
+
+    <!-- HAK CIPTA LUAR -->
+    <div class="footer hidden">
+        Dibuat Oleh TIM TKA BIO SMANCIL
+    </div>
+
+    <script {options}>
+        const PASSWORD_VALID = "kaguci";
+        let currentPage = 1;
+        const totalPages = 12; // Update total halaman menjadi 12
+
+        // Status Pengamanan Layar
+        let isQuizActive = false;
+        let violationCount = 0;
+        const maxViolations = 3;
+
+        // Kunci Jawaban Validasi
+        const correctAnswers = {
+            q1: ["A", "C", "E"],
+            q2: ["B", "C", "E"],
+            q3: "D",
+            q4: "A", 
+            q5: ["2", "4"],
+            q6: "B",
+            q7: "B",
+            q8: ["A", "B", "E"],
+            q9: "A",
+            q10: ["C", "D"],
+            q11: "D",
+            q12: "A"
+        };
+
+        // Bank Data Pembahasan
+        const explanations = {
+            q1: {
+                title: "Pembahasan Soal 1 (Dampak Fragmentasi Habitat):",
+                correct: "Pernyataan <strong>A, C, dan E</strong> adalah benar.<br>• <strong>A:</strong> Kantong habitat kecil membatasi aliran genetik kelompok harimau, memicu penurunan keragaman variasi gen dan daya tahan adaptasi.<br>• <strong>C:</strong> Gangguan ekologi rantai makanan sekunder akan berimbas sistemik.<br>• <strong>E:</strong> Fragmentasi secara fisik memutuskan koridor jelajah ekologis satwa.",
+                incorrect: "• <strong>B Salah:</strong> Konteks drainase dan eceng gondok di teks merupakan dampak perluasan perkebunan secara mekanik, bukan imbas langsung isolasi spasial kelompok harimau.<br>• <strong>D Salah:</strong> Kerusakan lingkungan berimbas luas pada seluruh keanekaragaman hayati makro/mikro."
+            },
+            q2: {
+                title: "Pembahasan Soal 2 (Dampak Sampah Plastik Laut):",
+                correct: "Pernyataan <strong>B, C, dan E</strong> adalah benar.<br>• <strong>B:</strong> Dampak plastik merusak ekosistem dari tingkatan mikroplastik di sedimen karang hingga jeratan fisik pada mamalia besar.<br>• <strong>C:</strong> Mikroplastik terakumulasi di jaringan tubuh ikan kecil, mentransfer toksin saat dimangsa dalam rantai makanan.<br>• <strong>E:</strong> Wilayah konservasi mandiri tidak akan berhasil tanpa kolaborasi penanggulangan sampah berskala makro.",
+                incorrect: "• <strong>A Salah:</strong> Teks menegaskan satwa megabiota seperti manta ray dan penyu hijau juga mengalami dampak buruk yang signifikan.<br>• <strong>D Salah:</strong> Risiko tertelan partikel plastik juga dialami oleh berbagai macam jenis predator biota laut."
+            },
+            q3: {
+                title: "Pembahasan Soal 3 (Kunci Determinasi Padi):",
+                correct: "Jawaban yang benar adalah <strong>D (1b – 2b – 3b – 4b – 5b – 6a – 7a)</strong>.<br>Tanaman padi (<em>Oryza sativa</em>) merupakan tumbuhan berbunga (1b), biji tertutup (2b), berkeping satu/monokotil (3b), berakar serabut (4b), batang berongga/tidak berkayu (5b), susunan pertulangan daun sejajar (6a), dan buah berupa padi/kariopsis (7a). Skema alur pada opsi D mendefinisikan sifat taksonomi monokotil tersebut secara runut.",
+                incorrect: "Opsi lainnya salah karena mengarahkan ke takson dikotil (akar tunggang, batang berkambium) atau kelompok non-Angiospermae."
+            },
+            q4: {
+                title: "Pembahasan Soal 4 (Pertanian & Siklus Nitrogen):",
+                correct: "Jawaban yang benar adalah <strong>A</strong>. Kandungan konsentrasi senyawa nitrat (NO₃⁻) sintetis yang berlebih di ekosistem lahan memicu percepatan laju aktivitas biologis bakteri denitrifikasi untuk memecah nitrat kembali menjadi senyawa gas nitrogen (N₂) menuju atmosfer.",
+                incorrect: "• <strong>B:</strong> Meskipun teks menyebutkan ledakan alga akibat tercuci ke perairan, opsi A merupakan dampak langsung spesifik dalam regulasi daur biogeokimia nitrogen tanah.<br>• <strong>C Salah:</strong> Senyawa amonium tidak mengalami penguapan bebas atmosfer lewat jalur amonifikasi spontan.<br>• <strong>D Salah:</strong> Kadar nitrat tidak memiliki sifat toksik mematikan koloni bakteri nitrifikasi tanah."
+            },
+            q5: {
+                title: "Pembahasan Soal 5 (Analisis Bagan Siklus Nitrogen):",
+                correct: "Pernyataan <strong>2 dan 4</strong> adalah benar.<br>• <strong>2:</strong> Mikroba pengikat gas N₂ (fiksasi) dan pengubah amonium menjadi nitrat (nitrifikasi) saling bekerja bersama menyediakan ion mineral nitrogen yang dibutuhkan tumbuhan.<br>• <strong>4:</strong> Bakteri denitrifikasi mereduksi akumulasi nitrat dengan mengubahnya menjadi gas nitrogen bebas menuju udara.",
+                incorrect: "• <strong>1 Salah:</strong> Proses asimilasi mineral nitrogen dilakukan secara universal oleh tanaman hijau tanpa ikatan wajib dengan bintil akar legum.<br>• <strong>3 Salah:</strong> Beberapa komoditas tanaman (misal padi) memiliki kemampuan metabolisme langsung menyerap senyawa bentuk amonium tanpa jalur nitrifikasi.<br>• <strong>5 Salah:</strong> Senyawa urea komersial harus dihidrolisis terlebih dahulu dalam tanah menjadi bentuk ion amonium sebelum dapat diserap."
+            },
+            q6: {
+                title: "Pembahasan Soal 6 (Interaksi Lintah dengan Inang):",
+                correct: "Jawaban yang benar adalah <strong>B (memanfaatkan tubuh inangnya sebagai sumber nutrisi)</strong>.<br>Lintah merupakan salah satu organisme ektoparasit (parasit eksternal) yang bergantung sepenuhnya pada makhluk hidup lain (kerbau, rusa, maupun manusia) dengan cara melekat pada permukaan kulit tubuh inangnya untuk menghisap darah segar sebagai sumber makanan/nutrisi metabolisme utama mereka.",
+                incorrect: "• <strong>Opsi A, C, D, E salah</strong> karena hubungan interaksi lintah bersifat parasitisme (merugikan sepihak), bukan kompetisi makanan, simbiosis komensalisme pelindung predator, ataupun melakukan aktivitas pembersihan darah."
+            },
+            q7: {
+                title: "Pembahasan Soal 7 (Mekanisme Clostridium botulinum):",
+                correct: "Jawaban yang benar adalah <strong>B (menghasilkan senyawa yang menghambat sinyal saraf dan kontraksi otot sehingga penglihatan terganggu dan otot melemah)</strong>.<br>Bakteri anaerob obligat <em>Clostridium botulinum</em> melepaskan neurotoksin botulinum berbahaya pada produk makanan awetan yang rusak. Toksin ini bekerja spesifik memblokir pelepasan neurotransmiter asetilkolin pada celah sinapsis sistem saraf motorik, yang secara mekanis melumpuhkan koordinasi saraf otot sehingga penderita mengalami otot lemas, sulit menelan, serta pandangan buram.",
+                incorrect: "• <strong>Opsi A, C, D, E salah</strong> karena mekanisme utama patogenitas mematikan dari botulisme dipicu langsung oleh gangguan neurotoksin penghambat sinyal motorik, bukan dekomposisi protein, pembentukan alkohol, atau kenaikan tekanan gas kaleng semata."
+            },
+            q8: {
+                title: "Pembahasan Soal 8 (Penurunan Populasi Badak Jawa):",
+                correct: "Pernyataan yang tepat adalah <strong>A, B, dan E (Pernyataan ke-1, ke-2, dan ke-5)</strong>.<br>• <strong>A:</strong> Berdasarkan narasi, perburuan liar manusia yang mengincar cula badak sangat mengancam kelestarian populasi.<br>• <strong>B:</strong> Pembangunan infrastruktur merusak ekosistem hutan alami yang mempersempit wilayah jelajah (deforestasi/konversi lahan).<br>• <strong>E:</strong> Minimnya variasi genetik (karena populasi yang terisolasi dan kecil) meningkatkan risiko penyakit keturunan dan menurunkan daya adaptasi terhadap perubahan lingkungan.",
+                incorrect: "• <strong>Pernyataan C & D Salah:</strong> Badak Jawa merupakan satwa teritorial menetap, sehingga tidak memiliki pola migrasi musiman, dan narasi tidak menitikberatkan kompetisi dengan spesies pendatang baru."
+            },
+            q9: {
+                title: "Pembahasan Soal 9 (Peran Pemodelan Iklim):",
+                correct: "Jawaban yang benar adalah <strong>A</strong>. Pemodelan iklim global sangat krusial dalam konservasi karena berfungsi memproyeksikan pergeseran spasial habitat akibat perubahan suhu/curah hujan, sehingga planner konservasi dapat memprediksi zona perlindungan masa depan sebelum kepunahan terjadi.",
+                incorrect: "• Opsi B, D, dan E bertentangan dengan isi narasi yang menerangkan keterbatasan lahan serta kerentanan spesies. Opsi C memaparkan faktor penghambat, namun bukan peran pemodelan iklim dalam konservasi."
+            },
+            q10: {
+                title: "Pembahasan Soal 10 (Dampak Kepunahan Rusa pada Jaring Makanan):",
+                correct: "Pernyataan <strong>C dan D</strong> adalah benar.<br>• <strong>C:</strong> Singa gunung kehilangan salah satu sumber energi utamanya (rusa), sehingga secara langsung populasinya akan menurun akibat kelangkaan makanan.<br>• <strong>D:</strong> Rusa bertindak sebagai konsumen tingkat I (herbivora) yang memakan produsen. Punahnya rusa menyebabkan hilangnya tekanan herbivori pada rumput, sehingga vegetasi tanaman/produsen meningkat.",
+                incorrect: "• <strong>A Salah:</strong> Elang ekor merah pada bagan jaring makanan memakan tikus dan kelinci, bukan rusa.<br>• <strong>B Salah:</strong> Walau kompetisi memperebutkan rumput berkurang, populasi kelinci hutan belum tentu meningkat karena tekanan predasi dari organisme lain tetap berjalan.<br>• <strong>E Salah:</strong> Aliran energi ke dekomposer tidak berhenti total selama makhluk hidup lain di jaring-jaring makanan tersebut masih mengalami siklus kematian alami."
+            },
+            q11: {
+                title: "Pembahasan Soal 11 (Prinsip Klasifikasi Makhluk Hidup):",
+                correct: "Jawaban yang benar adalah <strong>D</strong>. Karakteristik yang ditemukan (invertebrata, simetris radial, kaki tabung, dan deuterostom) merujuk secara akurat pada filum Echinodermata. Pendekatan analisis holistik mencakup morfologi, fisiologi, dan sejarah filogeni (hubungan kekerabatan evolusioner) adalah standar mutakhir yang objektif untuk menyelesaikan kebingungan klasifikasi.",
+                incorrect: "• Opsi A, B, C, dan E merupakan pendekatan klasifikasi buatan/sederhana yang mengabaikan aspek evolusi dan anatomi dalam (internal) sehingga rentan memicu bias pengelompokan taksonomi ilmiah."
+            },
+            q12: {
+                title: "Pembahasan Soal 12 (Spesiasi Alopatrik Kupu-Kupu):",
+                correct: "Jawaban yang benar adalah <strong>A</strong>. Terisolasinya sekelompok populasi kupu-kupu di lembah sempit oleh pegunungan tinggi pasca-letusan gunung purba merupakan bentuk isolasi geografis yang nyata. Hambatan spasial ini memutus aliran gen (*gene flow*) dengan populasi induk, sehingga memicu spesiasi alopatrik (pembentukan spesies baru akibat isolasi geografis).",
+                incorrect: "• Opsi B, C, D, dan E kurang tepat karena fenomena pemisah primer pada kasus di atas didorong langsung oleh barrier fisik geografis (alopatrik), bukan spesiasi simpatrik (tanpa sekat geografis), hibridisasi antarspesies, ataupun pengaruh seleksi buatan manusia."
+            }
+        };
+
+        // 1. Fungsi Validasi Password Login
+        function handleLogin() {
+            const passwordInput = document.getElementById("quiz-password").value;
+            const errorDiv = document.getElementById("auth-error");
+            const cleanPassword = passwordInput.trim().toLowerCase();
+
+            if (!passwordInput) {
+                errorDiv.innerHTML = "⚠️ <strong>Akses Ditolak:</strong><br>Silakan masukkan kata sandi terlebih dahulu.";
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            if (cleanPassword !== PASSWORD_VALID) {
+                errorDiv.innerHTML = "❌ <strong>Password salah!</strong><br>Pastikan password yang Anda masukkan adalah <strong>kaguci</strong>.";
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            // Sukses masuk -> Beralih ke halaman input identitas siswa
+            errorDiv.classList.add("hidden");
+            document.getElementById("auth-panel").classList.add("hidden");
+            document.getElementById("identity-panel").classList.remove("hidden");
+        }
+
+        // 2. Fungsi Validasi Identitas Siswa
+        function handleIdentitySubmit() {
+            const studentName = document.getElementById("student-name").value.trim();
+            const studentClass = document.getElementById("student-class").value.trim();
+            const errorDiv = document.getElementById("identity-error");
+
+            if (!studentName || !studentClass) {
+                errorDiv.innerHTML = "⚠️ <strong>Identitas Belum Lengkap:</strong><br>Silakan isi Nama Lengkap dan Kelas Anda terlebih dahulu.";
+                errorDiv.classList.remove("hidden");
+                return;
+            }
+
+            // Sukses -> Masuk ke Panel Utama Kuis
+            errorDiv.classList.add("hidden");
+            document.getElementById("identity-panel").classList.add("hidden");
+            document.getElementById("quiz-panel").classList.remove("hidden");
+
+            // Tampilkan hak cipta tim saat kuis berjalan
+            const outerFooter = document.querySelector(".footer");
+            if (outerFooter) outerFooter.classList.remove("hidden");
+
+            // Aktifkan Pengaman Layar Ujian
+            isQuizActive = true;
+            violationCount = 0;
+
+            updatePageIndicator();
+        }
+
+        // --- SISTEM DETEKSI DAN PENGAMAN PINDAH LAYAR ---
+        function handleScreenViolation() {
+            if (!isQuizActive) return;
+
+            violationCount++;
+            if (violationCount >= maxViolations) {
+                alert("⚠️ BATAS PINDAH LAYAR TERLAMPUI!\nAnda telah keluar/pindah layar sebanyak " + violationCount + " kali. Ujian Anda dihentikan secara otomatis dan jawaban yang terisi akan dikirim.");
+                submitQuiz();
+            } else {
+                alert("🚨 PERINGATAN UJIAN!\nDilarang keras memindahkan tab, membuka jendela aplikasi lain, atau meninggalkan layar ujian!\n\nPelanggaran: " + violationCount + " / " + maxViolations + "\nJika mencapai " + maxViolations + " kali, ujian Anda akan otomatis terhenti.");
+            }
+        }
+
+        // Deteksi berpindah tab / minimize window
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden) {
+                handleScreenViolation();
+            }
+        });
+
+        // Deteksi kehilangan fokus (klik aplikasi/layar luar browser)
+        window.addEventListener("blur", function() {
+            handleScreenViolation();
+        });
+
+        // Fungsi Navigasi Halaman Soal
+        function navigatePage(direction) {
+            document.getElementById(`page-${currentPage}`).classList.add("hidden");
+            currentPage += direction;
+            document.getElementById(`page-${currentPage}`).classList.remove("hidden");
+
+            // Atur visibilitas tombol navigasi
+            document.getElementById("prev-btn").classList.toggle("hidden", currentPage === 1);
+            document.getElementById("next-btn").classList.toggle("hidden", currentPage === totalPages);
+            document.getElementById("submit-btn").classList.toggle("hidden", currentPage !== totalPages);
+
+            updatePageIndicator();
+            window.scrollTo(0, 0);
+        }
+
+        function updatePageIndicator() {
+            document.getElementById("page-indicator").innerText = `Halaman ${currentPage} dari ${totalPages}`;
+        }
+
+        // Fungsi Pengambilan Nilai Jawaban
+        function getCheckedValues(name) {
+            const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+            let values = [];
+            checkboxes.forEach(cb => values.push(cb.value));
+            return values.sort();
+        }
+
+        function getSelectedRadioValue(name) {
+            const checkedRadio = document.querySelector(`input[name="${name}"]:checked`);
+            return checkedRadio ? checkedRadio.value : "";
+        }
+
+        function compareArrays(arr1, arr2) {
+            if (arr1.length !== arr2.length) return false;
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) return false;
+            }
+            return true;
+        }
+
+        // Submit dan Kalkulasi Skor Kuis
+        function submitQuiz() {
+            // Matikan pengaman layar karena kuis sudah selesai
+            isQuizActive = false;
+
+            const name = document.getElementById("student-name").value || "Peserta Tes";
+            const sClass = document.getElementById("student-class").value || "Umum";
+
+            let correctCount = 0;
+            const totalQuestions = 12; // Skala perhitungan total soal diperbarui menjadi 12
+
+            const studentAnswers = {
+                q1: getCheckedValues("q1"),
+                q2: getCheckedValues("q2"),
+                q3: getSelectedRadioValue("q3"),
+                q4: getSelectedRadioValue("q4"),
+                q5: getCheckedValues("q5"),
+                q6: getSelectedRadioValue("q6"),
+                q7: getSelectedRadioValue("q7"),
+                q8: getCheckedValues("q8"),
+                q9: getSelectedRadioValue("q9"),
+                q10: getCheckedValues("q10"),
+                q11: getSelectedRadioValue("q11"),
+                q12: getSelectedRadioValue("q12")
+            };
+
+            // Kalkulasi Berdasarkan Ketepatan Kunci Jawaban
+            if (compareArrays(studentAnswers.q1, correctAnswers.q1)) correctCount++;
+            if (compareArrays(studentAnswers.q2, correctAnswers.q2)) correctCount++;
+            if (studentAnswers.q3 === correctAnswers.q3) correctCount++;
+            if (studentAnswers.q4 === correctAnswers.q4) correctCount++;
+            if (compareArrays(studentAnswers.q5, correctAnswers.q5)) correctCount++;
+            if (studentAnswers.q6 === correctAnswers.q6) correctCount++;
+            if (studentAnswers.q7 === correctAnswers.q7) correctCount++;
+            if (compareArrays(studentAnswers.q8, correctAnswers.q8)) correctCount++;
+            if (studentAnswers.q9 === correctAnswers.q9) correctCount++;
+            if (compareArrays(studentAnswers.q10, correctAnswers.q10)) correctCount++;
+            if (studentAnswers.q11 === correctAnswers.q11) correctCount++;
+            if (studentAnswers.q12 === correctAnswers.q12) correctCount++;
+
+            // Konversi ke skala nilai maksimum 100
+            const finalScore = Math.round((correctCount / totalQuestions) * 100);
+
+            // Menampilkan Laporan Akhir
+            document.getElementById("summary-display").innerText = `Nama: ${name} | Kelas: ${sClass}`;
+            document.getElementById("score-val").innerText = finalScore;
+
+            renderReview(studentAnswers);
+
+            document.getElementById("quiz-panel").classList.add("hidden");
+            document.getElementById("result-panel").classList.remove("hidden");
+            window.scrollTo(0, 0);
+        }
+
+        // Render Analisis Review Jawaban dan Pembahasan
+        function renderReview(studentAnswers) {
+            const container = document.getElementById("review-container");
+            container.innerHTML = "";
+
+            const items = [
+                { id: "q1", title: "Soal 1 (Dampak Fragmentasi Habitat)", type: "multi" },
+                { id: "q2", title: "Soal 2 (Dampak Sampah Plastik Laut)", type: "multi" },
+                { id: "q3", title: "Soal 3 (Kunci Determinasi Tumbuhan Padi)", type: "single" },
+                { id: "q4", title: "Soal 4 (Kasus Siklus Nitrogen Tanah)", type: "single" },
+                { id: "q5", title: "Soal 5 (Analisis Bagan Siklus Nitrogen)", type: "multi" },
+                { id: "q6", title: "Soal 6 (Interaksi Lintah dengan Inang)", type: "single" },
+                { id: "q7", title: "Soal 7 (Mekanisme Clostridium botulinum)", type: "single" },
+                { id: "q8", title: "Soal 8 (Penurunan Populasi Badak Jawa)", type: "multi" },
+                { id: "q9", title: "Soal 9 (Peran Pemodelan Iklim)", type: "single" },
+                { id: "q10", title: "Soal 10 (Dampak Kepunahan Rusa pada Jaring Makanan)", type: "multi" },
+                { id: "q11", title: "Soal 11 (Prinsip Klasifikasi Makhluk Hidup)", type: "single" },
+                { id: "q12", title: "Soal 12 (Spesiasi Alopatrik Kupu-Kupu)", type: "single" }
+            ];
+
+            items.forEach((item) => {
+                let isCorrect = false;
+                if (item.type === "multi") {
+                    isCorrect = compareArrays(studentAnswers[item.id], correctAnswers[item.id]);
+                } else {
+                    isCorrect = studentAnswers[item.id] === correctAnswers[item.id];
+                }
+
+                const card = document.createElement("div");
+                card.className = `review-card ${isCorrect ? 'correct' : 'incorrect'}`;
+
+                // Atur string jawaban agar rapi
+                let dispStudentAns = studentAnswers[item.id];
+                if (Array.isArray(dispStudentAns)) {
+                    dispStudentAns = dispStudentAns.length === 0 ? "<em>Kosong (Tidak menjawab)</em>" : dispStudentAns.join(", ");
+                } else {
+                    dispStudentAns = dispStudentAns === "" ? "<em>Kosong (Tidak menjawab)</em>" : dispStudentAns;
+                }
+
+                let dispCorrectAns = correctAnswers[item.id];
+                if (Array.isArray(dispCorrectAns)) {
+                    dispCorrectAns = dispCorrectAns.join(", ");
+                }
+
+                card.innerHTML = `
+                    <div class="status-badge ${isCorrect ? 'correct' : 'incorrect'}">
+                        ${isCorrect ? 'Benar' : 'Salah/Kurang Tepat'}
+                    </div>
+                    <h4 style="margin-bottom: 8px; font-weight:700;">${item.title}</h4>
+                    <p style="font-size: 13px; margin-bottom: 4px;">
+                        <strong>Jawaban Anda:</strong> ${dispStudentAns}
+                    </p>
+                    <p style="font-size: 13px; margin-bottom: 12px;">
+                        <strong>Kunci Jawaban Resmi:</strong> ${dispCorrectAns}
+                    </p>
+                    <div class="explanation-box">
+                        <div class="explanation-title">${explanations[item.id].title}</div>
+                        <div style="color: #1b5e20; font-weight: 600;">${explanations[item.id].correct}</div>
+                        <div style="color: #b71c1c; margin-top: 6px; font-weight: 500;">${explanations[item.id].incorrect ? explanations[item.id].incorrect : ""}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Fungsi Khusus Cetak Semua Soal Saja Tanpa Kunci / Penjelasan
+        function printQuestionsOnly() {
+            // Tambahkan class penanda mode cetak soal ke body
+            document.body.classList.add("print-questions-mode");
+            
+            // Buka visibilitas semua halaman soal (page-1 s/d page-12) agar ikut ter-print
+            const pages = document.querySelectorAll(".question-page");
+            pages.forEach(page => page.classList.remove("hidden"));
+            
+            // Panggil perintah print bawaan browser
+            window.print();
+            
+            // Kembalikan status tampilan halaman soal ke kondisi semula
+            pages.forEach((page, index) => {
+                if (index + 1 !== currentPage) {
+                    page.classList.add("hidden");
+                }
+            });
+            
+            // Bersihkan class mode cetak soal dari body
+            document.body.classList.remove("print-questions-mode");
+        }
+    </script>
+</body>
+</html>
