@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Isian Biodata BK - SMAN 1 Cililin</title>
+    <style>
+        /* ==========================================================================
+           1. CORE & RESET STYLES
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           2. WEB FORM VIEW STYLES (Hanya Tampil di Layar / Screen)
+           ========================================================================== */
+        @media screen {
+            .app-container {
+                max-width: 900px;
+                margin: 30px auto;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+
+            .app-header {
+                background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+                color: #ffffff;
+                padding: 30px;
+                text-align: center;
+                border-bottom: 4px solid #f59e0b;
+            }
+
+            .app-header h1 {
+                font-size: 20px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 5px;
+            }
+
+            .app-header p {
+                font-size: 14px;
+                opacity: 0.9;
+            }
+
+            .form-body {
+                padding: 30px;
+            }
+
+            .form-section {
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+
+            .form-section-title {
+                font-size: 15px;
+                font-weight: bold;
+                color: #1e3a8a;
+                border-bottom: 2px solid #cbd5e1;
+                padding-bottom: 8px;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+            }
+
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            .grid-3 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group.full-width {
+                grid-column: span 2;
+            }
+
+            label {
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                color: #475569;
+                margin-bottom: 5px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="tel"],
+            input[type="date"],
+            select,
+            textarea {
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #cbd5e1;
+                border-radius: 6px;
+                font-size: 14px;
+                color: #0f172a;
+                background-color: #ffffff;
+                transition: all 0.2s;
+                outline: none;
+            }
+
+            input:focus, select:focus, textarea:focus {
+                border-color: #1e3a8a;
+                box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+            }
+
+            textarea {
+                resize: vertical;
+                height: 70px;
+            }
+
+            /* Custom Radio & Checkbox on Screen */
+            .options-group {
+                display: flex;
+                gap: 15px;
+                flex-wrap: wrap;
+                padding-top: 5px;
+            }
+
+            .option-item {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+
+            .option-item input {
+                margin-right: 6px;
+                width: 16px;
+                height: 16px;
+                cursor: pointer;
+            }
+
+            /* Photo Upload Screen */
+            .photo-upload-container {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                background: #f1f5f9;
+                padding: 15px;
+                border-radius: 8px;
+                border: 2px dashed #cbd5e1;
+            }
+
+            .screen-photo-preview {
+                width: 75px;
+                height: 100px;
+                border: 1px solid #94a3b8;
+                background-color: #cbd5e1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                color: #64748b;
+                overflow: hidden;
+                border-radius: 4px;
+            }
+
+            .screen-photo-preview img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* Interactive Parent Table */
+            .input-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 15px;
+            }
+
+            .input-table th {
+                background-color: #e2e8f0;
+                color: #1e293b;
+                font-size: 12px;
+                padding: 8px;
+                border: 1px solid #cbd5e1;
+            }
+
+            .input-table td {
+                padding: 6px;
+                border: 1px solid #cbd5e1;
+            }
+
+            .input-table input {
+                width: 100%;
+                border: none;
+                padding: 6px;
+                outline: none;
+                font-size: 13px;
+            }
+
+            .input-table input:focus {
+                background-color: #f0fdf4;
+            }
+
+            /* Action Buttons */
+            .actions-bar {
+                text-align: center;
+                padding: 20px 30px 40px 30px;
+                border-top: 1px solid #e2e8f0;
+            }
+
+            .btn-print {
+                background-color: #10b981;
+                color: #ffffff;
+                font-size: 16px;
+                font-weight: bold;
+                border: none;
+                padding: 12px 30px;
+                border-radius: 8px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+                transition: all 0.2s;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .btn-print:hover {
+                background-color: #059669;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 10px -1px rgba(16, 185, 129, 0.4);
+            }
+
+            #print-area {
+                display: none; /* Sembunyikan cetakan di layar */
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+
+        /* ==========================================================================
+           3. PRINT VIEW STYLES (Hanya Aktif saat di-print / Save PDF)
+           ========================================================================== */
+        @media print {
+            /* Sembunyikan elemen input screen */
+            body {
+                background-color: #ffffff;
+                color: #1e293b;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .app-container, .no-print {
+                display: none !important;
+            }
+
+            #print-area {
+                display: block !important;
+                width: 100%;
+                font-size: 8.5pt;
+                line-height: 1.35;
+            }
+
+            /* Kop Surat Resmi SMAN 1 Cililin */
+            .header-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 5px;
+            }
+            
+            /* SINKRONISASI KOLOM KOP */
+            .photo-cell-left {
+                width: 80px;
+                text-align: left;
+                vertical-align: middle;
+            }
+
+            .text-cell {
+                vertical-align: middle;
+                text-align: center;
+                padding: 0 10px;
+            }
+            
+            .logo-cell-right {
+                width: 80px;
+                text-align: right;
+                vertical-align: middle;
+            }
+            
+            .kop-sekolah {
+                font-size: 13pt;
+                font-weight: bold;
+                color: #0f172a;
+                text-transform: uppercase;
+                margin: 2px 0;
+                letter-spacing: 0.5px;
+            }
+            
+            .kop-sub {
+                font-size: 8pt;
+                font-weight: bold;
+                color: #475569;
+                margin-bottom: 2px;
+            }
+            
+            .kop-alamat {
+                font-size: 7.5pt;
+                color: #64748b;
+                font-style: italic;
+            }
+            
+            .kop-divider {
+                border-top: 1.5px solid #0f172a;
+                border-bottom: 0.5px solid #0f172a;
+                height: 3px;
+                margin-top: 3px;
+                margin-bottom: 8px;
+            }
+            
+            /* Judul Formulir */
+            .doc-title-container {
+                text-align: center;
+                margin-bottom: 8px;
+            }
+            
+            .doc-title {
+                font-size: 11pt;
+                font-weight: bold;
+                color: #1e3a8a;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            
+            .doc-subtitle {
+                font-size: 9pt;
+                font-weight: bold;
+                color: #475569;
+                margin-top: 1px;
+            }
+
+            /* Kotak Foto */
+            .photo-box {
+                width: 2cm;
+                height: 3cm;
+                border: 1.5px dashed #94a3b8;
+                background-color: #f8fafc;
+                display: inline-block;
+                text-align: center;
+                position: relative;
+                border-radius: 3px;
+                overflow: hidden;
+            }
+            
+            .photo-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            
+            .photo-inner {
+                padding-top: 8px;
+                font-size: 7pt;
+                color: #64748b;
+                font-weight: bold;
+            }
+            
+            .photo-silhouette {
+                width: 32px;
+                height: 32px;
+                background: #cbd5e1;
+                border-radius: 50% 50% 0 0;
+                margin: 10px auto 4px auto;
+                position: relative;
+            }
+            
+            .photo-silhouette::before {
+                content: '';
+                width: 16px;
+                height: 16px;
+                background: #cbd5e1;
+                border-radius: 50%;
+                position: absolute;
+                top: -18px;
+                left: 8px;
+            }
+
+            /* Kotak Logo SMAN (Mengimbangi Ukuran Foto) */
+            .logo-box-print {
+                width: 2cm;
+                height: 3cm;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 3px;
+            }
+
+            .logo-box-print img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+                display: block;
+            }
+
+            /* Judul Bagian / Section */
+            .section-title {
+                background-color: #1e3a8a !important;
+                color: #ffffff !important;
+                font-size: 8.5pt;
+                font-weight: bold;
+                padding: 3px 8px;
+                margin-top: 6px;
+                margin-bottom: 4px;
+                text-transform: uppercase;
+                border-radius: 2px;
+                letter-spacing: 0.5px;
+            }
+
+            /* Tabel Informasi */
+            .form-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 2px;
+            }
+            
+            .form-table td {
+                padding: 2px 4px;
+                vertical-align: middle;
+            }
+            
+            /* Lebar Kolom Standar */
+            .w-label-1 { width: 16%; font-weight: bold; color: #334155; }
+            .w-colon-1 { width: 1.5%; text-align: center; color: #475569; }
+            .w-value-1 { width: 32.5%; }
+            
+            .w-label-2 { width: 16%; font-weight: bold; color: #334155; padding-left: 10px; }
+            .w-colon-2 { width: 1.5%; text-align: center; color: #475569; }
+            .w-value-2 { width: 32.5%; }
+            .w-value-full { width: 82.5%; }
+
+            /* Style untuk teks isian */
+            .filled-text {
+                font-weight: bold;
+                color: #0f172a;
+                border-bottom: 1px dotted #64748b;
+                padding-bottom: 1px;
+                display: inline-block;
+                width: 100%;
+                min-height: 13px;
+            }
+
+            /* Styling Checkbox */
+            .cb-group {
+                display: inline-block;
+            }
+            
+            .cb-item {
+                display: inline-block;
+                margin-right: 10px;
+                white-space: nowrap;
+            }
+            
+            .cb-symbol {
+                font-size: 10pt;
+                font-weight: bold;
+                margin-right: 3px;
+                vertical-align: middle;
+            }
+            
+            .cb-checked {
+                color: #1e3a8a !important;
+            }
+            
+            .cb-unchecked {
+                color: #cbd5e1 !important;
+            }
+            
+            .cb-label {
+                font-size: 8.5pt;
+                vertical-align: middle;
+            }
+            
+            .cb-label.checked {
+                font-weight: bold;
+                color: #0f172a;
+            }
+            
+            .cb-label.unchecked {
+                color: #64748b;
+            }
+
+            /* Tabel Orang Tua */
+            .parent-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 3px;
+                margin-bottom: 4px;
+            }
+            
+            .parent-table th {
+                background-color: #f1f5f9 !important;
+                color: #1e3a8a !important;
+                border: 1.2px solid #cbd5e1;
+                font-weight: bold;
+                font-size: 8pt;
+                padding: 3px 5px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+            
+            .parent-table td {
+                border: 1.2px solid #cbd5e1;
+                padding: 3px 5px;
+                font-size: 8.5pt;
+            }
+            
+            .parent-table tr.row-filled td {
+                font-weight: bold;
+                color: #0f172a;
+            }
+            
+            .relation-col {
+                font-weight: bold !important;
+                color: #1e3a8a !important;
+                background-color: #f8fafc !important;
+                text-align: center;
+                width: 12%;
+            }
+
+            /* Desain Kotak Keterangan Masalah */
+            .ket-masalah-box {
+                width: 100%;
+                min-height: 55px;
+                border: 1.2px solid #cbd5e1;
+                border-radius: 4px;
+                padding: 6px 10px;
+                font-size: 8.5pt;
+                line-height: 1.4;
+                margin-top: 3px;
+                margin-bottom: 8px;
+                word-wrap: break-word;
+                white-space: normal;
+                text-align: justify;
+                color: #0f172a;
+                font-weight: normal;
+            }
+
+            /* Penutup & Tanda Tangan */
+            .closing-statement {
+                font-size: 8pt;
+                font-style: italic;
+                color: #475569;
+                margin-top: 6px;
+                margin-bottom: 8px;
+                text-align: left;
+            }
+            
+            .sig-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 4px;
+            }
+            
+            .sig-table td {
+                width: 50%;
+                text-align: center;
+                font-size: 8.5pt;
+                vertical-align: top;
+            }
+            
+            .sig-space {
+                height: 35px;
+            }
+            
+            .sig-name {
+                font-weight: bold;
+                text-decoration: underline;
+                color: #0f172a;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+       TAMPILAN INTERAKTIF: WEB FORM (Hanya Muncul Di Layar Browser)
+       ========================================================================== -->
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Formulir Isian Biodata BK Online</h1>
+            <p>SMA Negeri 1 Cililin - Silakan lengkapi data Anda di bawah ini secara benar</p>
+        </div>
+
+        <form id="bkWebForm" class="form-body" onsubmit="event.preventDefault();">
+            
+            <!-- SEKSI 0: UPLOAD FOTO & DATA POKOK -->
+            <div class="form-section">
+                <div class="form-section-title">Foto Siswa (Ukuran 2x3 atau 3x4)</div>
+                <div class="photo-upload-container">
+                    <div class="screen-photo-preview" id="scrPhotoBox">
+                        <span id="scrPhotoPlaceholder">Belum Ada Foto</span>
+                    </div>
+                    <div>
+                        <label for="scrPhotoInput" style="background: #1e3a8a; color: white; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; display: inline-block;">Pilih File Foto</label>
+                        <input type="file" id="scrPhotoInput" accept="image/*" style="display: none;">
+                        <p style="font-size: 11px; color: #64748b; margin-top: 5px;">Format file gambar (JPG/PNG), disarankan pasfoto resmi sekolah.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKSI A: DATA DIRI SISWA -->
+            <div class="form-section">
+                <div class="form-section-title">A. Data Diri Siswa</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="in_nama" placeholder="Contoh: Rian Hidayat" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kelas</label>
+                        <input type="text" id="in_kelas" placeholder="Contoh: X MIPA 1" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>NIS / NISN</label>
+                        <input type="text" id="in_nisn" placeholder="Contoh: 262710145 / 0098765432" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jenis Kelamin</label>
+                        <div class="options-group">
+                            <label class="option-item">
+                                <input type="radio" name="in_jk" value="Laki-laki" checked> Laki-laki
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="in_jk" value="Perempuan"> Perempuan
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Tempat Lahir</label>
+                        <input type="text" id="in_tempat_lahir" placeholder="Contoh: Bandung" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Lahir</label>
+                        <input type="date" id="in_tgl_lahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Usia (Tahun)</label>
+                        <input type="number" id="in_usia" placeholder="Ketik atau terisi otomatis" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Agama</label>
+                        <select id="in_agama">
+                            <option value="Islam">Islam</option>
+                            <option value="Kristen">Kristen</option>
+                            <option value="Katolik">Katolik</option>
+                            <option value="Hindu">Hindu</option>
+                            <option value="Budha">Budha</option>
+                            <option value="Khonghucu">Khonghucu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>No. HP / WhatsApp Siswa</label>
+                        <input type="tel" id="in_hp_siswa" placeholder="Contoh: 0812-3456-7890" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alamat Tinggal Lengkap</label>
+                    <textarea id="in_alamat" placeholder="Ketik alamat lengkap Anda..." required></textarea>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Anak Ke- (Angka)</label>
+                        <input type="number" id="in_anak_ke" placeholder="Contoh: 2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Dari Bersaudara (Jumlah)</label>
+                        <input type="number" id="in_saudara" placeholder="Contoh: 3" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKSI B: DATA ORANG TUA / WALI -->
+            <div class="form-section">
+                <div class="form-section-title">B. Data Orang Tua / Wali</div>
+                
+                <table class="input-table">
+                    <thead>
+                        <tr>
+                            <th>Hubungan</th>
+                            <th>Nama Lengkap</th>
+                            <th>Pekerjaan</th>
+                            <th>Pendidikan</th>
+                            <th>No. HP / WA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: bold; background: #f8fafc; text-align: center;">Ayah</td>
+                            <td><input type="text" id="in_ayah_nama" placeholder="Nama Ayah"></td>
+                            <td><input type="text" id="in_ayah_kerja" placeholder="Pekerjaan"></td>
+                            <td><input type="text" id="in_ayah_pend" placeholder="Contoh: SMA / S1"></td>
+                            <td><input type="tel" id="in_ayah_hp" placeholder="No HP/WA"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; background: #f8fafc; text-align: center;">Ibu</td>
+                            <td><input type="text" id="in_ibu_nama" placeholder="Nama Ibu"></td>
+                            <td><input type="text" id="in_ibu_kerja" placeholder="Pekerjaan"></td>
+                            <td><input type="text" id="in_ibu_pend" placeholder="Contoh: SMA"></td>
+                            <td><input type="tel" id="in_ibu_hp" placeholder="No HP/WA"></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; background: #f8fafc; text-align: center;">Wali</td>
+                            <td><input type="text" id="in_wali_nama" placeholder="Diisi jika ada"></td>
+                            <td><input type="text" id="in_wali_kerja" placeholder="Pekerjaan wali"></td>
+                            <td><input type="text" id="in_wali_pend" placeholder="Pendidikan"></td>
+                            <td><input type="tel" id="in_wali_hp" placeholder="No HP/WA"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Status Orang Tua</label>
+                        <select id="in_status_ortu">
+                            <option value="Lengkap">Lengkap</option>
+                            <option value="Yatim">Yatim (Ayah Wafat)</option>
+                            <option value="Piatu">Piatu (Ibu Wafat)</option>
+                            <option value="Cerai">Yatim Piatu / Cerai</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Penghasilan Orang Tua Per Bulan</label>
+                        <select id="in_gaji_ortu">
+                            <option value="kurang">&lt; Rp 1.000.000</option>
+                            <option value="sedang">Rp 1.000.000 - Rp 3.000.000</option>
+                            <option value="tinggi">Rp 3.000.000 - Rp 5.000.000</option>
+                            <option value="sangat_tinggi">&gt; Rp 5.000.000</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKSI C: DATA PENDIDIKAN -->
+            <div class="form-section">
+                <div class="form-section-title">C. Data Pendidikan</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Asal SMP / MTs</label>
+                        <input type="text" id="in_asal_sekolah" placeholder="Contoh: SMP Negeri 1 Cililin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Jurusan / Minat yang Dipilih</label>
+                        <div class="options-group">
+                            <label class="option-item">
+                                <input type="radio" name="in_jurusan" value="IPA" checked> IPA
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="in_jurusan" value="IPS"> IPS
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="in_jurusan" value="Bahasa"> Bahasa
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Minat Akademik / Pelajaran Favorit</label>
+                        <input type="text" id="in_minat_akademik" placeholder="Contoh: Sains dan Teknologi" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ekstrakurikuler yang Diikuti</label>
+                        <input type="text" id="in_ekskul" placeholder="Contoh: Pramuka, Futsal" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Cita-cita</label>
+                        <input type="text" id="in_cita_cita" placeholder="Contoh: Arsitek / Dokter" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prestasi yang Pernah Diraih (Akademik/Non-Akademik)</label>
+                        <input type="text" id="in_prestasi" placeholder="Contoh: Juara 2 Futsal Tingkat Kecamatan atau Tulis '-'">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKSI D: DATA PENDUKUNG BK -->
+            <div class="form-section">
+                <div class="form-section-title">D. Data Pendukung BK</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Riwayat Kesehatan</label>
+                        <div class="options-group">
+                            <label class="option-item">
+                                <input type="radio" name="in_kesehatan" value="Sehat" checked id="in_kes_sehat"> Sehat Walafiat
+                            </label>
+                            <label class="option-item">
+                                <input type="radio" name="in_kesehatan" value="Sakit" id="in_kes_sakit"> Sakit
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Detail Sakit (Jika memilih sakit, sebutkan jenisnya)</label>
+                        <input type="text" id="in_sakit_detail" placeholder="Contoh: Asma, Maag kronis (atau tulis '-')" value="-">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Hobi / Kegemaran</label>
+                        <input type="text" id="in_hobi" placeholder="Contoh: Membaca, Bermain Bola" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Minat & Bakat Khusus</label>
+                        <input type="text" id="in_bakat" placeholder="Contoh: Desain Grafis, Olahraga" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Kelebihan Diri Anda</label>
+                        <input type="text" id="in_kelebihan" placeholder="Contoh: Disiplin, jujur, bertanggung jawab" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kekurangan Diri Anda</label>
+                        <input type="text" id="in_kekurangan" placeholder="Contoh: Kurang percaya diri bicara di depan umum" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Jenis Bantuan Pendidikan yang Diterima (Bisa pilih lebih dari satu)</label>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" id="in_bantuan_kip" value="KIP"> KIP</label>
+                            <label class="option-item"><input type="checkbox" id="in_bantuan_pkh" value="PKH"> PKH</label>
+                            <label class="option-item"><input type="checkbox" id="in_bantuan_kks" value="KKS"> KKS</label>
+                            <label class="option-item"><input type="checkbox" id="in_bantuan_tidak" value="Tidak" checked> Tidak Ada Bantuan</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Masalah yang sering Dihadapi</label>
+                        <div class="options-group">
+                            <label class="option-item"><input type="checkbox" id="in_masalah_belajar" value="Belajar"> Belajar</label>
+                            <label class="option-item"><input type="checkbox" id="in_masalah_keluarga" value="Keluarga"> Keluarga</label>
+                            <label class="option-item"><input type="checkbox" id="in_masalah_teman" value="Teman"> Hubungan Teman</label>
+                            <label class="option-item"><input type="checkbox" id="in_masalah_lain" value="Lainnya"> Masalah Lain</label>
+                        </div>
+                        <input type="text" id="in_masalah_lain_detail" placeholder="Detail masalah lain (Contoh: Manajemen waktu) atau tulis '-'" style="margin-top: 8px;">
+                    </div>
+                </div>
+
+                <!-- Input Khusus Tambahan: Keterangan Masalah (Layar Web) -->
+                <div class="form-group" style="margin-top: 15px;">
+                    <label>Keterangan Masalah (Penjelasan Lengkap/Detail)</label>
+                    <textarea id="in_ket_masalah" placeholder="Silakan tuliskan deskripsi lengkap dari permasalahan yang sering dihadapi siswa di sini..."></textarea>
+                </div>
+            </div>
+
+            <!-- TOMBOL AKSI UTAMA DI WEB -->
+            <div class="actions-bar">
+                <button type="button" class="btn-print" onclick="cetakFormulirBK()">
+                    🖨️ Cetak ke PDF / Print
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- ==========================================================================
+       TEMPLAT OUTPUT CETAK: DOKUMEN RESMI (Hanya Muncul Saat di-Print / Save PDF)
+       ========================================================================== -->
+    <div id="print-area">
+        
+        <!-- KOP SURAT (LETTERHEAD) -->
+        <table class="header-table">
+            <tr>
+                <!-- FOTO SISWA DI SEBELAH KIRI -->
+                <td class="photo-cell-left">
+                    <div class="photo-box">
+                        <div class="photo-inner" id="printPhotoBox">
+                            <div>FOTO</div>
+                            <div style="font-size: 6.5pt; color: #64748b; font-weight: normal; margin-top: 1px;">2 x 3</div>
+                            <div class="photo-silhouette"></div>
+                        </div>
+                    </div>
+                </td>
+                
+                <!-- IDENTITAS SEKOLAH DI TENGAH -->
+                <td class="text-cell">
+                    <div class="kop-sekolah">PEMERINTAH PROVINSI JAWA BARAT</div>
+                    <div class="kop-sekolah">Sekolah Menengah Atas Negeri 1 Cililin</div>
+                    <div class="kop-sub">Akreditasi A (Unggul) | NPSN: 20206146</div>
+                    <div class="kop-alamat">Jl. Radio Cililin, Kab. Bandung Barat, Jawa Barat, 40562</div>
+                </td>
+                
+                <!-- LOGO SEKOLAH DI SEBELAH KANAN (UKURAN DIPERBESAR SEUKURAN FOTO) -->
+                <td class="logo-cell-right">
+                    <div class="logo-box-print">
+                        <img src="https://adhensatriakertaaliyu.github.io/VirtualLabSource/smancil.png" alt="Logo SMAN 1 Cililin">
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div class="kop-divider"></div>
+
+        <!-- JUDUL DOKUMEN -->
+        <div class="doc-title-container">
+            <div class="doc-title">Biodata Siswa Untuk Bimbingan Konseling</div>
+            <div class="doc-subtitle">Tahun Ajaran 2026/2027</div>
+        </div>
+
+        <!-- OUT: BAGIAN A: DATA DIRI -->
+        <div class="section-title">A. Data Diri Siswa</div>
+        <table class="form-table">
+            <tr>
+                <td class="w-label-1">Nama Lengkap</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_nama"></span></td>
+                
+                <td class="w-label-2">Kelas</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_kelas"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">NIS / NISN</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_nisn"></span></td>
+                
+                <td class="w-label-2">Jenis Kelamin</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2">
+                    <div class="cb-group">
+                        <span class="cb-item">
+                            <span class="cb-symbol" id="pr_jk_l_sym">☐</span><span class="cb-label" id="pr_jk_l_lbl">Laki-laki</span>
+                        </span>
+                        <span class="cb-item">
+                            <span class="cb-symbol" id="pr_jk_p_sym">☐</span><span class="cb-label" id="pr_jk_p_lbl">Perempuan</span>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Tempat, Tgl Lahir</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_ttl"></span></td>
+                
+                <td class="w-label-2">Usia</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_usia"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Agama</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_agama"></span></td>
+                
+                <td class="w-label-2">No. HP / WA Siswa</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_hp_siswa"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Alamat Tinggal</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-full" colspan="4"><span class="filled-text" id="pr_alamat"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Status Anak</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-full" colspan="4">
+                    <span style="font-size: 8.5pt; color: #334155;">Anak ke- </span>
+                    <span class="filled-text" id="pr_anak_ke" style="width: 35px; display: inline-block; text-align: center; float: none;"></span>
+                    <span style="font-size: 8.5pt; color: #334155;"> dari </span>
+                    <span class="filled-text" id="pr_saudara" style="width: 35px; display: inline-block; text-align: center; float: none;"></span>
+                    <span style="font-size: 8.5pt; color: #334155;"> bersaudara</span>
+                </td>
+            </tr>
+        </table>
+
+        <!-- OUT: BAGIAN B: DATA ORANG TUA / WALI -->
+        <div class="section-title">B. Data Orang Tua / Wali</div>
+        <table class="parent-table">
+            <thead>
+                <tr>
+                    <th style="width: 12%;">Hubungan</th>
+                    <th style="width: 28%;">Nama Lengkap</th>
+                    <th style="width: 25%;">Pekerjaan</th>
+                    <th style="width: 15%;">Pendidikan</th>
+                    <th style="width: 20%;">No. HP / WA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="row-filled">
+                    <td class="relation-col">Ayah</td>
+                    <td><span id="pr_ayah_nama">-</span></td>
+                    <td><span id="pr_ayah_kerja">-</span></td>
+                    <td style="text-align: center;"><span id="pr_ayah_pend">-</span></td>
+                    <td style="text-align: center;"><span id="pr_ayah_hp">-</span></td>
+                </tr>
+                <tr class="row-filled">
+                    <td class="relation-col">Ibu</td>
+                    <td><span id="pr_ibu_nama">-</span></td>
+                    <td><span id="pr_ibu_kerja">-</span></td>
+                    <td style="text-align: center;"><span id="pr_ibu_pend">-</span></td>
+                    <td style="text-align: center;"><span id="pr_ibu_hp">-</span></td>
+                </tr>
+                <tr class="row-filled">
+                    <td class="relation-col">Wali</td>
+                    <td><span id="pr_wali_nama">-</span></td>
+                    <td><span id="pr_wali_kerja">-</span></td>
+                    <td style="text-align: center;"><span id="pr_wali_pend">-</span></td>
+                    <td style="text-align: center;"><span id="pr_wali_hp">-</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="form-table" style="margin-top: -2px;">
+            <tr>
+                <td style="width: 48%; padding: 2px 4px; vertical-align: top;">
+                    <span style="font-weight: bold; color: #334155; display: inline-block; margin-right: 5px;">Status Orang Tua:</span>
+                    <div class="cb-group" style="display: block; margin-top: 2px;">
+                        <span class="cb-item"><span class="cb-symbol" id="pr_status_lengkap_sym">☐</span><span class="cb-label" id="pr_status_lengkap_lbl">Lengkap</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_status_yatim_sym">☐</span><span class="cb-label" id="pr_status_yatim_lbl">Yatim</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_status_piatu_sym">☐</span><span class="cb-label" id="pr_status_piatu_lbl">Piatu</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_status_cerai_sym">☐</span><span class="cb-label" id="pr_status_cerai_lbl">Cerai</span></span>
+                    </div>
+                </td>
+                <td style="width: 52%; padding: 2px 4px; vertical-align: top; padding-left: 10px;">
+                    <span style="font-weight: bold; color: #334155; display: inline-block; margin-right: 5px;">Penghasilan Ortu/bln:</span>
+                    <div class="cb-group" style="display: block; margin-top: 2px;">
+                        <span class="cb-item" style="margin-bottom: 2px;"><span class="cb-symbol" id="pr_gaji_1_sym">☐</span><span class="cb-label" id="pr_gaji_1_lbl">&lt; Rp 1.000.000</span></span>
+                        <span class="cb-item" style="margin-bottom: 2px;"><span class="cb-symbol" id="pr_gaji_2_sym">☐</span><span class="cb-label" id="pr_gaji_2_lbl">Rp 1.000.000 - Rp 3.000.000</span></span><br>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_gaji_3_sym">☐</span><span class="cb-label" id="pr_gaji_3_lbl">Rp 3.000.000 - Rp 5.000.000</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_gaji_4_sym">☐</span><span class="cb-label" id="pr_gaji_4_lbl">&gt; Rp 5.000.000</span></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- OUT: BAGIAN C: DATA PENDIDIKAN -->
+        <div class="section-title">C. Data Pendidikan</div>
+        <table class="form-table">
+            <tr>
+                <td class="w-label-1">Asal SMP / MTs</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_asal_sekolah"></span></td>
+                
+                <td class="w-label-2">Jurusan / Minat</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2">
+                    <div class="cb-group">
+                        <span class="cb-item"><span class="cb-symbol" id="pr_jur_ipa_sym">☐</span><span class="cb-label" id="pr_jur_ipa_lbl">IPA</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_jur_ips_sym">☐</span><span class="cb-label" id="pr_jur_ips_lbl">IPS</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_jur_bahasa_sym">☐</span><span class="cb-label" id="pr_jur_bahasa_lbl">Bahasa</span></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Minat Akademik</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_minat_akademik"></span></td>
+                
+                <td class="w-label-2">Ekstrakurikuler</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_ekskul"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Cita-cita</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_cita_cita"></span></td>
+                
+                <td class="w-label-2">Prestasi Siswa</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_prestasi"></span></td>
+            </tr>
+        </table>
+
+        <!-- OUT: BAGIAN D: DATA PENDUKUNG BK -->
+        <div class="section-title">D. Data Pendukung BK</div>
+        <table class="form-table">
+            <tr>
+                <td class="w-label-1">Riwayat Kesehatan</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1">
+                    <div class="cb-group">
+                        <span class="cb-item"><span class="cb-symbol" id="pr_kes_sehat_sym">☐</span><span class="cb-label" id="pr_kes_sehat_lbl">Sehat</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_kes_sakit_sym">☐</span><span class="cb-label" id="pr_kes_sakit_lbl">Sakit: <span id="pr_sakit_detail" style="font-weight: bold; color: #0f172a;"></span></span></span>
+                    </div>
+                </td>
+                
+                <td class="w-label-2">Hobi</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2"><span class="filled-text" id="pr_hobi"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Minat & Bakat</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-1"><span class="filled-text" id="pr_bakat"></span></td>
+                
+                <td class="w-label-2">Penerima Bantuan</td>
+                <td class="w-colon-2">:</td>
+                <td class="w-value-2">
+                    <div class="cb-group">
+                        <span class="cb-item" style="margin-right: 6px;"><span class="cb-symbol" id="pr_ban_kip_sym">☐</span><span class="cb-label" id="pr_ban_kip_lbl">KIP</span></span>
+                        <span class="cb-item" style="margin-right: 6px;"><span class="cb-symbol" id="pr_ban_pkh_sym">☐</span><span class="cb-label" id="pr_ban_pkh_lbl">PKH</span></span>
+                        <span class="cb-item" style="margin-right: 6px;"><span class="cb-symbol" id="pr_ban_kks_sym">☐</span><span class="cb-label" id="pr_ban_kks_lbl">KKS</span></span>
+                        <span class="cb-item" style="margin-right: 0;"><span class="cb-symbol" id="pr_ban_tidak_sym">☐</span><span class="cb-label" id="pr_ban_tidak_lbl">Tidak</span></span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Kelebihan Diri</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-full" colspan="4"><span class="filled-text" id="pr_kelebihan"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Kekurangan Diri</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-full" colspan="4"><span class="filled-text" id="pr_kekurangan"></span></td>
+            </tr>
+            <tr>
+                <td class="w-label-1">Masalah yg Dihadapi</td>
+                <td class="w-colon-1">:</td>
+                <td class="w-value-full" colspan="4">
+                    <div class="cb-group">
+                        <span class="cb-item"><span class="cb-symbol" id="pr_mas_belajar_sym">☐</span><span class="cb-label" id="pr_mas_belajar_lbl">Belajar</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_mas_keluarga_sym">☐</span><span class="cb-label" id="pr_mas_keluarga_lbl">Keluarga</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_mas_teman_sym">☐</span><span class="cb-label" id="pr_mas_teman_lbl">Teman</span></span>
+                        <span class="cb-item"><span class="cb-symbol" id="pr_mas_lain_sym">☐</span><span class="cb-label" id="pr_mas_lain_lbl">Lainnya: <span id="pr_masalah_lain_detail" style="font-weight: bold; color: #0f172a;"></span></span></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- OUT: KOTAK KETERANGAN MASALAH (BERADA DI BAGIAN PALING BAWAH DATA) -->
+        <div class="section-title">Keterangan Masalah</div>
+        <div class="ket-masalah-box" id="pr_ket_masalah">
+            <!-- Teks isian keterangan masalah dari form akan masuk ke sini dan wrap otomatis -->
+        </div>
+
+        <!-- PERNYATAAN PENUTUP & TANDA TANGAN -->
+        <div class="closing-statement">
+            Demikian biodata ini saya isi dengan sebenar-benarnya sebagai bahan penunjang layanan Bimbingan Konseling di sekolah.
+        </div>
+
+        <table class="sig-table">
+            <tr>
+                <td>
+                    <div>Mengetahui,</div>
+                    <div style="margin-bottom: 2px;">Orang Tua / Wali</div>
+                    <div class="sig-space"></div>
+                    <div class="sig-name" id="pr_sig_ortu">(....................................)</div>
+                </td>
+                <td>
+                    <div id="pr_sig_date">Cililin, 15 Juli 2026</div>
+                    <div style="margin-bottom: 2px;">Siswa,</div>
+                    <div class="sig-space"></div>
+                    <div class="sig-name" id="pr_sig_siswa">( ........................................... )</div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <!-- ==========================================================================
+       4. JAVASCRIPT LOGIC (Sinkronisasi Form & Cetak Secara Cerdas)
+       ========================================================================== -->
+    <script>
+        // --- LOGIC 1: REALTIME PREVIEW UNTUK FOTO ---
+        const scrPhotoInput = document.getElementById('scrPhotoInput');
+        const scrPhotoBox = document.getElementById('scrPhotoBox');
+        const printPhotoBox = document.getElementById('printPhotoBox');
+
+        scrPhotoInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function() {
+                    // Update preview di form web layar
+                    scrPhotoBox.innerHTML = `<img src="${this.result}" alt="Foto Siswa">`;
+                    // Update preview di halaman print
+                    printPhotoBox.innerHTML = `<img src="${this.result}" alt="Foto Siswa">`;
+                });
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- LOGIC 2: KALKULATOR USIA OTOMATIS ---
+        const inTglLahir = document.getElementById('in_tgl_lahir');
+        const inUsia = document.getElementById('in_usia');
+
+        inTglLahir.addEventListener('change', function() {
+            if (this.value) {
+                const birthDate = new Date(this.value);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                inUsia.value = age;
+            }
+        });
+
+        // --- LOGIC 3: SINKRONISASI DATA INPUT KE OUTPUT CETAK PDF ---
+        function syncDataFormToCetak() {
+            // Helper fungsi format teks kosong/berisi
+            function setTxt(printId, val) {
+                document.getElementById(printId).innerText = val.trim() !== "" ? val : "-";
+            }
+
+            // A. Data Diri
+            setTxt('pr_nama', document.getElementById('in_nama').value);
+            setTxt('pr_kelas', document.getElementById('in_kelas').value);
+            setTxt('pr_nisn', document.getElementById('in_nisn').value);
+            setTxt('pr_hp_siswa', document.getElementById('in_hp_siswa').value);
+            setTxt('pr_alamat', document.getElementById('in_alamat').value);
+            setTxt('pr_anak_ke', document.getElementById('in_anak_ke').value);
+            setTxt('pr_saudara', document.getElementById('in_saudara').value);
+
+            // Jenis Kelamin Radio
+            const jkSelected = document.querySelector('input[name="in_jk"]:checked').value;
+            togglePrintCheckbox('pr_jk_l_sym', 'pr_jk_l_lbl', jkSelected === "Laki-laki");
+            togglePrintCheckbox('pr_jk_p_sym', 'pr_jk_p_lbl', jkSelected === "Perempuan");
+
+            // Tempat, Tanggal Lahir & Usia
+            const tglVal = document.getElementById('in_tgl_lahir').value;
+            let tglFormatted = "";
+            if (tglVal) {
+                const dateObj = new Date(tglVal);
+                tglFormatted = dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
+            const tempatLahir = document.getElementById('in_tempat_lahir').value;
+            const ttlGabung = tempatLahir && tglFormatted ? `${tempatLahir}, ${tglFormatted}` : (tempatLahir || tglFormatted || "-");
+            setTxt('pr_ttl', ttlGabung);
+
+            const usiaVal = document.getElementById('in_usia').value;
+            setTxt('pr_usia', usiaVal ? `${usiaVal} Tahun` : "");
+
+            // Agama
+            setTxt('pr_agama', document.getElementById('in_agama').value);
+
+            // B. Data Orang Tua (Tabel)
+            setTxt('pr_ayah_nama', document.getElementById('in_ayah_nama').value);
+            setTxt('pr_ayah_kerja', document.getElementById('in_ayah_kerja').value);
+            setTxt('pr_ayah_pend', document.getElementById('in_ayah_pend').value);
+            setTxt('pr_ayah_hp', document.getElementById('in_ayah_hp').value);
+
+            setTxt('pr_ibu_nama', document.getElementById('in_ibu_nama').value);
+            setTxt('pr_ibu_kerja', document.getElementById('in_ibu_kerja').value);
+            setTxt('pr_ibu_pend', document.getElementById('in_ibu_pend').value);
+            setTxt('pr_ibu_hp', document.getElementById('in_ibu_hp').value);
+
+            setTxt('pr_wali_nama', document.getElementById('in_wali_nama').value);
+            setTxt('pr_wali_kerja', document.getElementById('in_wali_kerja').value);
+            setTxt('pr_wali_pend', document.getElementById('in_wali_pend').value);
+            setTxt('pr_wali_hp', document.getElementById('in_wali_hp').value);
+
+            // Status Ortu Radio
+            const statusOrtu = document.getElementById('in_status_ortu').value;
+            togglePrintCheckbox('pr_status_lengkap_sym', 'pr_status_lengkap_lbl', statusOrtu === "Lengkap");
+            togglePrintCheckbox('pr_status_yatim_sym', 'pr_status_yatim_lbl', statusOrtu === "Yatim");
+            togglePrintCheckbox('pr_status_piatu_sym', 'pr_status_piatu_lbl', statusOrtu === "Piatu");
+            togglePrintCheckbox('pr_status_cerai_sym', 'pr_status_cerai_lbl', statusOrtu === "Cerai");
+
+            // Gaji Ortu Radio
+            const gajiOrtu = document.getElementById('in_gaji_ortu').value;
+            togglePrintCheckbox('pr_gaji_1_sym', 'pr_gaji_1_lbl', gajiOrtu === "kurang");
+            togglePrintCheckbox('pr_gaji_2_sym', 'pr_gaji_2_lbl', gajiOrtu === "sedang");
+            togglePrintCheckbox('pr_gaji_3_sym', 'pr_gaji_3_lbl', gajiOrtu === "tinggi");
+            togglePrintCheckbox('pr_gaji_4_sym', 'pr_gaji_4_lbl', gajiOrtu === "sangat_tinggi");
+
+            // C. Data Pendidikan
+            setTxt('pr_asal_sekolah', document.getElementById('in_asal_sekolah').value);
+            setTxt('pr_minat_akademik', document.getElementById('in_minat_akademik').value);
+            setTxt('pr_ekskul', document.getElementById('in_ekskul').value);
+            setTxt('pr_cita_cita', document.getElementById('in_cita_cita').value);
+            setTxt('pr_prestasi', document.getElementById('in_prestasi').value);
+
+            // Jurusan Radio
+            const jurSelected = document.querySelector('input[name="in_jurusan"]:checked').value;
+            togglePrintCheckbox('pr_jur_ipa_sym', 'pr_jur_ipa_lbl', jurSelected === "IPA");
+            togglePrintCheckbox('pr_jur_ips_sym', 'pr_jur_ips_lbl', jurSelected === "IPS");
+            togglePrintCheckbox('pr_jur_bahasa_sym', 'pr_jur_bahasa_lbl', jurSelected === "Bahasa");
+
+            // D. Data Pendukung BK
+            const kesSelected = document.querySelector('input[name="in_kesehatan"]:checked').value;
+            togglePrintCheckbox('pr_kes_sehat_sym', 'pr_kes_sehat_lbl', kesSelected === "Sehat");
+            togglePrintCheckbox('pr_kes_sakit_sym', 'pr_kes_sakit_lbl', kesSelected === "Sakit");
+            setTxt('pr_sakit_detail', document.getElementById('in_sakit_detail').value);
+
+            setTxt('pr_hobi', document.getElementById('in_hobi').value);
+            setTxt('pr_bakat', document.getElementById('in_bakat').value);
+            setTxt('pr_kelebihan', document.getElementById('in_kelebihan').value);
+            setTxt('pr_kekurangan', document.getElementById('in_kekurangan').value);
+
+            // Bantuan Checkboxes
+            togglePrintCheckbox('pr_ban_kip_sym', 'pr_ban_kip_lbl', document.getElementById('in_bantuan_kip').checked);
+            togglePrintCheckbox('pr_ban_pkh_sym', 'pr_ban_pkh_lbl', document.getElementById('in_bantuan_pkh').checked);
+            togglePrintCheckbox('pr_ban_kks_sym', 'pr_ban_kks_lbl', document.getElementById('in_bantuan_kks').checked);
+            togglePrintCheckbox('pr_ban_tidak_sym', 'pr_ban_tidak_lbl', document.getElementById('in_bantuan_tidak').checked);
+
+            // Masalah Checkboxes & Detail
+            togglePrintCheckbox('pr_mas_belajar_sym', 'pr_mas_belajar_lbl', document.getElementById('in_masalah_belajar').checked);
+            togglePrintCheckbox('pr_mas_keluarga_sym', 'pr_mas_keluarga_lbl', document.getElementById('in_masalah_keluarga').checked);
+            togglePrintCheckbox('pr_mas_teman_sym', 'pr_mas_teman_lbl', document.getElementById('in_masalah_teman').checked);
+            togglePrintCheckbox('pr_mas_lain_sym', 'pr_mas_lain_lbl', document.getElementById('in_masalah_lain').checked);
+            setTxt('pr_masalah_lain_detail', document.getElementById('in_masalah_lain_detail').value);
+
+            // Sinkronisasi Input "Keterangan Masalah" Baru
+            setTxt('pr_ket_masalah', document.getElementById('in_ket_masalah').value);
+
+            // Penandatanganan Autocomplete
+            const namaSiswa = document.getElementById('in_nama').value;
+            document.getElementById('pr_sig_siswa').innerText = namaSiswa ? `( ${namaSiswa} )` : "( ........................................... )";
+            
+            // Nama orang tua dikosongkan dan dibuat berformat (....................................)
+            document.getElementById('pr_sig_ortu').innerText = "(....................................)";
+
+            // Mengatur Tanggal Hari Ini Sesuai dengan Tempat Layanan (Cililin) saat mencetak formulir
+            const today = new Date();
+            const indoDate = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('pr_sig_date').innerText = `Cililin, ${indoDate}`;
+        }
+
+        // Helper fungsi penanda checkbox cetak
+        function togglePrintCheckbox(symId, lblId, isChecked) {
+            const sym = document.getElementById(symId);
+            const lbl = document.getElementById(lblId);
+            if (isChecked) {
+                sym.innerText = "☑";
+                sym.className = "cb-symbol cb-checked";
+                lbl.className = "cb-label checked";
+            } else {
+                sym.innerText = "☐";
+                sym.className = "cb-symbol cb-unchecked";
+                lbl.className = "cb-label unchecked";
+            }
+        }
+
+        // --- LOGIC 4: FUNGSI CETAK ---
+        function cetakFormulirBK() {
+            // Sinkronisasi data dari input form ke template PDF/Cetak sebelum memanggil print dialog
+            syncDataFormToCetak();
+            
+            // Panggil fungsi cetak browser bawaan
+            window.print();
+        }
+    </script>
+</body>
+</html>
