@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detektor Rahasia Gaya Belajar, DISC & Kecerdasan Majemuk 🕵️‍♂️✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --visual-color: #3b82f6;
+            --auditory-color: #10b981;
+            --kinesthetic-color: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Screen States */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Start Screen & Form Style */
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #4f46e5, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-desc {
+            text-align: center;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            background: #fff;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Quiz Screen */
+        .progress-container {
+            margin-bottom: 25px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .option-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #f5f3ff;
+            transform: translateX(4px);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: #e0e7ff;
+        }
+
+        .option-letter {
+            width: 32px;
+            height: 32px;
+            background: #fff;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option-card.selected .option-letter {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .option-text {
+            font-size: 1rem;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: var(--text-main);
+            box-shadow: none;
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: none;
+        }
+
+        /* Result Screen & Profile Display */
+        .result-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .user-profile-card {
+            background: #f3f4f6;
+            border: 1px dashed #d1d5db;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        .profile-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-item.full-width {
+            grid-column: span 2;
+        }
+
+        .profile-label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-value {
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        .breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .breakdown-item {
+            background: #f9fafb;
+            border-radius: 14px;
+            padding: 12px 18px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .breakdown-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .breakdown-bar {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .breakdown-fill {
+            height: 100%;
+            border-radius: 999px;
+            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .result-desc-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .result-type-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 99px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        /* DISC Custom Style */
+        .disc-card {
+            background: #f9fafb;
+            border-radius: 14px;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .disc-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .disc-badge {
+            padding: 4px 12px;
+            border-radius: 99px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .star-rating {
+            font-size: 1.25rem;
+            color: #f59e0b;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .star-rating .empty {
+            color: #d1d5db;
+        }
+
+        .disc-explanation {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .button-group-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button-group-horizontal {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .user-profile-card {
+                grid-template-columns: 1fr;
+            }
+            .profile-item.full-width {
+                grid-column: span 1;
+            }
+            .button-group-horizontal {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HALAMAN LOG IN -->
+    <div id="login-screen" class="screen active">
+        <!-- Logo sekolah dan MGMP telah dihilangkan -->
+        <h1 class="welcome-title" style="margin-top: 20px;">Gerbang Akses Sistem</h1>
+        <p class="welcome-desc">Silakan masukkan kata sandi yang valid untuk memulai program deteksi instrumen mandiri.</p>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="login-password">Kata Sandi (Password)</label>
+                <input type="password" id="login-password" class="form-input" placeholder="Masukkan kata sandi..." onkeydown="if(event.key === 'Enter') submitLogin()">
+                <span id="login-error-msg" style="color: #ef4444; font-size: 0.8rem; font-weight: 700; display: none; margin-top: 5px;">⚠️ Kata sandi salah! Coba lagi.</span>
+            </div>
+        </div>
+
+        <button class="btn" onclick="submitLogin()">Masuk Ke Sistem</button>
+
+        <div style="text-align: right; margin-top: 40px; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.3px;">
+            dibuat oleh Adhen Satria
+        </div>
+    </div>
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 10px;">🕵️‍♂️</div>
+        <h1 class="welcome-title">Petualangan Mencari Gaya Belajarku</h1>
+        <p class="welcome-desc">
+            Yuk, isi identitasmu dan jawab skenario seru di bawah ini untuk mendeteksi cara otakmu menyerap informasi dan potensi kecerdasan terbaikmu!
+        </p>
+
+        <!-- Form Identitas Tambahan -->
+        <div class="form-container">
+            <div class="form-group">
+                <label for="input-nama">Nama Lengkap</label>
+                <input type="text" id="input-nama" class="form-input" placeholder="Masukkan Nama Lengkapmu" required>
+            </div>
+            <div class="form-group">
+                <label for="input-kelas">Kelas</label>
+                <input type="text" id="input-kelas" class="form-input" placeholder="Contoh: X-1 / XI IPA 1 / XII IPA 1" required>
+            </div>
+            <div class="form-group">
+                <label for="input-tahun">Tahun</label>
+                <input type="number" id="input-tahun" class="form-input" placeholder="Contoh: 2026" required>
+            </div>
+            <div class="form-group">
+                <label for="input-kontak">No. Kontak (WhatsApp)</label>
+                <input type="tel" id="input-kontak" class="form-input" placeholder="Contoh: 08XXXXXXXXXX" required>
+            </div>
+            <div class="form-group">
+                <label for="input-smp">Asal Sekolah SMP</label>
+                <input type="text" id="input-smp" class="form-input" placeholder="Contoh: SMP Negeri 1 Cililin" required>
+            </div>
+        </div>
+
+        <button class="btn" onclick="startQuiz('gaya-belajar')">Mulai Petualangan</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="screen">
+        <div class="progress-container">
+            <div class="progress-header">
+                <span id="question-number">Pertanyaan 1 dari 30</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+        </div>
+
+        <h2 id="question-text" class="question-text">Memuat pertanyaan...</h2>
+
+        <div id="options-list" class="options-list">
+            <!-- Diisi secara dinamis oleh JavaScript -->
+        </div>
+
+        <div class="navigation">
+            <button id="btn-back" class="btn btn-secondary" onclick="prevQuestion()" style="display: none;">Kembali</button>
+            <button id="btn-next" class="btn" onclick="nextQuestion()" disabled>Lanjut</button>
+        </div>
+    </div>
+
+    <!-- STYLE BELAJAR RESULT SCREEN -->
+    <div id="result-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 5px;">🎉</div>
+        <h1 class="result-title">Hasil Deteksi Gaya Belajarmu!</h1>
+
+        <!-- Tampilan Hasil Input Identitas (Satu Layar) -->
+        <div class="user-profile-card">
+            <div class="profile-item full-width">
+                <span class="profile-label">Nama Lengkap</span>
+                <span class="profile-value" id="res-nama">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Kelas</span>
+                <span class="profile-value" id="res-kelas">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Tahun</span>
+                <span class="profile-value" id="res-tahun">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">No. Kontak (WA)</span>
+                <span class="profile-value" id="res-kontak">-</span>
+            </div>
+            <div class="profile-item">
+                <span class="profile-label">Asal Sekolah SMP</span>
+                <span class="profile-value" id="res-smp">-</span>
+            </div>
+        </div>
+
+        <div class="breakdown">
+            <div class="breakdown-item">
+                <div class="breakdown-info">
+                    <span>👀 Visual (Pengamat)</span>
+                    <span id="v-pct">0%</span>
+                </div>
+                <div class="breakdown-bar">
+                    <div id="v-bar" class="breakdown-fill" style="background: var(--visual-color);"></div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <div class="breakdown-info">
+                    <span>👂 Auditori (Pendengar)</span>
+                    <span id="a-pct">0%</span>
+                </div>
+                <div class="breakdown-bar">
+                    <div id="a-bar" class="breakdown-fill" style="background: var(--auditory-color);"></div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <div class="breakdown-info">
+                    <span>💪 Kinestetik (Praktisi)</span>
+                    <span id="k-pct">0%</span>
+                </div>
+                <div class="breakdown-bar">
+                    <div id="k-bar" class="breakdown-fill" style="background: var(--kinesthetic-color);"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-desc-card">
+            <span id="result-badge" class="result-type-badge">Tipe Gaya Belajar</span>
+            <p id="result-explanation">Memuat penjelasan...</p>
+        </div>
+
+        <div class="button-group-vertical">
+            <button class="btn" style="background: #10b981; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);" onclick="startQuiz('disc')">Lanjutkan: Tes Kepribadian (DISC) 🚀</button>
+            <button class="btn btn-secondary" onclick="goToStartScreen()">Coba Ulang Gaya Belajar 🔄</button>
+        </div>
+    </div>
+
+    <!-- DISC RESULT SCREEN -->
+    <div id="disc-result-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 5px;">🧬</div>
+        <h1 class="result-title">Hasil Analisis Kepribadian DISC</h1>
+
+        <!-- Tampilan Identitas Profil yang Tetap Konsisten -->
+        <div class="user-profile-card" id="disc-profile-card">
+            <!-- Diisi secara dinamis melalui JavaScript -->
+        </div>
+
+        <div class="breakdown">
+            <!-- Dominance (D) Card -->
+            <div class="disc-card" style="border-left: 5px solid #ef4444;">
+                <div class="disc-card-header">
+                    <span class="disc-badge" style="background: #ef4444;">Dominance (D)</span>
+                    <span class="star-rating" id="d-stars">-</span>
+                </div>
+                <div class="disc-explanation">
+                    <strong>Karakter Utama:</strong> Fokus pada hasil, berani ambil risiko, tegas, kompetitif, dan menyukai tantangan baru.
+                </div>
+            </div>
+
+            <!-- Influence (I) Card -->
+            <div class="disc-card" style="border-left: 5px solid #f59e0b;">
+                <div class="disc-card-header">
+                    <span class="disc-badge" style="background: #f59e0b; color: #1f2937;">Influence (I)</span>
+                    <span class="star-rating" id="i-stars">-</span>
+                </div>
+                <div class="disc-explanation">
+                    <strong>Karakter Utama:</strong> Sangat ramah, persuasif, penuh antusiasme, suka bersosialisasi, dan membawa aura positif.
+                </div>
+            </div>
+
+            <!-- Steadiness (S) Card -->
+            <div class="disc-card" style="border-left: 5px solid #10b981;">
+                <div class="disc-card-header">
+                    <span class="disc-badge" style="background: #10b981;">Steadiness (S)</span>
+                    <span class="star-rating" id="s-stars">-</span>
+                </div>
+                <div class="disc-explanation">
+                    <strong>Karakter Utama:</strong> Sabar, loyal, kooperatif, pendengar yang baik, menyukai kedamaian dan kestabilan.
+                </div>
+            </div>
+
+            <!-- Compliance (C) Card -->
+            <div class="disc-card" style="border-left: 5px solid #3b82f6;">
+                <div class="disc-card-header">
+                    <span class="disc-badge" style="background: #3b82f6;">Compliance (C)</span>
+                    <span class="star-rating" id="c-stars">-</span>
+                </div>
+                <div class="disc-explanation">
+                    <strong>Karakter Utama:</strong> Analitis, teliti, logis, sistematis, disiplin, dan mengutamakan kualitas kerja yang tinggi.
+                </div>
+            </div>
+        </div>
+
+        <div class="result-desc-card">
+            <span id="disc-badge-dominant" class="result-type-badge" style="background: var(--primary);">Tipe Dominan Anda</span>
+            <p id="disc-explanation-dominant">Memuat penjelasan detail kepribadian...</p>
+        </div>
+
+        <div class="button-group-vertical">
+            <button class="btn" style="background: #4f46e5; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);" onclick="startQuiz('kecerdasan')">Lanjutkan: Tes Kemampuanku (Kecerdasan Majemuk) 🧠🚀</button>
+            <div class="button-group-horizontal">
+                <button class="btn btn-secondary" style="flex: 1;" onclick="goToStartScreen()">Kembali ke Beranda</button>
+                <button class="btn btn-secondary" style="flex: 1;" onclick="startQuiz('disc')">Coba Lagi Tes DISC</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KECERDASAN MAJEMUK RESULT SCREEN -->
+    <div id="intel-result-screen" class="screen">
+        <div style="text-align: center; font-size: 3.5rem; margin-bottom: 5px;">🧠</div>
+        <h1 class="result-title">Hasil Analisis Kecerdasan Majemuk</h1>
+
+        <!-- Tampilan Identitas Profil yang Tetap Konsisten -->
+        <div class="user-profile-card" id="intel-profile-card">
+            <!-- Diisi secara dinamis melalui JavaScript -->
+        </div>
+
+        <div class="breakdown" id="intel-cards-container">
+            <!-- Kartu hasil kecerdasan 1-8 akan diisi dinamis via JS -->
+        </div>
+
+        <div class="result-desc-card">
+            <span id="intel-badge-dominant" class="result-type-badge" style="background: var(--primary);">Kecerdasan Dominan</span>
+            <p id="intel-explanation-dominant">Memuat penjelasan detail kecerdasan...</p>
+        </div>
+
+        <div class="button-group-vertical">
+            <button class="btn" style="background: #ef4444; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);" onclick="downloadPDFReport()">Unduh Hasil Lengkap 3 Tes (PDF) 📄</button>
+            <button class="btn btn-secondary" onclick="goToStartScreen()">Kembali ke Beranda Awal 🔄</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Sistem Login Validasi - Password telah diubah menjadi 'siswa'
+    function submitLogin() {
+        const passwordInput = document.getElementById('login-password').value;
+        const errorMsg = document.getElementById('login-error-msg');
+        
+        if (passwordInput === 'siswa') {
+            errorMsg.style.display = 'none';
+            showScreen('start-screen');
+        } else {
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    function goToStartScreen() {
+        showScreen('start-screen');
+    }
+
+    // Database Soal Kuis Gaya Belajar (30 Soal)
+    const learningStyleQuestions = [
+        {
+            text: "Kamu baru saja membeli set LEGO atau furnitur rakitan yang cukup rumit. Apa langkah pertamamu?",
+            options: [
+                { text: "Membuka buku panduan dan melihat gambar diagramnya baik-baik.", type: "V" },
+                { text: "Mencari video tutorial di YouTube untuk mendengarkan tips rahasianya.", type: "A" },
+                { text: "Langsung bongkar kotaknya dan coba-coba pasang sendiri. Bagaimana nanti saja!", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu tersesat di sebuah mal baru yang sangat besar. Apa yang kamu lakukan?",
+            options: [
+                { text: "Mencari papan peta mal digital dan melihat posisi 'You Are Here'.", type: "V" },
+                { text: "Bertanya langsung ke satpam atau customer service terdekat.", type: "A" },
+                { text: "Jalan terus saja mengikuti insting sampai menemukan jalan keluar yang familier.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu mau mencoba resep makanan viral yang lagi hits. Gaya memasakmu seperti apa?",
+            options: [
+                { text: "Melihat foto atau video estetis hasil akhir masakannya sebagai target.", type: "V" },
+                { text: "Mendengarkan penjelasan chef di video langkah demi langkah.", type: "A" },
+                { text: "Langsung cemplungin bahan, cicipi rasanya, lalu disesuaikan di tempat.", type: "K" }
+            ]
+        },
+        {
+            text: "Seorang agen rahasia memberikan kode sandi penting kepadamu. Bagaimana cara terbaikmu mengingatnya?",
+            options: [
+                { text: "Membayangkan tulisan angka/huruf tersebut di dalam kepala.", type: "V" },
+                { text: "Mengucapkan kode itu berulang kali dengan berbisik.", type: "A" },
+                { text: "Mengetik atau menulis kode itu berkali-kali di jarimu sendiri.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu sedang belajar gerakan dance baru atau kontrol game baru. Cara tercepatmu adalah...",
+            options: [
+                { text: "Memperhatikan dengan detail gerakan kaki instruktur atau tombol di layar.", type: "V" },
+                { text: "Menghitung ritme ketukan musiknya atau mendengarkan aba-aba teman.", type: "A" },
+                { text: "Langsung menggerakkan tubuh/tangan sampai memorinya melekat di ototmu.", type: "K" }
+            ]
+        },
+        {
+            text: "Saat mengingat kembali pesta ulang tahun terbaikmu, apa yang paling membekas?",
+            options: [
+                { text: "Warna dekorasi, kue yang indah, and wajah teman-teman yang datang.", type: "V" },
+                { text: "Lagu-lagu yang diputar, suara tawa, and obrolan seru malam itu.", type: "A" },
+                { text: "Serunya games yang dimainkan and capeknya saking asyik menari/berlari.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu terpaksa harus mengantre sangat panjang selama satu jam. Apa yang biasanya kamu lakukan?",
+            options: [
+                { text: "People-watching (melihat-lihat baju orang atau desain sekitar) atau scrolling media sosial.", type: "V" },
+                { text: "Mendengarkan musik, podcast, atau mengobrol dengan orang di sebelahmu.", type: "A" },
+                { text: "Menggerak-gerakkan kaki, gelisah, atau bolak-balik mengubah posisi berdiri.", type: "K" }
+            ]
+        },
+        {
+            text: "Bagian apa dari sebuah film bioskop yang paling bisa membuatmu kagum?",
+            options: [
+                { text: "Efek visual yang megah, sinematografi, dan kostum karakternya.", type: "V" },
+                { text: "Dialognya yang mendalam, efek suara, and soundtrack yang merinding.", type: "A" },
+                { text: "Adegan aksi yang menegangkan sampai membuat jantungmu ikut berdebar.", type: "K" }
+            ]
+        },
+        {
+            text: "Besok ada ujian atau presentasi penting kerjaan. Malam ini kamu ngapain?",
+            options: [
+                { text: "Membuat peta pikiran (mind map) berwarna-warni atau membaca rangkuman.", type: "V" },
+                { text: "Menjelaskan materi tersebut keras-keras kepada hewan peliharaan atau cermin.", type: "A" },
+                { text: "Berjalan mondar-mandir di kamar sambil memegang catatan.", type: "K" }
+            ]
+        },
+        {
+            text: "Di dalam kelas atau ruang rapat, kursi mana yang paling kamu incar?",
+            options: [
+                { text: "Di barisan depan agar bisa melihat papan tulis atau proyektor dengan jelas.", type: "V" },
+                { text: "Di dekat pembicara agar bisa mendengar suaranya tanpa terganggu.", type: "A" },
+                { text: "Di dekat pintu atau lorong agar mudah bergerak atau keluar-masuk.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu sedang mengunjungi museum seni purbakala. Apa yang paling menarik perhatianmu?",
+            options: [
+                { text: "Lukisan dan replika pajangan yang estetik.", type: "V" },
+                { text: "Layanan audio guide (headset) yang menceritakan sejarah barang tersebut.", type: "A" },
+                { text: "Stand interaktif yang memperbolehkan kita menyentuh atau mencoba alat replikanya.", type: "K" }
+            ]
+        },
+        {
+            text: "Ada barang elektronik di rumahmu yang mendadak mogok kerja. Tindakanmu?",
+            options: [
+                { text: "Mencari buku manual untuk melihat diagram kerusakannya.", type: "V" },
+                { text: "Menelepon teman yang paham atau mencari video penjelasan masalahnya.", type: "A" },
+                { text: "Mengambil obeng dan langsung membongkarnya untuk cari tahu sendiri.", type: "K" }
+            ]
+        },
+        {
+            text: "Saat kamu merasa sangat bosan dalam sebuah pidato yang panjang, kamu cenderung...",
+            options: [
+                { text: "Mencoret-coret kertas (menggambar doodle) atau melihat dekorasi ruangan.", type: "V" },
+                { text: "Bergumam sendiri atau mengetuk-ngetukan jari membentuk irama musik.", type: "A" },
+                { text: "Gelisah di kursi, meregangkan badan, atau izin ke toilet hanya untuk jalan-jalan.", type: "K" }
+            ]
+        },
+        {
+            text: "Jenis buku atau cerita seperti apa yang paling cepat membuatmu tertarik?",
+            options: [
+                { text: "Komik, novel grafis, atau buku dengan deskripsi visual yang sangat detail.", type: "V" },
+                { text: "Audiobook yang dinarasikan dengan suara yang sangat ekspresif.", type: "A" },
+                { text: "Buku petualangan interaktif (kamu bisa memilih jalan cerita sendiri).", type: "K" }
+            ]
+        },
+        {
+            text: "Apa hal yang paling mudah memecah konsentrasimu saat bekerja?",
+            options: [
+                { text: "Ruangan yang berantakan, lampu yang terlalu terang, atau kedipan layar.", type: "V" },
+                { text: "Suara orang berbisik, musik yang liriknya mengganggu, atau keheningan yang terlalu sunyi.", type: "A" },
+                { text: "Kursi yang tidak nyaman, suhu ruangan terlalu dingin/panas, atau keharusan duduk diam.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu baru pulang liburan dan ingin pamer ke temanmu. Kalimatmu akan seperti apa?",
+            options: [
+                { text: "Kamu harus lihat foto-foto pemandangannya, keren banget!", type: "V" },
+                { text: "Wah, konser musik lokal di sana dan suara deburan ombaknya syahdu banget.", type: "A" },
+                { text: "Kemarin aku nyobain bungee jumping dan mendaki bukitnya, seru abis!", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu ingin belajar bahasa asing baru dengan cepat. Metode apa yang kamu pilih?",
+            options: [
+                { text: "Menonton film dengan subtitle dan membaca komik dalam bahasa tersebut.", type: "V" },
+                { text: "Mendengarkan lagu atau podcast berbahasa asing dan meniru cara mereka bicara.", type: "A" },
+                { text: "Langsung mempraktikkannya untuk mengobrol dengan turis asli menggunakan gestur tubuh.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu pergi ke festival musik. Momen terbaiknya menurutmu adalah...",
+            options: [
+                { text: "Tata lampu (lighting show), kembang api, dan visual panggung yang megah.", type: "V" },
+                { text: "Kualitas audio yang menggelegar dan momen sing-along bareng ribuan orang.", type: "A" },
+                { text: "Lompat-lompat di tengah kerumunan dan ikut menari mengikuti ketukan.", type: "K" }
+            ]
+        },
+        {
+            text: "Pertama kali mencoba game baru, apa yang kamu lakukan?",
+            options: [
+                { text: "Membaca petunjuk di layar monitor atau melihat peta dunianya.", type: "V" },
+                { text: "Mendengarkan cerita latar belakang (voice acting) dan efek suaranya.", type: "A" },
+                { text: "Langsung pencet semua tombol di stik controller untuk melihat apa yang terjadi.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu merencanakan liburan impian kelompok. Tugasmu adalah...",
+            options: [
+                { text: "Membuat mood board di Pinterest berisi tempat-tempat estetik yang wajib dikunjungi.", type: "V" },
+                { text: "Berdiskusi lewat voice note atau telepon untuk menampung ide semua orang.", type: "A" },
+                { text: "Menjadi tim lapangan yang survei lokasi atau memesan transportasi langsung.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu berkenalan dengan orang baru di sebuah acara. Apa yang paling mudah kamu ingat keesokan harinya?",
+            options: [
+                { text: "Wajahnya dan apa yang dia kenakan saat itu.", type: "V" },
+                { text: "Namanya dan cara atau gaya dia berbicara.", type: "A" },
+                { text: "Jabat tangannya yang hangat atau keseruan saat kalian tertawa bersama.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu sedang memecahkan teka-teki potongan gambar (jigsaw puzzle). Strategimu?",
+            options: [
+                { text: "Mengelompokkan potongan berdasarkan warna dan pola gambar yang terlihat.", type: "V" },
+                { text: "Berbicara pada diri sendiri ('Nah, yang ini harusnya ditaruh di atas').", type: "A" },
+                { text: "Langsung mencoba mencocokkan potongan secara fisik satu per satu dengan cepat.", type: "K" }
+            ]
+        },
+        {
+            text: "Jenis presentasi proyek seperti apa yang paling tidak membuatmu mengantuk?",
+            options: [
+                { text: "Presentasi yang penuh dengan infografis, diagram, dan video animasi menarik.", type: "V" },
+                { text: "Pembicara yang pandai bercerita (storytelling) dengan intonasi yang seru.", type: "A" },
+                { text: "Sesi workshop di mana audiens diajak ikut mencoba sistem atau produknya langsung.", type: "K" }
+            ]
+        },
+        {
+            text: "Saat kamu merasa kesal atau komplain tentang suatu layanan, kamu lebih suka...",
+            options: [
+                { text: "Menulis pesan komplain yang panjang lebar via chat atau email.", type: "V" },
+                { text: "Menelepon nomor customer service agar bisa mengutarakan langsung unek-unekmu.", type: "A" },
+                { text: "Datang langsung ke tokonya sambil menunjukkan bagian mana yang rusak dengan tanganmu.", type: "K" }
+            ]
+        },
+        {
+            text: "Tiba-tiba ada suara ledakan kecil di luar rumah. Reaksi refleksmu adalah...",
+            options: [
+                { text: "Mengintip lewat jendela untuk melihat apa yang terjadi.", type: "V" },
+                { text: "Berteriak bertanya 'Suara apa itu?!' kepada orang rumah.", type: "A" },
+                { text: "Langsung berdiri tegak atau lari menuju arah suara untuk memeriksa keadaan.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu pergi to toko baju untuk membeli pakaian baru. Apa penentu utamanya?",
+            options: [
+                { text: "Warnanya yang cocok dan penampilannya saat dipakai di cermin.", type: "V" },
+                { text: "Rekomendasi atau pendapat dari teman yang menemanimu.", type: "A" },
+                { text: "Kelembutan bahannya dan kenyamanannya saat kamu pakai bergerak.", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu diminta mengajarkan temanmu cara menggunakan aplikasi baru. Caramu mengajar?",
+            options: [
+                { text: "Menunjukkan layar hp-mu dan membiarkan mereka melihat langkah-langkahnya.", type: "V" },
+                { text: "Menjelaskan langkah demi langkah lewat kata-kata secara perlahan.", type: "A" },
+                { text: "Menyerahkan hp-nya ke mereka dan menuntun tangan mereka untuk mencobanya sendiri.", type: "K" }
+            ]
+        },
+        {
+            text: "Jika kamu bisa memilih satu kekuatan super di bawah ini, mana yang kamu pilih?",
+            options: [
+                { text: "Memori fotografis (ingat semua yang dilihat) atau penglihatan tembus pandang.", type: "V" },
+                { text: "Pendengaran super (bisa mendengar bisikan dari jauh) atau meniru suara apa pun.", type: "A" },
+                { text: "Kecepatan super atau telekinesis (bisa menggerakkan benda dengan pikiran).", type: "K" }
+            ]
+        },
+        {
+            text: "Kamu baru pertama kali masuk ke sebuah kafe mewah. Apa yang pertama kali kamu rasakan?",
+            options: [
+                { text: "Desain interiornya, pemilihan warna dinding, dan estetika lampu-lampunya.", type: "V" },
+                { text: "Musik latar yang diputar and kebisingan suasananya.", type: "A" },
+                { text: "Empuknya sofa yang kamu duduki atau kehangatan suhu ruangannya.", type: "K" }
+            ]
+        },
+        {
+            text: "Saat kamu sedang melamun di waktu luang, apa yang biasanya terjadi di kepalamu?",
+            options: [
+                { text: "Kamu melihat bayangan visual seperti film atau gambar di benakmu.", type: "V" },
+                { text: "Kamu melakukan obrolan batin (berbicara pada diri sendiri) atau terngiang potongan lagu.", type: "A" },
+                { text: "Kamu membayangkan sensasi fisik seperti sedang berenang, berjalan, atau beraktivitas.", type: "K" }
+            ]
+        }
+    ];
+
+    // Database Soal Kuis Kepribadian DISC (40 Soal)
+    const discQuestions = [
+        {
+            text: "Saat bekerja dalam tim, peran apa yang secara insting langsung kamu ambil?",
+            options: [
+                { text: "Memimpin jalannya diskusi dan membagi porsi tugas agar cepat selesai.", type: "D" },
+                { text: "Membawa keceriaan, mencairkan suasana kaku, dan memotivasi tim.", type: "I" },
+                { text: "Mendengarkan semua ide rekan-rekan lalu mencari kesepakatan damai.", type: "S" },
+                { text: "Mengatur detail rencana, membuat checklist, dan mengecek kesesuaian data.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika menghadapi perubahan rencana yang mendadam, sikapmu...",
+            options: [
+                { text: "Langsung beralih ke alternatif tindakan lain tanpa membuang-buang waktu.", type: "D" },
+                { text: "Mencari sisi positif yang seru dari rencana baru tersebut.", type: "I" },
+                { text: "Sedikit cemas, namun berusaha menyesuaikan diri demi kenyamanan kelompok.", type: "S" },
+                { text: "Menganalisis mengapa perubahan itu terjadi dan apa saja risiko barunya.", type: "C" }
+            ]
+        },
+        {
+            text: "Bagaimana cara terbaikmu saat ingin meyakinkan orang lain?",
+            options: [
+                { text: "Berbicara lugas ke intinya dengan nada tegas dan rasa percaya diri tinggi.", type: "D" },
+                { text: "Menggunakan cerita menarik, humor, dan pendekatan emosional yang hangat.", type: "I" },
+                { text: "Menunjukkan rasa peduli, bersikap sopan, dan memberikan dukungan tulus.", type: "S" },
+                { text: "Menyodorkan data, fakta akurat, serta logika rasional yang tidak terbantahkan.", type: "C" }
+            ]
+        },
+        {
+            text: "Di saat kamu sedang berbicara atau bercerita, gaya bicaramu cenderung...",
+            options: [
+                { text: "Cepat, langsung ke intinya (to-the-point), dan tanpa banyak basa-basi.", type: "D" },
+                { text: "Penuh ekspresi wajah, banyak gerakan tangan, dan penuh semangat.", type: "I" },
+                { text: "Lembut, tenang, runtut, dan sangat menjaga perasaan lawan bicara.", type: "S" },
+                { text: "Formal, terstruktur rapi, hati-hati, dan berbasis pada kenyataan.", type: "C" }
+            ]
+        },
+        {
+            text: "Ada aturan baru yang dirasa sangat mengikat di lingkunganmu. Tanggapanmu?",
+            options: [
+                { text: "Siap menantang atau memodifikasinya jika aturan itu menghambat hasil akhir.", type: "D" },
+                { text: "Mencoba mencari cara fleksibel agar tetap bisa menikmati keadaan secara bebas.", type: "I" },
+                { text: "Menerimanya dengan patuh demi menciptakan harmoni dan keamanan bersama.", type: "S" },
+                { text: "Mengevaluasi efisiensi aturan tersebut dan mematuhinya secara presisi.", type: "C" }
+            ]
+        },
+        {
+            text: "Suasana kerja atau belajar seperti apa yang paling mendongkrak energimu?",
+            options: [
+                { text: "Tempat yang kompetitif, penuh target menantang, serta otonomi tinggi.", type: "D" },
+                { text: "Tempat yang seru, interaktif, dinamis, dan penuh kolaborasi sosial.", type: "I" },
+                { text: "Lingkungan yang tenang, minim konflik, stabil, serta saling mendukung.", type: "S" },
+                { text: "Ruang yang tenang, terorganisasi dengan baik, instruksi jelas, dan terstruktur.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat harus mengambil keputusan yang sangat krusial, apa yang kamu lakukan?",
+            options: [
+                { text: "Mengambil keputusan secara cepat berdasarkan insting kepemimpinan.", type: "D" },
+                { text: "Mengikuti kata hati, tren, serta bagaimana pengaruhnya terhadap hubungan sosial.", type: "I" },
+                { text: "Mengajjak musyawarah mufakat agar semua pihak merasa dihargai.", type: "S" },
+                { text: "Menganalisis tumpukan data tertulis terlebih dahulu sebelum memilih.", type: "C" }
+            ]
+        },
+        {
+            text: "Bagaimana reaksimu ketika seseorang mengkritik hasil pekerjaanmu?",
+            options: [
+                { text: "Langsung membela diri secara tegas jika merasa argumennya tidak kuat.", type: "D" },
+                { text: "Merasa tersinggung secara pribadi, namun berusaha tetap menutupinya dengan senyum.", type: "I" },
+                { text: "Menerimanya dengan lapang dada tanpa perlawanan demi menghindari debat panas.", type: "S" },
+                { text: "Mengevaluasi kritik tersebut secara objektif berdasarkan standar kebenaran.", type: "C" }
+            ]
+        },
+        {
+            text: "Teman-teman terdekat biasanya mendeskripsikan dirimu sebagai sosok yang...",
+            options: [
+                { text: "Kuat, mandiri, ambisius, dan pantang menyerah.", type: "D" },
+                { text: "Menyenangkan, asyik diajak bergaul, kreatif, dan ceria.", type: "I" },
+                { text: "Setia, pendengar yang luar biasa, penyabar, dan ramah.", type: "S" },
+                { text: "Sangat teliti, logis, rapi, dan bisa diandalkan dalam hal teknis.", type: "C" }
+            ]
+        },
+        {
+            text: "Tiba-tiba kamu dihadapkan pada tumpukan tugas yang luar biasa banyak. Tindakanmu?",
+            options: [
+                { text: "Langsung mengeksekusi tugas-tugas paling penting tanpa banyak mengeluh.", type: "D" },
+                { text: "Curhat sejenak ke teman-teman untuk mengurangi stres sebelum mulai bekerja.", type: "I" },
+                { text: "Mengerjakannya pelan-pelan secara konsisten, langkah demi langkah.", type: "S" },
+                { text: "Membuat daftar urutan pengerjaan (to-do list) yang detail sebelum menyentuhnya.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika menghadiri acara pesta atau kumpul bersama, kamu cenderung...",
+            options: [
+                { text: "Mencari orang-orang kunci untuk membangun relasi strategis.", type: "D" },
+                { text: "Menjadi pusat perhatian, menyapa banyak orang, dan mencairkan suasana.", type: "I" },
+                { text: "Menemukan sudut yang tenang untuk mengobrol mendalam dengan teman akrab.", type: "S" },
+                { text: "Mengamati situasi acara, dekorasi, dan perilaku orang lain secara diam-diam.", type: "C" }
+            ]
+        },
+        {
+            text: "Hal apa yang paling cepat memicu rasa stres dalam dirimu?",
+            options: [
+                { text: "Ketika segala sesuatu bergerak terlalu lambat dan hilangnya kendali diri.", type: "D" },
+                { text: "Saat merasa diabaikan, ditolak, atau disisihkan oleh kelompok pertemanan.", type: "I" },
+                { text: "Ketika terjadi konflik panas di depan mata atau perubahan mendadak.", type: "S" },
+                { text: "Melakukan kesalahan fatal akibat terburu-buru atau data yang berantakan.", type: "C" }
+            ]
+        },
+        {
+            text: "Apa hal utama yang memotivasimu dalam mengejar cita-cita?",
+            options: [
+                { text: "Pencapaian prestasi tinggi, otoritas kepemimpinan, dan kemandirian.", type: "D" },
+                { text: "Apresiasi sosial, popularitas, serta hubungan interpersonal yang erat.", type: "I" },
+                { text: "Stabilitas hidup, rasa aman, kebersamaan, dan kedamaian.", type: "S" },
+                { text: "Keahlian spesifik yang diakui, kualitas kerja mumpuni, dan presisi tinggi.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat mendeteksi rekan kerjamu melakukan kesalahan fatal, kamu akan...",
+            options: [
+                { text: "Menegurnya secara langsung dan menuntutnya segera memperbaiki saat itu juga.", type: "D" },
+                { text: "Mengajaknya bicara santai dengan menyelipkan candaan agar dia tidak tersinggung.", type: "I" },
+                { text: "Lebih memilih diam demi menjaga kedamaian, kecuali jika terpaksa bertanya.", type: "S" },
+                { text: "Menunjukkan bagian mana yang salah secara mendetail berbasis standar tertulis.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika ingin berbelanja barang elektronik berharga mahal, strategimu adalah...",
+            options: [
+                { text: "Langsung membelinya jika butuh dan dinilai dapat menaikkan produktivitas.", type: "D" },
+                { text: "Membeli karena tergoda review menarik, desain keren, atau rekomendasi teman.", type: "I" },
+                { text: "Mempertimbangkan matang-matang bagaimana kegunaannya bagi keluarga/tim.", type: "S" },
+                { text: "Membandingkan harga, spesifikasi teknis, serta garansi dari berbagai toko.", type: "C" }
+            ]
+        },
+        {
+            text: "Jika harus merefleksikan diri, apa kelemahan yang paling kamu rasakan?",
+            options: [
+                { text: "Kurang sabar, suka mendominasi, dan cenderung keras kepala.", type: "D" },
+                { text: "Kurang rapi dalam mengorganisasi sesuatu dan mudah kehilangan fokus.", type: "I" },
+                { text: "Sangat sulit berkata 'tidak' sehingga sering merasa terbebani tugas orang.", type: "S" },
+                { text: "Terlalu perfeksionis sehingga sering menunda aksi karena takut salah.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat ada teman yang menangis dan menceritakan masalahnya, refleksmu adalah...",
+            options: [
+                { text: "Langsung memberikan tips atau jalan keluar praktis untuk masalahnya.", type: "D" },
+                { text: "Menghiburnya dengan candaan atau mengajaknya pergi keluar agar lupa sedihnya.", type: "I" },
+                { text: "Mendengarkan keluh kesahnya secara tulus tanpa menyela sedikit pun.", type: "S" },
+                { text: "Membantunya memetakan akar masalah secara objektif dan logis.", type: "C" }
+            ]
+        },
+        {
+            text: "Dalam sebuah kompetisi game atau olahraga, fokus utamamu adalah...",
+            options: [
+                { text: "Memenangkan pertandingan dengan performa terbaik.", type: "D" },
+                { text: "Menikmati serunya proses permainan dan menambah relasi teman baru.", type: "I" },
+                { text: "Bermain secara adil, harmonis, serta saling mendukung satu sama lain.", type: "S" },
+                { text: "Memastikan semua aturan permainan dipatuhi dengan sangat presisi.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat memasuki area rekreasi yang baru pertama kali kamu kunjungi, kamu akan...",
+            options: [
+                { text: "Langsung memetakan rute tercepat menuju wahana yang paling menantang.", type: "D" },
+                { text: "Mencari spot foto estetik paling hits dan mulai menyapa petugas sekitar.", type: "I" },
+                { text: "Mencari tempat peristirahatan yang teduh dan nyaman untuk berkumpul.", type: "S" },
+                { text: "Membaca papan brosur panduan atau peta lokasi di gerbang masuk.", type: "C" }
+            ]
+        },
+        {
+            text: "Jika tim kerja diberikan proyek raksasa, bagian apa yang paling ingin kamu pegang?",
+            options: [
+                { text: "Menjadi ketua proyek yang mengarahkan arah pencapa achievement gol.", type: "D" },
+                { text: "Menjadi perwakilan presentasi publik untuk mengenalkan proyek tersebut.", type: "I" },
+                { text: "Mengerjakan tugas operasional harian secara konsisten di belakang layar.", type: "S" },
+                { text: "Membuat rancangan laporan, audit sistem, serta dokumentasi data.", type: "C" }
+            ]
+        },
+        {
+            text: "Bagaimana biasanya caramu mengelola agenda waktu harian?",
+            options: [
+                { text: "Fleksibel, yang penting target besar akhir pekan harus tercapai.", type: "D" },
+                { text: "Sering berubah tergantung dengan siapa aku bertemu atau bagaimana suasana hatiku.", type: "I" },
+                { text: "Mengikuti rutinitas jadwal yang sudah terbiasa dijalankan sehari-hari.", type: "S" },
+                { text: "Menggunakan kalender digital atau buku agenda fisik dengan catatan mendetail.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat ditugaskan merencanakan liburan bersama teman, fokus utamamu adalah...",
+            options: [
+                { text: "Menentukan destinasi utama dengan cepat agar tidak bertele-tele.", type: "D" },
+                { text: "Memilih lokasi hits, unik, serta banyak aktivitas seru.", type: "I" },
+                { text: "Memastikan semua teman sepakat, merasa nyaman, dan tidak kelelahan.", type: "S" },
+                { text: "Menghitung rincian biaya pengeluaran, penginapan, dan itinerary per jam.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika kamu dipaksa bekerja di bawah tekanan tinggi yang intens...",
+            options: [
+                { text: "Menjadi lebih fokus, agresif, dan bersemangat membuktikan diri.", type: "D" },
+                { text: "Mencari dukungan obrolan dari orang lain agar tidak stres sendirian.", type: "I" },
+                { text: "Tetap tenang secara luar, meski di dalam hati mulai merasa lelah.", type: "S" },
+                { text: "Bekerja dengan ekstra hati-hati agar tidak ada celah kesalahan sekecil apa pun.", type: "C" }
+            ]
+        },
+        {
+            text: "Karakter orang seperti apa yang paling sulit kamu toleransi?",
+            options: [
+                { text: "Orang yang lamban, ragu-ragu, dan tidak tegas bertindak.", type: "D" },
+                { text: "Orang yang kaku, membosankan, dan tidak ramah.", type: "I" },
+                { text: "Orang yang egois, agresif, dan suka memicu keributan/konflik.", type: "S" },
+                { text: "Orang yang ceroboh, tidak rapi, dan mengabaikan standar kualitas.", type: "C" }
+            ]
+        },
+        {
+            text: "Bagaimana caramu bangkit dari kegagalan yang menyakitkan?",
+            options: [
+                { text: "Langsung melupakannya dan merancang strategi penyerangan baru.", type: "D" },
+                { text: "Mencari hiburan, mengobrol dengan sahabat, lalu bangkit dengan optimis.", type: "I" },
+                { text: "Butuh waktu menyendiri sejenak, merenung, serta mencari dukungan emosional.", type: "S" },
+                { text: "Mengevaluasi secara detail letak kesalahan teknis agar tidak terulang kembali.", type: "C" }
+            ]
+        },
+        {
+            text: "Di mata guru atau atasan, kamu sangat ingin dicap sebagai orang yang...",
+            options: [
+                { text: "Sangat mandiri, berprestasi cemerlang, dan tangguh.", type: "D" },
+                { text: "Kreatif, energik, menginspirasi, dan disukai rekan kerja.", type: "I" },
+                { text: "Sangat loyal, konsisten, berdedikasi tinggi, dan ramah.", type: "S" },
+                { text: "Ahli di bidangnya, teliti, terstruktur, dan akurat.", type: "C" }
+            ]
+        },
+        {
+            text: "Hal apa yang paling efektif untuk memicu motivasi kerjamu?",
+            options: [
+                { text: "Tantangan baru dan hak istimewa memimpin keputusan.", type: "D" },
+                { text: "Apresiasi di depan publik dan pujian atas kreativitas idemu.", type: "I" },
+                { text: "Kepastian kerja jangka panjang serta lingkungan kerja kekeluargaan.", type: "S" },
+                { text: "Akses data lengkap, spesifikasi kerja jelas, serta standar tinggi.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika harus melakukan presentasi besar di depan puluhan orang...",
+            options: [
+                { text: "Menyampaikan poin utama secara mantap, percaya diri, dan persuasif.", type: "D" },
+                { text: "Menghidupkan suasana dengan humor, cerita, serta interaksi aktif penonton.", type: "I" },
+                { text: "Menyampaikannya dengan tempo tenang, sopan, bersahabat, dan teratur.", type: "S" },
+                { text: "Menampilkan grafik akurat, data lengkap, serta alur penjelasan logis.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat membagi tugas kerja bakti di rumah atau kantor, tindakanmu adalah...",
+            options: [
+                { text: "Menentukan peran setiap orang secara ringkas agar lekas bekerja.", type: "D" },
+                { text: "Mengajak semua orang berdiskusi santai sambil bercanda memilih tugas.", type: "I" },
+                { text: "Mengambil porsi kerja yang paling jarang disukai orang demi kelancaran bersama.", type: "S" },
+                { text: "Membagi porsi tugas secara presisi berdasarkan keahlian masing-masing.", type: "C" }
+            ]
+        },
+        {
+            text: "Kamu merasa sangat dihargai oleh orang lain ketika mereka...",
+            options: [
+                { text: "Menghormati keputusan-keputusanku dan memberikan kebebasan aksi.", type: "D" },
+                { text: "Merayan keberhasilan idemu serta memuji pribadimu.", type: "I" },
+                { text: "Mengucapkan terima kasih atas kesetiaan bantuan yang kuberikan.", type: "S" },
+                { text: "Mengakui kebenaran analisis logis serta ketelitian kerjamu.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika diskusi rapat berjalan bertele-tele tanpa ujung, kamu akan...",
+            options: [
+                { text: "Langsung memotong perdebatan dan menyimplukan solusi final saat itu juga.", type: "D" },
+                { text: "Mencoba melontarkan lelucon ringan untuk meredakan kelelahan emosi tim.", type: "I" },
+                { text: "Mengajukan opsi kompromi jalan tengah yang damai bagi kedua belah pihak.", type: "S" },
+                { text: "Menunjukkan data catatan autentik sebagai rujukan logis menghentikan debat.", type: "C" }
+            ]
+        },
+        {
+            text: "Saat hendak mempelajari bidang keilmuan baru, jalan yang kamu pilih...",
+            options: [
+                { text: "Langsung terjun mempraktikkannya pada studi kasus asli (learning by doing).", type: "D" },
+                { text: "Mengikuti seminar interaktif atau berdiskusi dengan mentor ahli.", type: "I" },
+                { text: "Menonton tutorial langkah demi langkah secara urut dan konsisten.", type: "S" },
+                { text: "Membaca buku teks referensi ilmiah mendalam secara terstruktur.", type: "C" }
+            ]
+        },
+        {
+            text: "Dalam kehidupan sosial/pertemanan sehari-hari, kamu berperan sebagai...",
+            options: [
+                { text: "Pemberi solusi praktis (problem solver) yang tangguh.", type: "D" },
+                { text: "Pembangun tawa dan pencipta keseruan kumpul bersama.", type: "I" },
+                { text: "Sahabat setia tempat curhat yang paling aman menjaga rahasia.", type: "S" },
+                { text: "Penasihat rasional yang selalu memberikan sudut pandang logis.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika ada seseorang berbicara secara berputar-putar tanpa arah, kamu akan...",
+            options: [
+                { text: "Menyela pembicaraannya secara halus untuk memintanya langsung ke inti.", type: "D" },
+                { text: "Mulai melamun atau melihat HP namun sesekali tetap mengangguk ramah.", type: "I" },
+                { text: "Mendengarkannya dengan sabar dan penuh perhatian hingga dia tuntas bicara.", type: "S" },
+                { text: "Membuat catatan mental poin-poinnya lalu merangkumkannya kembali secara logis.", type: "C" }
+            ]
+        },
+        {
+            text: "Bagaimana caramu menyelesaikan konflik personal dengan seseorang?",
+            options: [
+                { text: "Menghadapinya secara ksatria saat itu juga agar masalah cepat clear.", type: "D" },
+                { text: "Mengajaknya mengobrol santai dari hati ke hati di kafe yang nyaman.", type: "I" },
+                { text: "Menghindarinya sementara waktu demi meredam amarah dan menjaga kedamaian.", type: "S" },
+                { text: "Mendiskusikannya secara rasional berdasarkan kronologi fakta tertulis.", type: "C" }
+            ]
+        },
+        {
+            text: "Aktivitas apa yang paling ampuh untuk mengembalikan kesegaran pikiranmu?",
+            options: [
+                { text: "Melakukan olahraga ekstrem menantang atau game kompetisi ketat.", type: "D" },
+                { text: "Mengikuti hangout seru atau pesta ramai bersama lingkar pertemanan.", type: "I" },
+                { text: "Bersantai di rumah menikmati suasana tenang atau berjalan di alam terbuka.", type: "S" },
+                { text: "Membaca buku kesukaan, merakit model kit, atau merapikan kamar tidur.", type: "C" }
+            ]
+        },
+        {
+            text: "Bila ditunjuk memimpin proyek baru yang belum pernah kamu lakukan sebelumnya...",
+            options: [
+                { text: "Langsung mengambil kemudi pimpinan dan belajar sambil jalan di lapangan.", type: "D" },
+                { text: "Mengumpulkan tim-tim andalan lalu menyatukan visi besar bersama.", type: "I" },
+                { text: "Meminta arahan bimbingan dari senior berpengalaman secara perlahan.", type: "S" },
+                { text: "Mempelajari dokumen-dokumen panduan proyek terdahulu secara teliti.", type: "C" }
+            ]
+        },
+        {
+            text: "Filosofi hidup yang paling menggambarkan dirimu adalah...",
+            options: [
+                { text: "'Tindakan nyata mendatangkan hasil nyata. Raih mimpimu!'", type: "D" },
+                { text: "'Hidup harus dirayakan dengan tawa dan petualangan bersama!'", type: "I" },
+                { text: "'Kedamaian hati, kesabaran, dan kesetiaan adalah segalanya.'", type: "S" },
+                { text: "'Lakukanlah segala sesuatu dengan benar sejak awal, atau tidak usah sama sekali.'", type: "C" }
+            ]
+        },
+        {
+            text: "Saat bekerja dalam kelompok kecil, apa fokus utamamu?",
+            options: [
+                { text: "Mengejar penyelesaian target dengan cepat.", type: "D" },
+                { text: "Menjaga energi kreativitas dan kolaborasi antar anggota.", type: "I" },
+                { text: "Menjaga keselarasan emosi agar tidak ada perpecahan.", type: "S" },
+                { text: "Memastikan keakuratan data dan hasil kerja bebas cacat.", type: "C" }
+            ]
+        },
+        {
+            text: "Ketika menghadapi kegagalan tak terduga dalam sebuah rencana...",
+            options: [
+                { text: "Segera bangkit, tidak mau berlarut, dan mencari rute jalan alternatif.", type: "D" },
+                { text: "Tetap berpikir positif dan percaya pasti ada hikmah seru di baliknya.", type: "I" },
+                { text: "Menerima kenyataan dengan lapang dada dan bersabar menghadapi prosesnya.", type: "S" },
+                { text: "Mengevaluasi secara terperinci setiap variabel penyebab kegagalan tersebut.", type: "C" }
+            ]
+        }
+    ];
+
+    // Database Soal Kuis Kecerdasan Majemuk / Multiple Intelligences (DITINGKATKAN MENJADI 48 SOAL - 6 Per Kategori)
+    const intelligenceQuestions = [
+        // Linguistik
+        { text: "Saya sangat menikmati kegiatan membaca buku, menulis jurnal/cerita, atau bermain teka-teki silang kata.", intel: "Linguistik" },
+        { text: "Saya mudah mengingat kutipan kata-kata mutiara, lirik lagu, atau istilah asing baru yang didengar.", intel: "Linguistik" },
+        { text: "Saya merasa percaya diri saat harus berbicara di depan umum, berpidato, atau berargumen.", intel: "Linguistik" },
+        { text: "Saya suka mempelajari tata bahasa, kosakata baru, atau asal-usul sejarah suatu kata.", intel: "Linguistik" },
+        { text: "Saya pandai merangkai kata-kata untuk meyakinkan atau menghibur orang lain melalui tulisan/ucapan.", intel: "Linguistik" },
+        { text: "Mendengarkan cerita, sandiwara audio, atau diskusi sastra sangat menarik minat belajar saya.", intel: "Linguistik" },
+        
+        // Logika Matematika
+        { text: "Saya senang memecahkan teka-teki logika, bermain catur, atau menyelesaikan persoalan angka sains.", intel: "Logika Matematika" },
+        { text: "Saat menghadapi masalah, saya refleks mencari hubungan sebab-akibat dan menganalisisnya secara sistematis.", intel: "Logika Matematika" },
+        { text: "Saya suka mengatur jadwal kerja harian, membuat daftar checklist rapi, atau mengelola catatan keuangan.", intel: "Logika Matematika" },
+        { text: "Saya tertarik dengan cara kerja kode pemrograman, eksperimen ilmiah, atau pembuktian rumus logis.", intel: "Logika Matematika" },
+        { text: "Menghitung estimasi angka di luar kepala atau memperkirakan statistik rasional adalah hal mudah bagi saya.", intel: "Logika Matematika" },
+        { text: "Saya jauh lebih menyukai argumen objektif berbasis data numerik terukur dibanding asumsi abstrak belaka.", intel: "Logika Matematika" },
+        
+        // Musikal
+        { text: "Saya bisa dengan mudah mengenali jika nada suara alat musik terdengar sumbang atau tidak pas.", intel: "Musikal" },
+        { text: "Saya sering bersenandung, bernyanyi kecil, atau mengetuk-ngetukan jari membentuk ritme tanpa sadar.", intel: "Musikal" },
+        { text: "Saya tertarik mempelajari cara kerja alat musik atau memahami bagaimana aransemen lagu dibuat.", intel: "Musikal" },
+        { text: "Suatu melodi instrumentalia tertentu dapat dengan mudah mengubah suasana hati (mood) saya secara instan.", intel: "Musikal" },
+        { text: "Saya sangat peka terhadap variasi suara di sekeliling saya, seperti tempo ketukan langkah atau deru mesin.", intel: "Musikal" },
+        { text: "Saya mudah menghafal pola ketukan irama baru dan mampu mempraktikkannya kembali secara presisi.", intel: "Musikal" },
+        
+        // Spasial
+        { text: "Saya mudah membaca peta navigasi koordinat atau membayangkan arah bentuk objek 3D di dalam pikiran.", intel: "Spasial" },
+        { text: "Saya jauh lebih mudah memahami materi jika dijelaskan lewat diagram gambar, grafik animasi, atau bagan.", intel: "Spasial" },
+        { text: "Saya menyukai hobi visual kreatif seperti menggambar sketsa, fotografi, editing video, atau merakit Lego.", intel: "Spasial" },
+        { text: "Saya peka terhadap perpaduan harmoni warna, estetika tata letak furnitur ruangan, serta keindahan desain grafis.", intel: "Spasial" },
+        { text: "Ketika mengingat suatu kejadian masa lalu, pikiran saya otomatis membayangkannya seperti cuplikan video.", intel: "Spasial" },
+        { text: "Saya sering membuat sketsa coretan (doodling) atau peta konsep (mindmap) untuk menstrukturkan ide rancangan.", intel: "Spasial" },
+        
+        // Kinestetik
+        { text: "Saya dinilai mahir dalam aktivitas fisik yang membutuhkan koordinasi gerak tubuh seperti olahraga atau menari.", intel: "Kinestetik" },
+        { text: "Saya lebih cepat paham ilmu baru jika bisa menyentuh, membongkar-pasang objek, atau praktik langsung.", intel: "Kinestetik" },
+        { text: "Saya merasa tidak nyaman atau gelisah jika dipaksa duduk diam terlalu lama tanpa beraktivitas fisik.", intel: "Kinestetik" },
+        { text: "Saya sering menggunakan gestur gerakan tangan atau bahasa tubuh ekspresif saat berbicara dengan rekan.", intel: "Kinestetik" },
+        { text: "Membuat kerajinan tangan manual, memasak, membongkar mesin, atau memperbaiki barang rusak terasa menyenangkan bagi saya.", intel: "Kinestetik" },
+        { text: "Saya memiliki keseimbangan refleks motorik tubuh yang baik and sigap saat menghadapi situasi fisik mendadak.", intel: "Kinestetik" },
+        
+        // Intrapersonal
+        { text: "Saya sangat mengenali kelebihan, kelemahan, serta dinamika perubahan emosi di dalam diri saya.", intel: "Intrapersonal" },
+        { text: "Saya menikmati waktu menyendiri (me-time) untuk merenungkan tujuan masa depan dan mengevaluasi diri.", intel: "Intrapersonal" },
+        { text: "Saya adalah orang yang mandiri dan memiliki dorongan semangat internal kuat tanpa harus disuruh orang lain.", intel: "Intrapersonal" },
+        { text: "Saya terbiasa menulis diary harian atau melakukan refleksi batin mendalam sebelum mengambil keputusan hidup.", intel: "Intrapersonal" },
+        { text: "Saya tahu persis prinsip etika moral hidup saya sendiri dan tidak mudah ikut-ikutan tren pergaulan jika tidak cocok.", intel: "Intrapersonal" },
+        { text: "Saya mampu mengelola tingkat stres pribadi dengan cepat and bangkit secara mandiri pasca kegagalan.", intel: "Intrapersonal" },
+        
+        // Interpersonal
+        { text: "Teman-teman sering datang menemui saya untuk mencurahkan isi hati (curhat) atau meminta solusi masalah.", intel: "Interpersonal" },
+        { text: "Saya pandai membaca ekspresi wajah, bahasa tubuh, serta maksud tersembunyi orang lain saat berinteraksi.", intel: "Interpersonal" },
+        { text: "Saya menikmati kerja kelompok organisasi, memimpin diskusi tim, dan mudah mencairkan suasana baru.", intel: "Interpersonal" },
+        { text: "Saya sangat suka berkenalan dengan orang baru di lingkungan asing and memiliki jaringan pertemanan yang luas.", intel: "Interpersonal" },
+        { text: "Saya pandai menengahi perdebatan/perselisihan di antara teman-teman dan membantu mereka mencari jalan damai.", intel: "Interpersonal" },
+        { text: "Saya merasa kembali berenergi penuh setelah menghabiskan waktu bersosialisasi intens dengan banyak orang.", intel: "Interpersonal" },
+        
+        // Naturalistik
+        { text: "Saya merasa tenang dan pikiran menjadi segar kembali saat berada di alam terbuka (gunung, pantai, hutan).", intel: "Naturalistik" },
+        { text: "Saya senang memelihara hewan, merawat tanaman hias, atau mempelajari fenomena ekosistem alam lingkungan.", intel: "Naturalistik" },
+        { text: "Saya peka terhadap perubahan cuaca sekitar dan sangat peduli dengan isu kelestarian kebersihan bumi.", intel: "Naturalistik" },
+        { text: "Saya tertarik mengamati formasi batuan geologi, tipe awan meteorologi, atau keanekaragaman hayati sekitar.", intel: "Naturalistik" },
+        { text: "Saya lebih memilih agenda liburan camping petualangan alam liar dibanding menjelajahi mall modern.", intel: "Naturalistik" },
+        { text: "Saya mudah membedakan, mengenali nama, and mengklasifikasikan spesies tanaman maupun hewan yang saya temui.", intel: "Naturalistik" }
+    ];
+
+    // Template Pilihan Jawaban Skala Likert untuk Tes Kecerdasan Majemuk
+    const likertOptions = [
+        { text: "Sangat Sesuai", pts: 4 },
+        { text: "Sesuai", pts: 3 },
+        { text: "Kurang Sesuai", pts: 2 },
+        { text: "Sangat Tidak Sesuai", pts: 1 }
+    ];
+
+    let questions = [];
+    let currentIndex = 0;
+    let answers = {};
+    let savedUserData = {};
+    let currentQuizMode = 'gaya-belajar'; // 'gaya-belajar', 'disc', atau 'kecerdasan'
+
+    // Rekap untuk cetak laporan PDF
+    let gayaBelajarResultsReport = {};
+    let discResultsReport = {};
+    let kecerdasanResultsReport = {};
+
+    // Helper: Mengacak isi array
+    function shuffle(array) {
+        let currentIndex = array.length, randomIndex;
+        while (currentIndex != 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+
+    // Inisialisasi Game
+    function initQuiz(mode) {
+        currentQuizMode = mode;
+        
+        if (mode === 'gaya-belajar') {
+            questions = learningStyleQuestions.map(q => ({
+                text: q.text,
+                options: shuffle([...q.options])
+            }));
+        } else if (mode === 'disc') {
+            questions = discQuestions.map(q => ({
+                text: q.text,
+                options: shuffle([...q.options])
+            }));
+        } else if (mode === 'kecerdasan') {
+            // Skala Likert diurutkan konsisten
+            questions = intelligenceQuestions.map(q => ({
+                text: q.text,
+                intel: q.intel,
+                options: [...likertOptions]
+            }));
+        }
+        currentIndex = 0;
+        answers = {};
+    }
+
+    function startQuiz(mode = 'gaya-belajar') {
+        if (mode === 'gaya-belajar') {
+            const nama = document.getElementById('input-nama').value.trim();
+            const kelas = document.getElementById('input-kelas').value.trim();
+            const tahun = document.getElementById('input-tahun').value.trim();
+            const kontak = document.getElementById('input-kontak').value.trim();
+            const smp = document.getElementById('input-smp').value.trim();
+
+            if (!nama || !kelas || !tahun || !kontak || !smp) {
+                alert("Silakan lengkapi semua data identitas terlebih dahulu!");
+                return;
+            }
+
+            savedUserData = { nama, kelas, tahun, kontak, smp };
+        }
+
+        initQuiz(mode);
+        showScreen('quiz-screen');
+        renderQuestion();
+    }
+
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function renderQuestion() {
+        const q = questions[currentIndex];
+        
+        const progress = Math.round(((currentIndex) / questions.length) * 100);
+        document.getElementById('question-number').innerText = `Pertanyaan ${currentIndex + 1} dari ${questions.length}`;
+        document.getElementById('progress-percent').innerText = `${progress}%`;
+        document.getElementById('progress-fill').style.width = `${progress}%`;
+
+        document.getElementById('question-text').innerText = q.text;
+
+        const list = document.getElementById('options-list');
+        list.innerHTML = '';
+        
+        q.options.forEach((opt, idx) => {
+            const card = document.createElement('div');
+            card.className = 'option-card';
+            if (answers[currentIndex] === idx) {
+                card.classList.add('selected');
+            }
+            card.onclick = () => selectOption(idx);
+
+            const letter = String.fromCharCode(65 + idx);
+            card.innerHTML = `
+                <div class="option-letter">${letter}</div>
+                <div class="option-text">${opt.text}</div>
+            `;
+            list.appendChild(card);
+        });
+
+        const btnBack = document.getElementById('btn-back');
+        btnBack.style.display = (currentIndex > 0) ? 'block' : 'none';
+
+        const btnNext = document.getElementById('btn-next');
+        btnNext.disabled = (answers[currentIndex] === undefined);
+        btnNext.innerText = (currentIndex === questions.length - 1) ? 'Lihat Hasil 🎉' : 'Lanjut';
+    }
+
+    function selectOption(index) {
+        answers[currentIndex] = index;
+        
+        document.querySelectorAll('.option-card').forEach((c, idx) => {
+            if (idx === index) c.classList.add('selected');
+            else c.classList.remove('selected');
+        });
+
+        document.getElementById('btn-next').disabled = false;
+
+        setTimeout(() => {
+            nextQuestion();
+        }, 250);
+    }
+
+    function nextQuestion() {
+        if (answers[currentIndex] === undefined) return;
+
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+        }
+    }
+
+    // Skor kuis DISC -> Format Rating Bintang 1 - 10
+    function getStarsHtml(score) {
+        const stars = Math.min(10, Math.max(1, Math.round((score / 15) * 10)));
+        let html = '';
+        for (let i = 1; i <= 10; i++) {
+            if (i <= stars) html += '★';
+            else html += '<span class="empty">☆</span>';
+        }
+        return { html, starsValue: stars };
+    }
+
+    // Skor Kecerdasan Majemuk -> Format Rating Bintang 1 - 10
+    function getIntelligenceStarsHtml(score) {
+        const stars = Math.min(10, Math.max(1, Math.round(((score - 6) / 18) * 9) + 1));
+        let html = '';
+        for (let i = 1; i <= 10; i++) {
+            if (i <= stars) html += '★';
+            else html += '<span class="empty">☆</span>';
+        }
+        return { html, starsValue: stars };
+    }
+
+    function showResult() {
+        if (currentQuizMode === 'gaya-belajar') {
+            let vCount = 0, aCount = 0, kCount = 0;
+
+            for (let i = 0; i < questions.length; i++) {
+                const selectedIdx = answers[i];
+                const type = questions[i].options[selectedIdx].type;
+                if (type === 'V') vCount++;
+                if (type === 'A') aCount++;
+                if (type === 'K') kCount++;
+            }
+
+            const total = questions.length;
+            const vPct = Math.round((vCount / total) * 100);
+            const aPct = Math.round((aCount / total) * 100);
+            const kPct = Math.round((kCount / total) * 100);
+
+            document.getElementById('res-nama').innerText = savedUserData.nama;
+            document.getElementById('res-kelas').innerText = savedUserData.kelas;
+            document.getElementById('res-tahun').innerText = savedUserData.tahun;
+            document.getElementById('res-kontak').innerText = savedUserData.kontak;
+            document.getElementById('res-smp').innerText = savedUserData.smp;
+
+            document.getElementById('v-pct').innerText = `${vPct}%`;
+            document.getElementById('a-pct').innerText = `${aPct}%`;
+            document.getElementById('k-pct').innerText = `${kPct}%`;
+
+            document.getElementById('v-bar').style.width = `${vPct}%`;
+            document.getElementById('a-bar').style.width = `${aPct}%`;
+            document.getElementById('k-bar').style.width = `${kPct}%`;
+
+            let dominantBadge = "";
+            let explanation = "";
+            let badgeColor = "";
+
+            const maxScore = Math.max(vPct, aPct, kPct);
+
+            if (maxScore === vPct) {
+                dominantBadge = "👀 Visual (Pengamat)";
+                badgeColor = "var(--visual-color)";
+                explanation = "<b>Matamu adalah jendela belajarmu!</b> Kamu sangat peka terhadap warna, bentuk, dan layout visual. Kamu lebih mudah menyerap materi dari infografis, video estetik, diagram, atau catatan berwarna cerah. Tanpa rangkuman bergambar, dunia terasa sedikit membosankan buatmu.";
+            } else if (maxScore === aPct) {
+                dominantBadge = "👂 Auditori (Pendengar)";
+                badgeColor = "var(--auditory-color)";
+                explanation = "<b>Telingamu adalah senjata rahasiamu!</b> Kamu sangat terbantu dengan penjelasan verbal, podcast, audiobooks, atau berdiskusi. Kamu cenderung mengulang info dengan berbisik atau berbicara pada dirimu sendiri untuk mengingat hal-hal penting.";
+            } else {
+                dominantBadge = "💪 Kinestetik (Praktisi)";
+                badgeColor = "var(--kinesthetic-color)";
+                explanation = "<b>Tubuhmu harus ikut bergerak agar paham!</b> Kamu tidak tahan jika hanya disuruh duduk diam sambil membaca atau mendengar. Kamu adalah tipe 'praktik langsung'. Menggunakan gerakan tangan, berjalan sambil berpikir, atau memegang objek fisik adalah caramu menaklukkan materi rumit.";
+            }
+
+            const badgeEl = document.getElementById('result-badge');
+            badgeEl.innerText = dominantBadge;
+            badgeEl.style.backgroundColor = badgeColor;
+            document.getElementById('result-explanation').innerHTML = explanation;
+
+            gayaBelajarResultsReport = {
+                dominant: dominantBadge,
+                scoresText: `Visual: ${vPct}%, Auditori: ${aPct}%, Kinestetik: ${kPct}%`,
+                explanation: explanation
+            };
+
+            showScreen('result-screen');
+
+        } else if (currentQuizMode === 'disc') {
+            let dCount = 0, iCount = 0, sCount = 0, cCount = 0;
+
+            for (let i = 0; i < questions.length; i++) {
+                const selectedIdx = answers[i];
+                const type = questions[i].options[selectedIdx].type;
+                if (type === 'D') dCount++;
+                if (type === 'I') iCount++;
+                if (type === 'S') sCount++;
+                if (type === 'C') cCount++;
+            }
+
+            const dStarsData = getStarsHtml(dCount);
+            const iStarsData = getStarsHtml(iCount);
+            const sStarsData = getStarsHtml(sCount);
+            const cStarsData = getStarsHtml(cCount);
+
+            document.getElementById('d-stars').innerHTML = dStarsData.html + ` (${dStarsData.starsValue}/10)`;
+            document.getElementById('i-stars').innerHTML = iStarsData.html + ` (${iStarsData.starsValue}/10)`;
+            document.getElementById('s-stars').innerHTML = sStarsData.html + ` (${sStarsData.starsValue}/10)`;
+            document.getElementById('c-stars').innerHTML = cStarsData.html + ` (${cStarsData.starsValue}/10)`;
+
+            const profileLayout = `
+                <div class="profile-item full-width">
+                    <span class="profile-label">Nama Lengkap</span>
+                    <span class="profile-value">${savedUserData.nama}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Kelas</span>
+                    <span class="profile-value">${savedUserData.kelas}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Tahun</span>
+                    <span class="profile-value">${savedUserData.tahun}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">No. Kontak (WA)</span>
+                    <span class="profile-value">${savedUserData.kontak}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Asal Sekolah SMP</span>
+                    <span class="profile-value">${savedUserData.smp}</span>
+                </div>
+            `;
+            document.getElementById('disc-profile-card').innerHTML = profileLayout;
+
+            const maxScore = Math.max(dCount, iCount, sCount, cCount);
+            let dominantTitle = "";
+            let dominantColor = "";
+            let dominantExplanation = "";
+
+            if (maxScore === dCount) {
+                dominantTitle = "Dominance (D) - Sang Pemimpin Tangguh";
+                dominantColor = "#ef4444";
+                dominantExplanation = "<b>Kamu adalah tipe Dominance!</b> Sosok yang sangat mandiri, berorientasi pada hasil akhir (goals), serta menyukai tantangan ekstrem. Kamu memiliki keberanian tinggi untuk mengambil keputusan penting dengan cepat dan tegas dalam memimpin tim. Terkadang, kamu dinilai kurang sabar, jadi ingatlah untuk sesekali mendengarkan argumen orang di sekitarmu agar kolaborasi berjalan selaras.";
+            } else if (maxScore === iCount) {
+                dominantTitle = "Influence (I) - Sang Komunikator Hebat";
+                dominantColor = "#f59e0b";
+                dominantExplanation = "<b>Kamu adalah tipe Influence!</b> Sosok yang dipenuhi energi positif, ramah, persuasif, serta sangat mahir merangkul orang lain. Kehadiranmu mampu menghidupkan suasana mati dan menyebarkan tawa. Kamu senang menjadi motor penggerak ide kreatif di dalam tim. Pertahankan pesonamu, namun pastikan untuk tetap disiplin memperhatikan detail data teknis dan konsisten menyelesaikan tugasmu.";
+            } else if (maxScore === sCount) {
+                dominantTitle = "Steadiness (S) - Sang Pendukung Setia";
+                dominantColor = "#10b981";
+                dominantExplanation = "<b>Kamu adalah tipe Steadiness!</b> Sosok jangkar kedamaian kelompok yang sangat loyal, sabar, kooperatif, serta pendengar tulus yang sangat andal. Kamu mengutamakan kebersamaan yang harmonis dan menyukai stabilitas ritme dibanding perubahan kilat yang tidak pasti. Beranikan dirimu untuk sesekali menyuarakan gagasan pribadimu di depan umum secara tegas ya!";
+            } else {
+                dominantTitle = "Compliance (C) - Sang Analis Akurat";
+                dominantColor = "#3b82f6";
+                dominantExplanation = "<b>Kamu adalah tipe Compliance!</b> Sosok yang sangat analitis, objektif, teliti, logis, dan menjunjung tinggi standar kualitas. Bagimu, kepatuhan sistematis dan validitas data adalah nomor satu. Kamu memastikan tim bebas dari kesalahan fatal. Belajarlah untuk menerima bahwa kesalahan-kesalahan kecil di awal terkadang bisa menjadi bahan pembelajaran terbaik bagi kesuksesan jangka panjang.";
+            }
+
+            const discDomBadge = document.getElementById('disc-badge-dominant');
+            discDomBadge.innerText = dominantTitle;
+            discDomBadge.style.backgroundColor = dominantColor;
+            discDomBadge.style.color = (maxScore === iCount) ? "#1f2937" : "white";
+            document.getElementById('disc-explanation-dominant').innerHTML = dominantExplanation;
+
+            discResultsReport = {
+                dominant: dominantTitle,
+                breakdownText: `D: ${dStarsData.starsValue}/10, I: ${iStarsData.starsValue}/10, S: ${sStarsData.starsValue}/10, C: ${cStarsData.starsValue}/10`,
+                explanation: dominantExplanation
+            };
+
+            showScreen('disc-result-screen');
+
+        } else if (currentQuizMode === 'kecerdasan') {
+            let scores = {
+                "Linguistik": 0, "Logika Matematika": 0, "Musikal": 0, "Spasial": 0,
+                "Kinestetik": 0, "Intrapersonal": 0, "Interpersonal": 0, "Naturalistik": 0
+            };
+
+            for (let i = 0; i < questions.length; i++) {
+                const selectedIdx = answers[i];
+                const points = questions[i].options[selectedIdx].pts;
+                const intelType = questions[i].intel;
+                scores[intelType] += points;
+            }
+
+            const intelColors = {
+                "Linguistik": "#3b82f6", "Logika Matematika": "#ef4444", "Musikal": "#ec4899", "Spasial": "#8b5cf6",
+                "Kinestetik": "#f59e0b", "Intrapersonal": "#10b981", "Interpersonal": "#06b6d4", "Naturalistik": "#84cc16"
+            };
+
+            const intelExplanations = {
+                "Linguistik": "Unggul dalam mengolah kata, menulis, membaca, serta mahir mengekspresikan ide cerdas lewat bahasa lisan maupun tulisan.",
+                "Logika Matematika": "Mahir berpikir kritis-logis, menganalisis pola angka rapi, memecahkan teka-teki taktis, serta kalkulasi data akurat.",
+                "Musikal": "Sangat peka terhadap nada, ritme, harmoni suara melodi lagu, serta pandai mengekspresikan emosi lewat seni musik.",
+                "Spasial": "Hebat dalam visualisasi objek ruang, peta orientasi, imajinasi kreatif gambar 3D, serta kreasi seni desain estetis.",
+                "Kinestetik": "Kontrol koordinasi psikomotorik tubuh yang tinggi, unggul dalam aktivitas fisik, olahraga, menari, serta keahlian tangan manual.",
+                "Intrapersonal": "Mandiri, memahami esensi dunia psikologis batin diri sendiri dengan baik, paham emosi, kelemahan, kekuatan, & visi personal.",
+                "Interpersonal": "Sangat pandai bergaul kelompok, berempati tinggi, peka membaca emosi orang lain, serta komunikator & pemimpin ulung.",
+                "Naturalistik": "Memiliki ikatan ketat dengan alam bebas terbuka, menyukai flora-fauna, peduli lingkungan hidup & kelestarian kebersihan bumi."
+            };
+
+            document.getElementById('intel-profile-card').innerHTML = document.getElementById('disc-profile-card').innerHTML;
+
+            const container = document.getElementById('intel-cards-container');
+            container.innerHTML = '';
+            
+            let maxScore = -1;
+            let dominantIntel = "";
+            let pdfBreakdownLines = [];
+
+            for (let key in scores) {
+                const starData = getIntelligenceStarsHtml(scores[key]);
+                
+                if (scores[key] > maxScore) {
+                    maxScore = scores[key];
+                    dominantIntel = key;
+                }
+
+                pdfBreakdownLines.push(`${key}: ${starData.starsValue}/10 Bintang`);
+
+                const cardHtml = `
+                    <div class="disc-card" style="border-left: 5px solid ${intelColors[key]};">
+                        <div class="disc-card-header">
+                            <span class="disc-badge" style="background: ${intelColors[key]};">${key}</span>
+                            <span class="star-rating">${starData.html} <span style="font-size:0.85rem; color:var(--text-muted);">(${starData.starsValue}/10)</span></span>
+                        </div>
+                        <div class="disc-explanation">
+                            <strong>Karakter Utama:</strong> ${intelExplanations[key]}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            }
+
+            const intelDomBadge = document.getElementById('intel-badge-dominant');
+            intelDomBadge.innerText = `Kecerdasan Dominan: ${dominantIntel}`;
+            intelDomBadge.style.backgroundColor = intelColors[dominantIntel];
+            
+            let finalIntelExplanation = `<b>Anda memiliki kecerdasan utama yang menonjol di bidang ${dominantIntel}!</b> ${intelExplanations[dominantIntel]} Kembangkan area kemampuan ini untuk mengoptimalkan potensi akademis dan kesuksesan karir Anda di masa mendatang.`;
+            document.getElementById('intel-explanation-dominant').innerHTML = finalIntelExplanation;
+
+            kecerdasanResultsReport = {
+                dominant: dominantIntel,
+                breakdownText: pdfBreakdownLines.join(', '),
+                explanation: finalIntelExplanation
+            };
+
+            showScreen('intel-result-screen');
+        }
+    }
+
+    // PDF rekap
+    function downloadPDFReport() {
+        const printWindow = window.open('', '_blank');
+        const htmlLayout = `
+        <!DOCTYPE html>
+        <html lang="id">
+        <head>
+            <meta charset="UTF-8">
+            <title>Laporan Hasil Asesmen Lengkap - ${savedUserData.nama}</title>
+            <style>
+                body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1f2937; padding: 40px; line-height: 1.6; }
+                .header-title { text-align: center; font-size: 24px; font-weight: bold; color: #4f46e5; text-transform: uppercase; margin-bottom: 5px; }
+                .header-subtitle { text-align: center; font-size: 14px; color: #6b7280; margin-bottom: 30px; border-bottom: 3px double #d1d5db; padding-bottom: 15px; }
+                .section-title { font-size: 16px; font-weight: bold; background: #f3f4f6; color: #111827; padding: 6px 12px; margin-top: 25px; margin-bottom: 15px; border-left: 5px solid #6366f1; }
+                .profile-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+                .profile-table td { padding: 8px 12px; border: 1px solid #e5e7eb; font-size: 14px; }
+                .profile-table td.label { font-weight: bold; background: #f9fafb; width: 30%; }
+                .result-box { border: 1px solid #e5e7eb; border-radius: 8px; padding: 15px; background: #fafafa; margin-bottom: 15px; }
+                .dominant-tag { font-weight: bold; color: #4f46e5; font-size: 15px; margin-bottom: 5px; }
+                .score-list { font-size: 13px; color: #4b5563; font-style: italic; margin-bottom: 10px; }
+                .desc-text { font-size: 14px; text-align: justify; }
+            </style>
+        </head>
+        <body>
+            <div class="header-title">Laporan Analisis Psikologi Pendidikan</div>
+            <div class="header-subtitle">Rekapitulasi Asesmen Gaya Belajar, Karakter DISC, & Kecerdasan Majemuk</div>
+            
+            <div class="section-title">I. PROFIL DATA IDENTITAS</div>
+            <table class="profile-table">
+                <tr><td class="label">Nama Lengkap</td><td>${savedUserData.nama}</td></tr>
+                <tr><td class="label">Kelas / Rombel</td><td>${savedUserData.kelas}</td></tr>
+                <tr><td class="label">Tahun Pelaksanaan</td><td>${savedUserData.tahun}</td></tr>
+                <tr><td class="label">No. Kontak (WhatsApp)</td><td>${savedUserData.kontak}</td></tr>
+                <tr><td class="label">Asal Sekolah SMP</td><td>${savedUserData.smp}</td></tr>
+            </table>
+
+            <div class="section-title">II. HASIL ASESMEN 1: GAYA BELAJAR (V-A-K)</div>
+            <div class="result-box">
+                <div class="dominant-tag">Gaya Belajar Utama: ${gayaBelajarResultsReport.dominant}</div>
+                <div class="score-list">Distribusi Persentase: ${gayaBelajarResultsReport.scoresText}</div>
+                <div class="desc-text">${gayaBelajarResultsReport.explanation}</div>
+            </div>
+
+            <div class="section-title">III. HASIL ASESMEN 2: PROFIL KEPRIBADIAN (DISC)</div>
+            <div class="result-box">
+                <div class="dominant-tag">Tipe Kepribadian Dominan: ${discResultsReport.dominant}</div>
+                <div class="score-list">Kekuatan Skala Karakter: ${discResultsReport.breakdownText}</div>
+                <div class="desc-text">${discResultsReport.explanation}</div>
+            </div>
+
+            <div class="section-title">IV. HASIL ASESMEN 3: POTENSI KECERDASAN MAJEMUK</div>
+            <div class="result-box">
+                <div class="dominant-tag">Kecerdasan Utama: Profil Kecerdasan ${kecerdasanResultsReport.dominant}</div>
+                <div class="score-list">Pemetaan Skor Kemampuan: ${kecerdasanResultsReport.breakdownText}</div>
+                <div class="desc-text">${kecerdasanResultsReport.explanation}</div>
+            </div>
+
+            <script>window.onload = function() { window.print(); };<\/script>
+        </body>
+        </html>
+        `;
+        printWindow.document.open();
+        printWindow.document.write(htmlLayout);
+        printWindow.document.close();
+    }
+</script>
+</body>
+</html>
